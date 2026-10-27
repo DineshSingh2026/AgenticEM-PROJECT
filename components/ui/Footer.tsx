@@ -22,10 +22,10 @@ export function Footer() {
             {f.columns.map((col) => (
               <nav key={col.title} aria-label={col.title}>
                 <p className="t-label mb-4 text-text-faint">{col.title}</p>
-                <ul className="flex flex-col gap-3">
+                <ul className="flex flex-col gap-1 md:gap-3">
                   {col.links.map((l) => (
                     <li key={l.href + l.label}>
-                      <Link href={l.href} className="text-[14px] text-text-dim transition-colors duration-200 ease-out hover:text-text">
+                      <Link href={l.href} className="inline-block py-2 text-[14px] text-text-dim md:py-0 transition-colors duration-200 ease-out hover:text-text">
                         {l.label}
                       </Link>
                     </li>
@@ -41,11 +41,11 @@ export function Footer() {
           </span>
           <span>{f.address}</span>
           <span>{copy.site.forLicensedOperators}</span>
-          <Link href={f.forwardLooking.href} className="hover:text-text md:ml-auto">
+          <Link href={f.forwardLooking.href} className="py-2 hover:text-text md:ml-auto md:py-0">
             {f.forwardLooking.label}
           </Link>
           {/* Plain <a>: a full page load is what starts the intro film. */}
-          <a href={f.replayIntro.href} className="hover:text-text">
+          <a href={f.replayIntro.href} className="py-2 hover:text-text md:py-0">
             {f.replayIntro.label}
           </a>
         </div>

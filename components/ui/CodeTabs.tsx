@@ -72,7 +72,7 @@ export function CodeTabs({ label, tabs, className }: CodeTabsProps) {
         </div>
         <div className="flex items-center gap-4">
           <span className="t-label hidden text-[10px] text-copper/80 sm:inline">{label ?? t.label}</span>
-          <button type="button" onClick={doCopy} className="t-label text-[11px] text-text-dim hover:text-text">
+          <button type="button" onClick={doCopy} className="t-label -my-2 -mr-2 px-2 py-3 text-[11px] text-text-dim hover:text-text md:m-0 md:p-0">
             <span aria-live="polite">{copied ? t.copied : t.copy}</span>
           </button>
         </div>

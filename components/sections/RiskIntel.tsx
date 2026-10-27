@@ -76,7 +76,7 @@ export function RiskIntel() {
           {/* Calculated risk exposure */}
           <BracketPanel label={c.panels.exposure} className="glass col-span-12 lg:col-span-5">
             <div className="-mt-2 mb-5 flex items-center justify-between gap-4">
-              <span className="t-label text-[10px] text-text-faint">{c.exposureUnit}</span>
+              <span className="t-label text-[11px] md:text-[10px] text-text-faint">{c.exposureUnit}</span>
               <SimLabel />
             </div>
             <ul className="flex flex-col gap-3.5">
@@ -151,7 +151,7 @@ function FilterBand({ label, tag, alerts, reduced }: { label: string; tag: strin
         style={{ background: "linear-gradient(90deg, transparent, rgb(var(--copper-rgb) / 0.35), transparent)" }}
       />
       <p className="t-label absolute bottom-3 left-4 text-[11px] text-text-dim md:left-6">{label}</p>
-      <p className="t-num absolute bottom-3 right-4 text-[11px] text-text-faint md:right-6">{tag}</p>
+      <p className="t-num absolute bottom-3 right-4 hidden text-[11px] text-text-faint sm:block md:right-6">{tag}</p>
 
       {alerts.map((a, i) => {
         const high = a.severity === "high";

@@ -20,7 +20,7 @@ export function CompareTable({ columns, rows, className }: CompareTableProps) {
                 key={c}
                 scope="col"
                 className={cn(
-                  "t-label px-3 py-4 font-normal md:px-6",
+                  "t-label px-2 py-4 sm:px-3 font-normal md:px-6",
                   i === 0 ? "w-[28%] text-text-faint" : i === 2 ? "text-copper" : "text-text-dim",
                 )}
               >
@@ -32,11 +32,11 @@ export function CompareTable({ columns, rows, className }: CompareTableProps) {
         <tbody>
           {rows.map((r) => (
             <tr key={r.label} className="border-b border-line last:border-b-0">
-              <th scope="row" className="t-label px-3 py-4 align-top font-normal text-text-faint md:px-6">
+              <th scope="row" className="t-label px-2 py-4 sm:px-3 align-top font-normal text-text-faint md:px-6">
                 {r.label}
               </th>
-              <td className="px-3 py-4 align-top text-[14px] text-text-dim md:px-6 md:text-[15px]">{r.a}</td>
-              <td className="relative px-3 py-4 align-top text-[14px] text-text md:px-6 md:text-[15px]">
+              <td className="px-2 py-4 sm:px-3 align-top text-[13px] text-text-dim sm:text-[14px] md:px-6 md:text-[15px]">{r.a}</td>
+              <td className="relative px-2 py-4 sm:px-3 align-top text-[13px] text-text sm:text-[14px] md:px-6 md:text-[15px]">
                 <span aria-hidden="true" className="absolute inset-y-3 left-0 w-px bg-copper/50" />
                 {r.b}
               </td>

@@ -69,7 +69,7 @@ export function SettlementLivePanel({ labels }: { labels: SettlementLiveLabels }
         <div role="rowgroup">
           <div
             role="row"
-            className={cn(ROW, "border-b border-line pb-2 text-[10px] uppercase tracking-[0.08em] text-text-faint")}
+            className={cn(ROW, "border-b border-line pb-2 text-[11px] md:text-[10px] uppercase tracking-[0.08em] text-text-faint")}
           >
             <span role="columnheader">{labels.colHeight}</span>
             <span role="columnheader">{labels.colHash}</span>
@@ -93,7 +93,7 @@ export function SettlementLivePanel({ labels }: { labels: SettlementLiveLabels }
                 <span role="cell">{b.height.toLocaleString("en-US")}</span>
                 <span role="cell" className="truncate text-text-faint">{truncateHash(b.hash)}</span>
                 <span role="cell" className="hidden text-right sm:block">{b.txCount}</span>
-                <span role="cell" className="flex items-center justify-end gap-2 text-[10px] uppercase tracking-[0.08em]">
+                <span role="cell" className="flex items-center justify-end gap-2 text-[11px] md:text-[10px] uppercase tracking-[0.08em]">
                   <span
                     aria-hidden="true"
                     className={cn("h-1.5 w-1.5 rounded-full", pending ? "animate-pulse bg-copper" : "bg-data-green")}

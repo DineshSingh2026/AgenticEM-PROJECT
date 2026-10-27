@@ -30,7 +30,10 @@ export function Flywheel() {
       <div className="container-site relative">
         <SectionHeader eyebrow={c.eyebrow} title={c.title} align="center" className="mx-auto" />
 
-        <div className="relative mt-16 lg:mt-24">
+        {/* mobile: reserved square where the FlywheelScene engine renders, so it never sits behind copy */}
+        <div aria-hidden="true" data-fw-anchor="square" className="mx-auto mt-8 aspect-square w-[min(80vw,340px)] lg:hidden" />
+
+        <div className="relative mt-8 lg:mt-24">
           <ol className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(180px,24vw)_minmax(0,1fr)] lg:grid-rows-[auto_minmax(140px,16vw)_auto] lg:gap-0">
             {c.steps.map((s, i) => (
               <li key={s.index} className={cn("relative", PLACEMENT[i])}>
@@ -69,6 +72,7 @@ export function Flywheel() {
             <li
               aria-hidden="true"
               role="presentation"
+              data-fw-anchor="cell"
               className="hidden items-center justify-center lg:col-start-2 lg:row-start-2 lg:flex"
             >
               <span className="t-label text-[10px] text-text-faint">{c.loopLabel}</span>

@@ -44,6 +44,9 @@ export function RoundLifecycle() {
               </div>
             </div>
 
+            {/* Phones: the Turbine scene places its pipeline in this gap so it never sits behind copy. */}
+            <div aria-hidden="true" data-turbine-anchor className="h-[56vh] min-h-[380px] md:hidden" />
+
             <ol className="grid grid-cols-1 gap-3 md:grid-cols-5 md:gap-4">
               {c.steps.map((step, i) => {
                 const open = i < reached;

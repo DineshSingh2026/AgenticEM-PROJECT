@@ -37,7 +37,7 @@ export default async function InsightArticlePage({ params }: { params: Params })
     <>
       <section data-scene="VolumeBreak" data-scene-variant="calm" className="relative pb-12 pt-36 md:pb-16 md:pt-44">
         <div className="container-site flex max-w-4xl flex-col gap-6">
-          <Link href="/insights" className="t-label w-fit text-text-dim transition-colors hover:text-copper">
+          <Link href="/insights" className="t-label -my-2 w-fit py-2 text-text-dim md:my-0 md:py-0 transition-colors hover:text-copper">
             ← {c.article.back}
           </Link>
           <Eyebrow>{c.article.draftNotice}</Eyebrow>

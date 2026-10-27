@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSceneStore } from "@/lib/scene-store";
 import { Canvas } from "@react-three/fiber";
 import { Environment, Lightformer } from "@react-three/drei";
 import * as THREE from "three";
@@ -11,6 +12,16 @@ import { Post } from "./shared/Post";
 /** The single full-screen WebGL canvas behind the whole site. */
 export function SceneCanvas() {
   const [hidden, setHidden] = useState(false);
+  const layerRef = useRef<HTMLDivElement>(null);
+
+  // Mirror the active scene onto the layer (no re-render) so CSS can dim busy scenes on phones.
+  useEffect(() => {
+    const apply = (name: string) => layerRef.current?.setAttribute("data-active-scene", name);
+    apply(useSceneStore.getState().activeScene);
+    return useSceneStore.subscribe((s, prev) => {
+      if (s.activeScene !== prev.activeScene) apply(s.activeScene);
+    });
+  }, []);
 
   useEffect(() => {
     const onVis = () => setHidden(document.hidden);
@@ -20,7 +31,7 @@ export function SceneCanvas() {
   }, []);
 
   return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
+    <div ref={layerRef} aria-hidden="true" className="scene-layer pointer-events-none fixed inset-0 z-0">
       <Canvas
         dpr={[1, 1.75]}
         gl={{ antialias: false, powerPreference: "high-performance", alpha: false }}

@@ -229,7 +229,7 @@ export function BriefingForm({ variant = "briefing", className }: BriefingFormPr
             aria-invalid={invalid("consent")}
             aria-describedby={describe("consent")}
             aria-required="true"
-            className="mt-1 h-4 w-4 shrink-0 cursor-pointer appearance-none rounded-[1px] border border-line-strong bg-bg/60 checked:border-copper checked:bg-copper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-copper aria-[invalid=true]:border-data-red/70"
+            className="mt-0.5 h-5 w-5 shrink-0 cursor-pointer appearance-none md:mt-1 md:h-4 md:w-4 rounded-[1px] border border-line-strong bg-bg/60 checked:border-copper checked:bg-copper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-copper aria-[invalid=true]:border-data-red/70"
             {...register("consent")}
           />
           <label htmlFor={id("consent")} className="text-[14px] leading-relaxed text-text-dim">

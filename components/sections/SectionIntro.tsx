@@ -23,7 +23,7 @@ export function SectionIntro({
       </h2>
       {/* Soft dark backdrop keeps body copy legible where scene lines pass behind it. */}
       {body ? (
-        <p className="t-body relative isolate before:absolute before:-inset-x-8 before:-inset-y-6 before:-z-10 before:rounded-[40px] before:bg-bg/85 before:blur-2xl before:content-['']">
+        <p className="t-body relative isolate before:absolute before:-inset-x-4 before:-inset-y-6 md:before:-inset-x-8 before:-z-10 before:rounded-[40px] before:bg-bg/85 before:blur-2xl before:content-['']">
           {body}
         </p>
       ) : null}

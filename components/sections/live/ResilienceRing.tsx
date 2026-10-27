@@ -79,7 +79,7 @@ export function ResilienceRing({ labels }: { labels: ResilienceRingLabels }) {
           aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border border-line-strong/60 bg-bg/40 px-3 py-2 backdrop-blur-sm [clip-path:polygon(12%_0,88%_0,100%_50%,88%_100%,12%_100%,0_50%)]"
         >
-          <span className="t-label block whitespace-nowrap px-2 text-[10px] text-text-dim">{labels.hubLabel}</span>
+          <span className="t-label block whitespace-nowrap px-2 text-[11px] md:text-[10px] text-text-dim">{labels.hubLabel}</span>
         </div>
 
         <ul className="absolute inset-0">
@@ -134,7 +134,7 @@ export function ResilienceRing({ labels }: { labels: ResilienceRingLabels }) {
           >
             {statusText}
           </p>
-          <p className="t-label text-[10px] normal-case tracking-normal text-text-faint">{labels.instructions}</p>
+          <p className="t-label text-[11px] md:text-[10px] normal-case tracking-normal text-text-faint">{labels.instructions}</p>
         </div>
       </div>
     </>

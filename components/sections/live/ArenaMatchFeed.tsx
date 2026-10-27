@@ -44,7 +44,7 @@ export function ArenaMatchFeed({ labels }: { labels: ArenaFeedLabels }) {
                 {labels.actions[e.action]}
               </span>
             </span>
-            <span className="text-[10px] uppercase tracking-[0.08em] text-text-faint">
+            <span className="text-[11px] md:text-[10px] uppercase tracking-[0.08em] text-text-faint">
               {labels.match} {e.matchId}
             </span>
           </li>

@@ -68,7 +68,7 @@ export function FeatureValueTable({ rows, className }: FeatureValueTableProps) {
                 <p className="t-body">{r.detail}</p>
                 <div className="flex flex-col gap-2">
                   <MiniBars data={r.chart} />
-                  <span className="t-label text-[10px] text-text-faint">{t.chartLabel}</span>
+                  <span className="t-label text-[11px] md:text-[10px] text-text-faint">{t.chartLabel}</span>
                 </div>
               </div>
             </div>

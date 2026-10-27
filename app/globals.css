@@ -52,6 +52,13 @@
   .glass { background: rgb(var(--bg-rgb) / 0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 }
 
+/* ---------- Phones: keep text legible over the busier 3D scenes ---------- */
+@media (max-width: 767px) {
+  .scene-layer { transition: opacity 600ms var(--ease-out); }
+  .scene-layer[data-active-scene="ExplodedStack"],
+  .scene-layer[data-active-scene="AgentLoop"] { opacity: 0.3; }
+}
+
 /* ---------- Intro film ---------- */
 html[data-intro="skip"] #aem-intro,
 html[data-intro="done"] #aem-intro { display: none !important; }

@@ -1,0 +1,50 @@
+export const meta = {
+  title: "Settling millions of rounds on-chain",
+  description: "How Casino Verse OS approaches settlement when agents produce rounds at machine speed, and when on-chain settlement makes sense.",
+  date: "2026-10-27",
+  status: "DRAFT",
+};
+
+Settlement is the least glamorous part of a gaming platform and one of the most important. Every round ends with money moving: stakes collected, payouts made, fees recorded. When people play, settlement volumes are high but predictable. When autonomous agents play, rounds can arrive at a rate that turns end-of-day reconciliation into an hourly problem.
+
+This article describes how we approach settlement for agentic gaming, and where on-chain settlement fits.
+
+## Three requirements
+
+For licensed operators, settlement has to meet three requirements regardless of volume:
+
+1. **Correctness.** Every stake and payout must match the round outcome exactly.
+2. **Traceability.** It must be possible to follow any amount from the agent that staked it to the ledger entry that settled it.
+3. **Reconcilability.** The operator's ledger, wallet provider and back office must agree, and any break must be explainable.
+
+Agents add a fourth: settlement must keep up. If rounds settle more slowly than they are played, exposure accumulates in a pending state that nobody can see clearly.
+
+## Identity first
+
+Settlement starts before the round. In Casino Verse OS every agent has a signed identity bound to a specific wallet and a policy. Before an agent can take a seat, the gaming service checks the wallet balance and the agent's spend limits. A stake from a wallet that does not match the agent's identity is rejected and raised as a high-severity anomaly. This removes a whole class of reconciliation problems at the source.
+
+## Batching rounds into blocks
+
+Settled rounds are written to the event stream and grouped into blocks. Each block carries a hash, a height and a transaction count, and each ledger entry references the round, the agents involved, the stakes and the payout. Rounds move from pending to confirmed when their block is confirmed. Operators can see both states through the API and in their dashboards.
+
+Batching is what makes machine-speed volume manageable. Rather than treating every round as an individual transfer, the system settles many rounds per block while keeping round-level detail available for audit.
+
+## When on-chain makes sense
+
+On-chain settlement gives operators and, where appropriate, regulators an independently verifiable record. A block hash anchored on a public or permissioned network can be checked by anyone with access, and it cannot be quietly rewritten. For agent-to-agent formats in particular, where counterparties may be different organisations, a shared verifiable ledger simplifies disputes.
+
+It is not always the right choice. Licence conditions, data-residency rules, network costs and confirmation times vary. That is why Casino Verse OS supports three modes:
+
+- **Fully on-chain**, where settlement transactions themselves are confirmed on the chosen network.
+- **Hybrid**, where funds stay in the operator's existing wallet stack and only batch hashes are anchored on-chain.
+- **Off-chain**, where settlement runs against the operator's own ledger, with the same block structure and audit trail.
+
+The APIs and event schema are the same in all three, so operators can start in one mode and move to another as their requirements evolve. Supported networks are agreed per deployment.
+
+## Reconciliation without spreadsheets
+
+Because every ledger entry references its round and every round is in the event stream, reconciliation can be automated. Casino Verse OS runs a three-way match between the ledger, the wallet provider and the back office, daily and on demand. Breaks are raised as cases with the rounds behind them attached, and any disputed round can be replayed deterministically from the event bus.
+
+## Scale with accountability
+
+We designed the settlement layer to scale horizontally with agent volume while keeping each round accountable. Millions of rounds a day should not mean millions of unanswered questions. With identity binding before the round, block-level confirmation after it and automated reconciliation across systems, operators can settle at machine speed and still explain every amount.

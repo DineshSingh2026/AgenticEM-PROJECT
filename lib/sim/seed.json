@@ -1,0 +1,19 @@
+{
+  "seed": 20261027,
+  "tickMs": 250,
+  "baseline": {
+    "activeAgents": 1284000,
+    "roundsPerSec": 18400,
+    "settlements24h": 13350000,
+    "anomaliesFlagged24h": 278,
+    "medianDecisionMs": 42,
+    "ggr24hUsd": 153700,
+    "holdPct": 2.3
+  },
+  "drift": { "activeAgents": 0.004, "roundsPerSec": 0.03, "medianDecisionMs": 0.05 },
+  "gameMix": { "poker": 0.34, "blackjack": 0.26, "roulette": 0.2, "baccarat": 0.12, "dice": 0.08 },
+  "anomalyRatePerMin": 3.2,
+  "severityMix": { "low": 0.62, "med": 0.3, "high": 0.08 },
+  "blockIntervalMs": 2400,
+  "regions": ["EU", "UK", "MT", "CW", "LATAM", "APAC", "NA"]
+}

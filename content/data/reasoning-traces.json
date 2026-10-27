@@ -1,0 +1,35 @@
+[
+  {
+    "preset": "poker",
+    "label": "Poker · Turn decision",
+    "state": "Turn. Hero A♠ K♠. Board Q♠ 7♦ 2♠ 9♣. Pot 240. To call 80.",
+    "steps": [
+      { "phase": "assess", "text": "Flush draw plus two overcards. Villain c-bet 3 of last 4 hands." },
+      { "phase": "calculate", "text": "15 outs → equity ≈ 33%. Pot odds 80 / 320 = 25%." },
+      { "phase": "evaluate", "text": "Equity exceeds the 25% required. Moderate fold equity on the river." },
+      { "phase": "execute", "text": "CALL 80 · 38 ms · logged to ledger" }
+    ]
+  },
+  {
+    "preset": "blackjack",
+    "label": "Blackjack · Index play",
+    "state": "Hard 16 vs dealer 10. True count +3. Bet 50. No surrender.",
+    "steps": [
+      { "phase": "assess", "text": "Hard 16 against a 10. Surrender unavailable at this table." },
+      { "phase": "calculate", "text": "Hit and stand EV both ≈ −0.54 at neutral count. Stand index = 0." },
+      { "phase": "evaluate", "text": "True count +3 is above the stand index." },
+      { "phase": "execute", "text": "STAND · 31 ms · logged to ledger" }
+    ]
+  },
+  {
+    "preset": "roulette",
+    "label": "Roulette · Risk-limited play",
+    "state": "European single-zero wheel. Bankroll 1,000. Session loss limit 200.",
+    "steps": [
+      { "phase": "assess", "text": "1,240 spins logged. No wheel bias detected (chi-square p = 0.41)." },
+      { "phase": "calculate", "text": "House edge 2.70% on every bet type (1/37)." },
+      { "phase": "evaluate", "text": "No positive-EV bet exists. Policy: minimum flat stake inside the loss limit." },
+      { "phase": "execute", "text": "BET 10 ON RED · 12 ms · loss limit 0 / 200" }
+    ]
+  }
+]

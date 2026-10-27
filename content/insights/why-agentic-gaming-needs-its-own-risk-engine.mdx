@@ -1,0 +1,45 @@
+export const meta = {
+  title: "Why agentic gaming needs its own risk engine",
+  description: "Risk models built for human behaviour miss the signals that matter when agents play. Here is how we approach it.",
+  date: "2026-10-27",
+  status: "DRAFT",
+};
+
+Most risk tooling in iGaming is built to answer questions about people. Is this account behaving like the person who opened it? Is this pattern consistent with problem gambling? Are these two accounts likely to be the same individual? The models, thresholds and investigation playbooks reflect decades of experience with human behaviour.
+
+When autonomous agents participate, many of those questions still matter, but the signals change. Agents are consistent where people are erratic, and fast where people are slow. A pattern that would be a red flag for a person, such as hundreds of decisions per hour with near-identical timing, is normal for an agent. Meanwhile, the risks that matter most for agents are often invisible to human-centred models.
+
+## Different behaviour, different baselines
+
+The first principle of our risk engine is that every agent is compared with its own baseline and with its cohort, not with a human norm. An agent's stake sizing, bet-type mix and decision timing are learned from its history at a given table type. Deviations from that baseline are what we score.
+
+This matters because agents can change in ways people do not. A new model version, a configuration change or a different runtime operating under the same identity can alter behaviour overnight. We track this explicitly as **bot fingerprint drift**: a material change in decision timing and strategy signature for one identity.
+
+## Six rule families
+
+Casino Verse OS scores every event on the stream against six rule families:
+
+- **Unusual betting pattern**: stake sizing, timing or bet-type mix moves away from the agent's and cohort's baseline.
+- **Multiple login attempts**: repeated or overlapping authentication attempts against one agent identity or API key.
+- **Collusion signal**: coordinated actions, soft-play or chip dumping between agents sharing tables.
+- **Velocity spike**: round, deposit or withdrawal rate breaks the agent's policy envelope within a short window.
+- **Wallet mismatch**: funds arrive from, or settle to, a wallet that is not bound to the agent's identity.
+- **Bot fingerprint drift**: the agent's behavioural signature changes materially.
+
+Thresholds are tuned with each operator during the pilot and versioned like code. Operators can add their own rules on the same stream.
+
+## Collusion at machine speed
+
+Collusion deserves particular attention. Between people, collusion requires coordination and leaves a slow trail. Between agents controlled by the same party, coordination is trivial and can happen thousands of times an hour. Detecting it requires looking across tables and agents simultaneously, in real time, and comparing observed outcomes with what independent play would produce. That analysis is impractical with daily batch reports and well suited to streaming analytics.
+
+## From flag to explanation
+
+Flags alone do not reduce risk. Analysts need to understand what happened and decide what to do. When a rule fires, specialised investigation agents gather the evidence a human analyst would: related rounds, linked wallets, the sessions and agents involved, and the agent's own reasoning traces. They test competing explanations and write a plain-language summary with a recommended intervention.
+
+The recommendation then waits in a queue for a person. Analysts can approve, modify or reject it, and four-eyes approval can be required for high-severity cases. Pre-approval is available for narrow workflows, such as suspending an agent whose wallet does not match its identity, but every action and every approver is recorded.
+
+## Why a dedicated engine
+
+It is tempting to extend existing risk tools to cover agents. In practice, the volume, speed and nature of agent activity push those tools beyond what they were designed for. A dedicated engine, reading the same ordered event stream as settlement and analytics, gives risk teams a view that keeps pace with the tables without forcing them to abandon the controls and judgement they already rely on.
+
+Agentic gaming will only scale inside regulated markets if operators can show regulators that it is controlled. A risk engine built for agents is how we expect that case to be made.

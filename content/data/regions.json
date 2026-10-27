@@ -1,0 +1,9 @@
+[
+  { "region": "EU", "label": "European Union", "weight": 0.92 },
+  { "region": "UK", "label": "United Kingdom", "weight": 0.78 },
+  { "region": "MT", "label": "Malta", "weight": 0.64 },
+  { "region": "CW", "label": "Curaçao", "weight": 0.57 },
+  { "region": "LATAM", "label": "Latin America", "weight": 0.71 },
+  { "region": "APAC", "label": "Asia-Pacific", "weight": 0.83 },
+  { "region": "NA", "label": "North America", "weight": 0.49 }
+]

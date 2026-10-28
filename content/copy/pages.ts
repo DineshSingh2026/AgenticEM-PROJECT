@@ -45,20 +45,20 @@ export const pages = {
     meta: {
       title: "Platform",
       description:
-        "Casino Verse OS is the B2B iGaming platform for agentic gaming: AI gaming infrastructure, autonomous agent capabilities, real-time gaming analytics and on-chain settlement for licensed operators.",
+        "Agentium OS is the B2B iGaming platform for agentic gaming: AI gaming infrastructure, autonomous agent capabilities, real-time gaming analytics and on-chain settlement for licensed operators.",
       path: "/platform",
     },
     hero: {
       eyebrow: "01 // PLATFORM",
       title: "One operating system for agentic gaming.",
-      sub: "Casino Verse OS gives licensed operators the infrastructure to run AI-agent gameplay, see every round as it happens and settle it with a complete audit trail.",
+      sub: "Agentium OS gives licensed operators the infrastructure to run AI-agent gameplay, see every round as it happens and settle it with a complete audit trail.",
     },
     capabilities: [
       {
         eyebrow: "01.1 // AI_GAMING_INFRASTRUCTURE",
         label: "CAPABILITY 01",
         title: "AI gaming infrastructure",
-        body: "Agents do not wait for animations or lobby screens. Casino Verse OS delivers game state over stateless APIs, accepts decisions in milliseconds and runs tables designed to scale horizontally as agent volume grows.",
+        body: "Agents do not wait for animations or lobby screens. Agentium OS delivers game state over stateless APIs, accepts decisions in milliseconds and runs tables designed to scale horizontally as agent volume grows.",
         points: [
           "Game-state delivery over stateless REST and streaming APIs",
           "Deterministic round engine for poker, blackjack, roulette, baccarat and dice",
@@ -125,7 +125,7 @@ export const pages = {
       title: "Questions operators ask first.",
       items: [
         {
-          q: "Who is Casino Verse OS for?",
+          q: "Who is Agentium OS for?",
           a: "Licensed casino and iGaming operators, land-based operators with digital arms, and B2B game studios. We work only with licensed businesses and do not offer services to the public.",
         },
         {
@@ -134,7 +134,7 @@ export const pages = {
         },
         {
           q: "Does it replace our existing gaming platform?",
-          a: "No. Casino Verse OS runs alongside your remote gaming server, player account management and wallet stack through adapters. You can route agentic tables through Casino Verse OS while your existing human-facing products stay where they are.",
+          a: "No. Agentium OS runs alongside your remote gaming server, player account management and wallet stack through adapters. You can route agentic tables through Agentium OS while your existing human-facing products stay where they are.",
         },
         {
           q: "How is risk handled?",
@@ -151,7 +151,7 @@ export const pages = {
       ],
     },
     cta: {
-      title: "See Casino Verse OS against your own games.",
+      title: "See Agentium OS against your own games.",
       body: "Book an operator briefing. We map your tables, volumes and jurisdictions, then propose a pilot with benchmarks you agree up front.",
     },
   },
@@ -161,7 +161,7 @@ export const pages = {
     meta: {
       title: "Architecture",
       description:
-        "The Casino Verse OS architecture: four layers, three foundations and one event stream for agentic gaming infrastructure, with cloud, hybrid and on-prem deployment for licensed operators.",
+        "The Agentium OS architecture: four layers, three foundations and one event stream for agentic gaming infrastructure, with cloud, hybrid and on-prem deployment for licensed operators.",
       path: "/platform/architecture",
     },
     hero: {
@@ -226,7 +226,7 @@ export const pages = {
       title: "How a round moves through the system.",
       body: "Agents talk only to the gaming service. Everything after that is an ordered event stream, read by analytics, by agent intelligence and, finally, by your teams and the settlement ledger.",
       diagramLabel: "DATA FLOW · ILLUSTRATIVE",
-      diagramTitle: "Casino Verse OS data flow",
+      diagramTitle: "Agentium OS data flow",
       diagramDesc:
         "Agents send decisions to the gaming service, which publishes events to the event bus. Streaming analytics and machine learning consume the bus and feed agent intelligence, which outputs to operator dashboards and the settlement ledger.",
       nodes: [
@@ -315,12 +315,12 @@ export const pages = {
     hero: {
       eyebrow: "03 // AI_AGENTS",
       title: "Agents that reason, not scripts that follow.",
-      sub: "Every agent on Casino Verse OS assesses state, calculates, evaluates and executes in milliseconds, and leaves a trace your teams can read.",
+      sub: "Every agent on Agentium OS assesses state, calculates, evaluates and executes in milliseconds, and leaves a trace your teams can read.",
     },
     loop: {
       eyebrow: "03.1 // AGENT_CORE",
       title: "The agent core loop.",
-      body: "Scripted bots follow a fixed decision tree. Agents on Casino Verse OS run a four-phase loop on every decision, using live game state and their own strategy.",
+      body: "Scripted bots follow a fixed decision tree. Agents on Agentium OS run a four-phase loop on every decision, using live game state and their own strategy.",
       steps: [
         { index: "01", title: "Assess state", body: "Ingests real-time game state and opponent data." },
         { index: "02", title: "Calculate", body: "Computes pot odds, equity and probability matrices." },
@@ -331,7 +331,7 @@ export const pages = {
     compare: {
       eyebrow: "03.2 // SCRIPTS_VS_AGENTS",
       title: "Why this is a different workload.",
-      columns: ["", "Scripted bots", "Casino Verse agents"],
+      columns: ["", "Scripted bots", "Agentium agents"],
       rows: [
         { label: "Decision logic", a: "Predefined if/then rules", b: "Reasoned per decision from live state" },
         { label: "Adaptation", a: "Requires a code change", b: "Adjusts strategy within operator policy" },
@@ -511,7 +511,7 @@ export const pages = {
     wallets: {
       eyebrow: "05.2 // WALLET_INTEGRATION",
       title: "Wallet integration.",
-      body: "Connect the operator treasury and agent wallets you already run. Casino Verse OS checks every stake against the agent's bound wallet and its spend limits before the round starts.",
+      body: "Connect the operator treasury and agent wallets you already run. Agentium OS checks every stake against the agent's bound wallet and its spend limits before the round starts.",
       label: "WALLETS",
       points: [
         "Seamless and transfer wallet models",
@@ -571,7 +571,7 @@ export const pages = {
     },
     cta: {
       title: "Map settlement onto your wallet stack.",
-      body: "Tell us which wallet provider and back office you run. We will show where Casino Verse OS fits and which settlement mode suits your licence.",
+      body: "Tell us which wallet provider and back office you run. We will show where Agentium OS fits and which settlement mode suits your licence.",
     },
   },
 
@@ -580,7 +580,7 @@ export const pages = {
     meta: {
       title: "Arena",
       description:
-        "Arena by Casino Verse OS: agent-to-agent competitions, spectator modes, live-game sharing and chat integration that give licensed operators new community formats.",
+        "Arena by Agentium OS: agent-to-agent competitions, spectator modes, live-game sharing and chat integration that give licensed operators new community formats.",
       path: "/platform/arena",
     },
     hero: {
@@ -634,13 +634,13 @@ export const pages = {
     meta: {
       title: "Operators",
       description:
-        "Casino Verse OS for licensed operators: online casinos, land-based operators with digital arms and B2B game studios. Deployment journey, pilot terms and how to frame return on investment.",
+        "Agentium OS for licensed operators: online casinos, land-based operators with digital arms and B2B game studios. Deployment journey, pilot terms and how to frame return on investment.",
       path: "/operators",
     },
     hero: {
       eyebrow: "OPERATORS // LICENSED_ONLY",
       title: "Built for licensed operators.",
-      sub: "Whether you run an online casino, a land-based estate with a digital arm or a game studio, Casino Verse OS lets you open your tables to AI agents without losing control.",
+      sub: "Whether you run an online casino, a land-based estate with a digital arm or a game studio, Agentium OS lets you open your tables to AI agents without losing control.",
     },
     segments: {
       eyebrow: "01 // WHO_WE_SERVE",
@@ -679,7 +679,7 @@ export const pages = {
     pilot: {
       eyebrow: "03 // PILOT_TERMS",
       title: "Pilot terms, stated plainly.",
-      body: "A pilot should answer one question: does Casino Verse OS meet the benchmarks we agreed, on your games, in your jurisdiction?",
+      body: "A pilot should answer one question: does Agentium OS meet the benchmarks we agreed, on your games, in your jurisdiction?",
       label: "PILOT TERMS",
       points: [
         "Fixed scope: named games, tables and regions",
@@ -706,7 +706,7 @@ export const pages = {
       items: [
         {
           q: "Do you work with unlicensed operators?",
-          a: "No. Casino Verse OS is available only to licensed operators and the studios and partners that supply them.",
+          a: "No. Agentium OS is available only to licensed operators and the studios and partners that supply them.",
         },
         {
           q: "Which jurisdictions do you support?",
@@ -729,12 +729,12 @@ export const pages = {
     meta: {
       title: "Developers",
       description:
-        "Build on Casino Verse OS: API overview, authentication, webhooks, the event model (round.settled, anomaly.detected, block.confirmed, match.event), code samples and sandbox access.",
+        "Build on Agentium OS: API overview, authentication, webhooks, the event model (round.settled, anomaly.detected, block.confirmed, match.event), code samples and sandbox access.",
       path: "/developers",
     },
     hero: {
       eyebrow: "DEVELOPERS // API",
-      title: "Build against Casino Verse OS.",
+      title: "Build against Agentium OS.",
       sub: "Stateless APIs, a typed event stream and signed webhooks, designed for agents and operator systems that never stop.",
     },
     overview: {
@@ -783,22 +783,22 @@ export const pages = {
       tabs: [
         {
           lang: "TypeScript",
-          code: `const round = await casinoverse.rounds.create({ table: "bj-07", agents: ["agt_9f2", "agt_1c4"], settlement: { mode: "onchain", wallet: "wal_ops_main" } });
-casinoverse.events.subscribe("round.settled", (e) => metrics.push(e));`,
+          code: `const round = await agentium.rounds.create({ table: "bj-07", agents: ["agt_9f2", "agt_1c4"], settlement: { mode: "onchain", wallet: "wal_ops_main" } });
+agentium.events.subscribe("round.settled", (e) => metrics.push(e));`,
         },
         {
           lang: "Python",
-          code: `round = casinoverse.rounds.create(
+          code: `round = agentium.rounds.create(
     table="bj-07",
     agents=["agt_9f2", "agt_1c4"],
     settlement={"mode": "onchain", "wallet": "wal_ops_main"},
 )
 
-casinoverse.events.subscribe("round.settled", lambda e: metrics.push(e))`,
+agentium.events.subscribe("round.settled", lambda e: metrics.push(e))`,
         },
         {
           lang: "Rust",
-          code: `let round = casinoverse
+          code: `let round = agentium
     .rounds()
     .create(CreateRound {
         table: "bj-07".into(),
@@ -807,7 +807,7 @@ casinoverse.events.subscribe("round.settled", lambda e: metrics.push(e))`,
     })
     .await?;
 
-casinoverse.events().subscribe("round.settled", |e| metrics.push(e));`,
+agentium.events().subscribe("round.settled", |e| metrics.push(e));`,
         },
       ],
     },
@@ -831,7 +831,7 @@ casinoverse.events().subscribe("round.settled", |e| metrics.push(e));`,
     meta: {
       title: "Trust",
       description:
-        "Trust at AGENTIUM: licensed-operator policy, responsible gaming, AML and KYC approach, data protection, security practices and audit and RNG certification status for Casino Verse OS.",
+        "Trust at AGENTIUM: licensed-operator policy, responsible gaming, AML and KYC approach, data protection, security practices and audit and RNG certification status for Agentium OS.",
       path: "/trust",
     },
     hero: {
@@ -842,7 +842,7 @@ casinoverse.events().subscribe("round.settled", |e| metrics.push(e));`,
     policy: {
       eyebrow: "01 // LICENSED_OPERATORS_POLICY",
       title: "Licensed operators only.",
-      body: "Casino Verse OS is sold only to operators that hold a valid gaming licence, and to the studios and partners that supply them. We verify licences during onboarding and re-check them at renewal. We do not offer services to the public.",
+      body: "Agentium OS is sold only to operators that hold a valid gaming licence, and to the studios and partners that supply them. We verify licences during onboarding and re-check them at renewal. We do not offer services to the public.",
       label: "POLICY",
       points: [
         "Licence verified before any production access",
@@ -865,7 +865,7 @@ casinoverse.events().subscribe("round.settled", |e| metrics.push(e));`,
         eyebrow: "03 // AML_KYC",
         label: "AML / KYC",
         title: "AML and KYC approach.",
-        body: "Every agent is linked to a verified account holder or an operator entity. Operators keep responsibility for customer due diligence; Casino Verse OS supplies the identity binding, transaction trails and alerts their AML programme needs.",
+        body: "Every agent is linked to a verified account holder or an operator entity. Operators keep responsibility for customer due diligence; Agentium OS supplies the identity binding, transaction trails and alerts their AML programme needs.",
         points: ["Agent identities bound to verified owners", "Wallet mismatch and velocity rules on by default", "Exportable transaction trails for suspicious-activity reporting"],
       },
       {
@@ -941,13 +941,13 @@ casinoverse.events().subscribe("round.settled", |e| metrics.push(e));`,
     meta: {
       title: "Company",
       description:
-        "AGENTIUM builds Casino Verse OS, the AI operating system for the autonomous gaming economy. Mission, leadership, group and careers.",
+        "AGENTIUM builds Agentium OS, the AI operating system for the autonomous gaming economy. Mission, leadership, group and careers.",
       path: "/company",
     },
     hero: {
       eyebrow: "COMPANY // AGENTIUM",
-      title: "We build the infrastructure for the agentic casino economy.",
-      sub: "AGENTIUM is the company behind Casino Verse OS, the AI operating system for the autonomous gaming economy.",
+      title: "We build the infrastructure for the agentic iGaming economy.",
+      sub: "AGENTIUM is the company behind Agentium OS, the AI operating system for the autonomous gaming economy.",
     },
     mission: {
       eyebrow: "01 // MISSION",
@@ -985,7 +985,7 @@ casinoverse.events().subscribe("round.settled", |e| metrics.push(e));`,
       title: "Group.",
       body: "AGENTIUM operates within a wider group of companies. Entity details and links will be published here.",
       items: [
-        { label: "ENTITY", title: "AGENTIUM", body: "Developer of Casino Verse OS. Registered details TO CONFIRM." },
+        { label: "ENTITY", title: "AGENTIUM", body: "Developer of Agentium OS. Registered details TO CONFIRM." },
         { label: "ENTITY", title: "Group entity", body: "Name, role and link TO CONFIRM." },
         { label: "ENTITY", title: "Group entity", body: "Name, role and link TO CONFIRM." },
       ],
@@ -1000,7 +1000,7 @@ casinoverse.events().subscribe("round.settled", |e| metrics.push(e));`,
       emailLabel: "CAREERS EMAIL",
     },
     cta: {
-      title: "Talk to the team behind Casino Verse OS.",
+      title: "Talk to the team behind Agentium OS.",
       body: "Operators, investors and technical partners: request a briefing and tell us what you want to cover.",
     },
   },
@@ -1010,7 +1010,7 @@ casinoverse.events().subscribe("round.settled", |e| metrics.push(e));`,
     meta: {
       title: "Contact",
       description:
-        "Request an operator briefing for Casino Verse OS. For licensed operators, investors and technical partners. We reply within 2 business days.",
+        "Request an operator briefing for Agentium OS. For licensed operators, investors and technical partners. We reply within 2 business days.",
       path: "/contact",
     },
     hero: {
@@ -1039,7 +1039,7 @@ casinoverse.events().subscribe("round.settled", |e| metrics.push(e));`,
       notifySubjectSandbox: "New sandbox access request",
       autoReplySubject: "We received your request · AGENTIUM",
       autoReplyBody:
-        "Thank you for contacting AGENTIUM. We have received your request and a member of our team will reply within 2 business days.\n\nCasino Verse OS is available to licensed operators, studios and approved partners only.\n\nAGENTIUM",
+        "Thank you for contacting AGENTIUM. We have received your request and a member of our team will reply within 2 business days.\n\nAgentium OS is available to licensed operators, studios and approved partners only.\n\nAGENTIUM",
     },
   },
 
@@ -1057,7 +1057,7 @@ casinoverse.events().subscribe("round.settled", |e| metrics.push(e));`,
     eyebrow: "LEGAL",
     notice: "To be supplied by counsel.",
     docs: [
-      { slug: "terms", title: "Terms of use", description: "Terms of use for the AGENTIUM website and Casino Verse OS materials." },
+      { slug: "terms", title: "Terms of use", description: "Terms of use for the AGENTIUM website and Agentium OS materials." },
       { slug: "privacy", title: "Privacy notice", description: "How AGENTIUM processes personal data collected through this website." },
       { slug: "cookies", title: "Cookie policy", description: "How this website uses essential and optional cookies." },
       { slug: "responsible-gaming", title: "Responsible gaming", description: "AGENTIUM's responsible-gaming commitments as a B2B supplier to licensed operators." },
@@ -1067,9 +1067,9 @@ casinoverse.events().subscribe("round.settled", |e| metrics.push(e));`,
 
   /* ------------------------------------------------------------------ */
   og: {
-    title: "The Agentium operating system for the agentic casino economy.",
-    label: "AGENTIUM · CASINO VERSE OS",
-    alt: "AGENTIUM · Casino Verse OS",
+    title: "The Agentium operating system for the agentic iGaming economy.",
+    label: "AGENTIUM · AGENTIC iGAMING OS",
+    alt: "AGENTIUM · Agentic iGaming OS",
   },
 } as const;
 

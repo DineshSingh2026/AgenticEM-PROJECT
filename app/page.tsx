@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
 import { copy } from "@/content/copy";
 import { Hero } from "@/components/sections/Hero";
-import { Shift } from "@/components/sections/Shift";
+import { Backbone } from "@/components/sections/Backbone";
 import { IntelligenceLayer } from "@/components/sections/IntelligenceLayer";
 import { Architecture } from "@/components/sections/Architecture";
-import { AgentCore } from "@/components/sections/AgentCore";
 import { RoundLifecycle } from "@/components/sections/RoundLifecycle";
 import { RiskIntel } from "@/components/sections/RiskIntel";
 import { Settlement } from "@/components/sections/Settlement";
-import { Arena } from "@/components/sections/Arena";
-import { FeaturesValue } from "@/components/sections/FeaturesValue";
 import { Resilience } from "@/components/sections/Resilience";
 import { Flywheel } from "@/components/sections/Flywheel";
 import { Deploy } from "@/components/sections/Deploy";
@@ -67,15 +64,12 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
       <Hero />
-      <Shift />
+      <Backbone />
       <IntelligenceLayer />
       <Architecture />
-      <AgentCore />
       <RoundLifecycle />
       <RiskIntel />
       <Settlement />
-      <Arena />
-      <FeaturesValue />
       <Resilience />
       <Flywheel />
       <Deploy />

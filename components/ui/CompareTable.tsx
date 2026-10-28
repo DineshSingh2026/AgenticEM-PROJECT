@@ -6,7 +6,7 @@ export interface CompareTableProps {
   className?: string;
 }
 
-/** Three-column comparison. The last column (b) is the Casino Verse side and is accented in copper. */
+/** Three-column comparison. The last column (b) is the Agentium OS side and is accented in copper. */
 export function CompareTable({ columns, rows, className }: CompareTableProps) {
   return (
     <div className={cn("relative border border-line bg-bg-elev/70 backdrop-blur-md", className)}>

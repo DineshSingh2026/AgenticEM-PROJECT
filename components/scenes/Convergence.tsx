@@ -33,7 +33,7 @@ const CONFIG = {
     body: TOKENS.bgElev2,
     edge: TOKENS.copper,
     edgeBoost: 1.6,
-    label: "CASINO VERSE OS",
+    label: "AGENTIUM OS",
     /** Optional local .woff/.ttf for the engraving; undefined → troika default font */
     fontUrl: undefined as string | undefined,
   },

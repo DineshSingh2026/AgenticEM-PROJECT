@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-/** Builds per-page metadata. The root layout template appends "· Casino Verse OS | AGENTIUM". */
+/** Builds per-page metadata. The root layout template appends "· Agentium OS | AGENTIUM". */
 export function pageMeta(m: { title: string; description: string; path: string }): Metadata {
   return {
     title: m.title,
@@ -8,8 +8,8 @@ export function pageMeta(m: { title: string; description: string; path: string }
     alternates: { canonical: m.path },
     openGraph: {
       type: "website",
-      siteName: "AGENTIUM · Casino Verse OS",
-      title: `${m.title} · Casino Verse OS | AGENTIUM`,
+      siteName: "AGENTIUM · Agentic iGaming OS",
+      title: `${m.title} | Agentium OS`,
       description: m.description,
       url: m.path,
     },

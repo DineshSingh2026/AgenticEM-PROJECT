@@ -4,7 +4,7 @@ const platformMenu: { label: string; href: string; description: string; scene: S
   {
     label: "Platform overview",
     href: "/platform",
-    description: "The four capability layers of Casino Verse OS in one view.",
+    description: "The four capability layers of Agentium OS in one view.",
     scene: "Convergence",
   },
   {
@@ -42,13 +42,13 @@ const platformMenu: { label: string; href: string; description: string; scene: S
 export const site = {
   brand: {
     name: "AGENTIUM",
-    product: "Casino Verse OS",
+    product: "Agentium OS",
     homeLabel: "AGENTIUM home",
     tagline: "Autonomous solutions. Real impact.",
     logoAlt: "AGENTIUM",
     logoAltFull: "AGENTIUM — Autonomous solutions. Real impact.",
     mission:
-      "AGENTIUM builds Casino Verse OS, the AI operating system for the autonomous gaming economy, for licensed operators.",
+      "AGENTIUM builds Agentium OS, the AI operating system for the autonomous gaming economy, for licensed operators.",
   },
   skipLink: "Skip to content",
   simulatedNetwork: "SIMULATED NETWORK",
@@ -201,7 +201,7 @@ export const site = {
   },
   ctaBand: {
     eyebrow: "NEXT // OPERATOR_BRIEFING",
-    title: "Talk to the Casino Verse OS team.",
+    title: "Talk to the Agentium OS team.",
     body: "Tell us about your games, volumes and licence. We will map a pilot against agreed performance benchmarks.",
   },
   codeTabs: {

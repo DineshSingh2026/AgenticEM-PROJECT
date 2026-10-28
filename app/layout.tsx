@@ -14,13 +14,13 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Casino Verse OS · AI infrastructure for licensed gaming operators | AGENTIUM",
-    template: "%s · Casino Verse OS | AGENTIUM",
+    default: "Agentium OS · AI infrastructure for licensed gaming operators",
+    template: "%s | Agentium OS",
   },
   description:
-    "Casino Verse OS is agentic gaming infrastructure for licensed operators: run, monitor and settle AI-agent gameplay at machine speed with real-time gaming analytics, iGaming risk analytics and on-chain settlement.",
-  applicationName: "Casino Verse OS",
-  openGraph: { type: "website", siteName: "AGENTIUM · Casino Verse OS" },
+    "Agentium OS is agentic gaming infrastructure for licensed operators: run, monitor and settle AI-agent gameplay at machine speed with real-time gaming analytics, iGaming risk analytics and on-chain settlement.",
+  applicationName: "Agentium OS",
+  openGraph: { type: "website", siteName: "AGENTIUM · Agentic iGaming OS" },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "/" },
 };

@@ -5,13 +5,13 @@
 
 export const homeB = {
   meta: {
-    title: "Casino Verse OS · AI infrastructure for licensed gaming operators | AGENTIUM",
+    title: "Agentium OS · AI infrastructure for licensed gaming operators",
     description:
-      "The Agentium operating system for the agentic casino economy. We power the infrastructure that lets AI agents play, operators stay in control, and every game generates actionable intelligence.",
+      "The Agentium operating system for the agentic iGaming economy. We power the infrastructure that lets AI agents play, operators stay in control, and every game generates actionable intelligence.",
   },
 
   settlement: {
-    eyebrow: "08 // SETTLEMENT",
+    eyebrow: "07 // SETTLEMENT",
     title: "Every settlement, traced.",
     body: "End-to-end identity management, wallet integration and blockchain-based settlement workflows built for autonomous agents.",
     stackLabel: "SETTLEMENT_STACK",
@@ -37,38 +37,8 @@ export const homeB = {
       "Background animation: graphite blocks link left to right along a chain with copper connectors. Each new simulated block types out its hash, glows copper on confirmation, and the chain shifts left.",
   },
 
-  arena: {
-    eyebrow: "09 // ARENA",
-    title: "New gaming formats people want to watch.",
-    body: "Agent-to-agent competitions, live-game sharing, spectator modes and chat integration turn autonomous gameplay into an observable event for operator communities.",
-    chips: ["Agent-to-agent competition", "Spectator modes", "Live-game sharing", "Chat integration"],
-    feed: {
-      label: "MATCH_FEED // LIVE",
-      awaiting: "AWAITING_MATCH_EVENT",
-      match: "MATCH",
-      actions: { raise: "RAISE", call: "CALL", fold: "FOLD", hit: "HIT", stand: "STAND" },
-    },
-    sceneDescription:
-      "Background animation: five blue agent nodes in a fully connected pentagon exchange pulses on every simulated match event, while 32 green spectator nodes orbit on two rings and brighten as pulses land.",
-  },
-
-  features: {
-    eyebrow: "10 // PLATFORM_VALUE",
-    title: "Platform features, measured in business value.",
-    /** Fallback only — FeaturesValue reads content/data/features.json (detail + chart) first. */
-    rows: [
-      { feature: "High-volume game execution", benefit: "Run and analyse substantially more game activity." },
-      { feature: "Real-time gameplay event capture", benefit: "Instant visibility into game activity and financial performance." },
-      { feature: "Analytics for risk and profitability", benefit: "Better-informed, data-backed operational decisions." },
-      { feature: "Identity, authentication and wallets", benefit: "Secure transaction workflows and controlled ecosystem access." },
-      { feature: "Spectator, chat and live sharing", benefit: "New community interaction and engagement." },
-    ],
-    sceneDescription:
-      "Background animation, calm variant: chaotic strands converge through the Casino Verse OS core and leave as ordered parallel lines.",
-  },
-
   resilience: {
-    eyebrow: "11 // RESILIENCE",
+    eyebrow: "08 // RESILIENCE",
     title: "Built to stay connected.",
     body: "Stateless APIs, active reconnection routines and continuous synchronisation keep millions of agents and gaming services in step. Try it: drop a node.",
     status: [
@@ -90,7 +60,7 @@ export const homeB = {
   },
 
   flywheel: {
-    eyebrow: "12 // FLYWHEEL",
+    eyebrow: "09 // FLYWHEEL",
     title: "The agentic intelligence flywheel.",
     steps: [
       { index: "01", title: "Machine-speed execution", body: "Agents play continuously." },
@@ -104,7 +74,7 @@ export const homeB = {
   },
 
   deploy: {
-    eyebrow: "13 // DEPLOYMENT",
+    eyebrow: "10 // DEPLOYMENT",
     title: "How we deploy with operators.",
     steps: [
       { index: "01", title: "Discovery", body: "Map your games, volumes and target use cases." },
@@ -113,12 +83,12 @@ export const homeB = {
       { index: "04", title: "Scale", body: "Expand tables, formats and regions once the benchmarks are met." },
     ],
     proofLabel: "OPERATING WITH",
-    sceneDescription: "Background animation, calm variant: strands converge through the Casino Verse OS core.",
+    sceneDescription: "Background animation, calm variant: strands converge through the Agentium OS core.",
   },
 
   finalCta: {
-    eyebrow: "14 // BRIEFING",
-    title: "The infrastructure for the agentic casino economy.",
+    eyebrow: "11 // BRIEFING",
+    title: "The infrastructure for the agentic iGaming economy.",
     body: "Turn every game round into structured intelligence, and give your operation the tools to scale safely and profitably.",
     panelLabel: "REQUEST // OPERATOR_BRIEFING",
     sceneDescription:
@@ -132,11 +102,11 @@ export const homeB = {
     organization: {
       name: "AGENTIUM",
       description:
-        "AGENTIUM builds Casino Verse OS, the AI operating system for the autonomous gaming economy, for licensed casino and iGaming operators.",
-      slogan: "The Agentium operating system for the agentic casino economy.",
+        "AGENTIUM builds Agentium OS, the AI operating system for the autonomous gaming economy, for licensed casino and iGaming operators.",
+      slogan: "The Agentium operating system for the agentic iGaming economy.",
     },
     software: {
-      name: "Casino Verse OS",
+      name: "Agentium OS",
       applicationCategory: "BusinessApplication",
       applicationSubCategory: "B2B iGaming platform",
       operatingSystem: "Cloud, hybrid, on-premises",

@@ -3,13 +3,14 @@ import { TIMELINE, type SceneId } from "./timeline";
 import type { FilmAssets, FilmScene, SceneFrame } from "./types";
 import { clamp, easeInOutSine, easeOut, lerp, mulberry32, seg } from "./util";
 import { createLogoScene } from "./scenes/logo";
-import { createShiftScene } from "./scenes/shift";
-import { createConvergenceScene } from "./scenes/convergence";
+import { BACKBONE, createBackboneScene } from "./scenes/backbone";
+import { AGGREGATION, createAggregationScene } from "./scenes/aggregation";
 import { createSettlementScene } from "./scenes/settlement";
-import { createRiskScene } from "./scenes/risk";
+import { createIntelligenceScene } from "./scenes/intelligence";
+import { REVENUE, createRevenueScene } from "./scenes/revenue";
 import { createOutroScene } from "./scenes/outro";
 
-/** Look + performance knobs for the 20s intro film. */
+/** Look + performance knobs for the intro film. */
 export const CONFIG = {
   dpr: { max: 2, large: 1.5, largeW: 1920 },
   /** Glow layer resolution relative to CSS px (it is blurred anyway). */
@@ -33,7 +34,7 @@ export const CONFIG = {
     dustNarrow: 70,
     grid: { cell: 88, draw: [1400, 4200] as const, alpha: 0.05, chapterDim: 0.65 },
   },
-  streak: { base: 0.1, peaks: [[2560, 0.8, 800], [18300, 0.7, 600]] as const, gain: 0.55 },
+  streak: { base: 0.1, peaks: [[2560, 0.8, 800], [26600, 0.7, 600]] as const, gain: 0.55 },
   leak: { alpha: 0.2, spanMs: 1100 },
   grain: { tile: 160, alpha: 0.055, fps: 24 },
   vignette: 0.82,
@@ -80,13 +81,15 @@ export function statAt(t: number): string | null {
   const fmt = (n: number) => Math.round(n).toLocaleString("en-US");
   switch (ph.index) {
     case 0:
-      return fmt(b.activeAgents * easeOut(seg(p, 0.08, 0.8)));
+      return `${BACKBONE.dock.filter((d) => p >= d).length} / ${BACKBONE.dock.length}`;
     case 1:
-      return `${Math.round(lerp(1800, b.medianDecisionMs, easeOut(seg(p, 0.08, 0.75))))} ms`;
+      return String(Math.round(AGGREGATION.providers * easeOut(seg(p, AGGREGATION.connect[0], AGGREGATION.connect[1])))).padStart(2, "0");
     case 2:
       return fmt(b.roundsPerSec * easeOut(seg(p, 0.05, 0.4)) + Math.sin(t / 110) * 120 * seg(p, 0.4, 0.55));
+    case 3:
+      return `${Math.round(lerp(1800, b.medianDecisionMs, easeOut(seg(p, 0.08, 0.75))))} ms`;
     default:
-      return fmt(b.anomaliesFlagged24h - 8 + Math.floor(seg(p, 0.1, 0.9) * 8));
+      return String(REVENUE.ignite.filter((d) => p >= d).length).padStart(2, "0");
   }
 }
 
@@ -145,10 +148,11 @@ type Slot = { scene: FilmScene; start: number; end: number; idx: number };
 
 const SCENE_FACTORIES: Record<SceneId, () => FilmScene> = {
   logo: createLogoScene,
-  shift: createShiftScene,
-  convergence: createConvergenceScene,
+  backbone: createBackboneScene,
+  aggregation: createAggregationScene,
   settlement: createSettlementScene,
-  risk: createRiskScene,
+  intelligence: createIntelligenceScene,
+  revenue: createRevenueScene,
   outro: createOutroScene,
 };
 

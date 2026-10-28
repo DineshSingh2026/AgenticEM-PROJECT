@@ -1,6 +1,6 @@
-# AGENTIUM · Casino Verse OS — marketing site
+# AGENTIUM · Agentic iGaming OS — marketing site
 
-Marketing website for AGENTIUM, the company behind Casino Verse OS, the AI operating system for the agentic casino economy. B2B audience: licensed casino and iGaming operators, investors and technical partners.
+Marketing website for AGENTIUM, the company behind Agentium OS, the AI operating system for the agentic iGaming economy. B2B audience: licensed casino and iGaming operators, investors and technical partners.
 
 Built with Next.js 15 (App Router), TypeScript, Tailwind CSS, React Three Fiber (one shared WebGL canvas behind the whole site) and a seeded live-data simulator.
 

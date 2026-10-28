@@ -5,15 +5,15 @@
 export const homeA = {
   boot: {
     lines: [
-      "SEQ_01 // INIT_CASINO_VERSE_OS // LIVE",
+      "SEQ_01 // INIT_AGENTIUM_OS // LIVE",
       "agents: syncing…  ledger: ok  risk_engine: ok",
     ],
   },
 
   hero: {
     id: "hero-title",
-    eyebrow: "AGENTIUM · CASINO VERSE OS",
-    title: "The Agentium operating system for the agentic casino economy.",
+    eyebrow: "AGENTIUM · AGENTIC iGAMING OS",
+    title: "The Agentium operating system for the agentic iGaming economy.",
     sub: "We power the infrastructure that lets AI agents play, operators stay in control, and every game generates actionable intelligence.",
     ctaPrimary: { label: "Request an operator briefing", href: "/contact" },
     ctaSecondary: { label: "Explore the architecture", href: "/platform/architecture" },
@@ -22,32 +22,100 @@ export const homeA = {
       "Background visual: a gold roulette wheel rendered as a live data instrument. Hundreds of glowing agent balls orbit its ball track; each time a game round settles on the simulated network, one ball drops into a pocket, the pocket flashes gold and a settlement pulse runs along the rim. Thin instrument rings around the wheel turn with network load and show the game mix: poker, blackjack, roulette, baccarat and dice.",
   },
 
-  shift: {
-    id: "shift-title",
-    eyebrow: "02 // THE_SHIFT",
-    title: "Millions of autonomous agents are entering the casino.",
-    body: "When non-human players act at machine speed, every move becomes structured, actionable data. Orchestrate gameplay, monitor every move, and settle every round at machine speed. Turn AI-agent gameplay into a continuously operating ecosystem of real-time execution, transparent settlement, and actionable insights.",
-    axisHuman: "HUMAN GAMING VOLUME",
-    axisAgent: "AUTONOMOUS AGENT VOLUME",
-    columns: ["Attribute", "Human games", "Agentic games"] as [string, string, string],
-    rows: [
-      { label: "Speed", a: "Human-paced", b: "Machine-speed execution" },
-      { label: "Decision making", a: "Emotional, intuitive", b: "Calculated, reasoned" },
-      { label: "Volume", a: "Linear scale", b: "Exponential scale" },
-      { label: "Data", a: "Fragmented, siloed", b: "Every move structured" },
-      { label: "Infrastructure", a: "Traditional server architecture", b: "Casino Verse OS" },
+  backbone: {
+    id: "backbone-title",
+    eyebrow: "02 // THE_BACKBONE",
+    title: "The AI-agentic backbone of the iGaming ecosystem.",
+    body: "Agentium is the B2B solutions provider operators build on: one platform to launch, manage and scale, with player accounts, wallets, bonuses and game operations at the core, a unified game catalogue on one side and on-chain settlement on the other.",
+    outcomesLabel: "WHAT OPERATORS GET",
+    outcomes: [
+      { index: "01", title: "Streamlined operations", body: "One integration replaces a patchwork of vendors." },
+      { index: "02", title: "A better player experience", body: "More titles, faster payments, fewer seams." },
+      { index: "03", title: "A foundation for growth", body: "Scalable technology that grows with your brand." },
     ],
-    sceneAlt:
-      "Chart visual: a single smooth line represents human gaming volume rising gently. Midway it fractures into hundreds of copper and steel lines that fan upward exponentially, representing autonomous agent volume.",
+    diagram: {
+      top: { label: "OPERATOR BRANDS", items: ["Launch", "Manage", "Scale"] },
+      core: {
+        label: "AGENTIUM PLATFORM",
+        status: "ONLINE",
+        modules: [
+          { code: "PAM", name: "Player account management" },
+          { code: "WAL", name: "Digital wallets" },
+          { code: "BON", name: "Bonus engine" },
+          { code: "OPS", name: "Gaming operations" },
+        ],
+        ai: { code: "AI", name: "Agent execution · LLM reasoning · gaming intelligence" },
+      },
+      aggregation: {
+        index: "A",
+        label: "GAME AGGREGATION",
+        title: "Many providers. One integration.",
+        body: "A broad portfolio of titles from multiple game providers, managed from one place.",
+        providers: ["PRV_01", "PRV_02", "PRV_03", "PRV_04", "PRV_05", "PRV_06"],
+      },
+      settlement: {
+        index: "B",
+        label: "ON-CHAIN SETTLEMENT",
+        title: "Transparent money movement.",
+        body: "Deposits, withdrawals and transactions through supported digital wallets and blockchain payment rails.",
+        flows: ["DEPOSIT", "WITHDRAW", "SETTLE"],
+      },
+    },
+    revenue: {
+      id: "revenue-title",
+      eyebrow: "02.1 // REVENUE_MODEL",
+      title: "Four revenue engines. One intelligence platform.",
+      body: "Agentium earns where AI meets iGaming: subscriptions to intelligent game APIs and agent execution, token-based usage credits, white-label licensing and revenue-sharing partnerships.",
+      subscription: {
+        index: "R1",
+        tag: "SUBSCRIPTION",
+        title: "API & agent execution plans",
+        body: "Subscriptions to intelligent game APIs, agent execution and LLM-based reasoning across every supported game type.",
+        gamesLabel: "SUPPORTED GAME TYPES",
+        games: ["Sports betting", "Board games", "Skill-based games", "+ more supported titles"],
+        baseLabel: "EVERY PLAN",
+        base: ["Agent execution", "Intelligent game APIs", "LLM-based reasoning", "Gaming intelligence data"],
+        premiumLabel: "PREMIUM TIERS ADD",
+        premium: ["Higher usage limits", "Advanced APIs", "Testing environments", "Analytics & strategy evaluation", "Team collaboration tools"],
+      },
+      credits: {
+        index: "R2",
+        tag: "USAGE",
+        title: "Token-based credits",
+        body: "Clients buy credits and spend them on AI-powered gaming services, APIs and data-driven intelligence, paying for what their agents actually use.",
+        steps: ["Buy credits", "Call APIs & agents", "Draw on intelligence"],
+        meterLabel: "CREDIT BALANCE",
+      },
+      whiteLabel: {
+        index: "R3",
+        tag: "LICENSING",
+        title: "White-label infrastructure",
+        body: "Platform licensing and integration services that let approved operators run Agentium under their own brand.",
+      },
+      revenueShare: {
+        index: "R4",
+        tag: "PARTNERSHIP",
+        title: "Revenue sharing",
+        body: "Partnerships with clients and data contributors on agreed commercial terms, data rights and privacy requirements.",
+      },
+      intelligence: {
+        label: "AI_INTELLIGENCE_LAYER",
+        title: "Built on LLM partnerships and specialised iGaming data.",
+        inputs: ["LLM provider partnerships", "Specialised iGaming datasets"],
+        outputs: ["Gaming reasoning", "Performance benchmarking", "Model evaluation"],
+      },
+      footnote:
+        "Services are offered to approved operators, subject to applicable licensing and gaming regulations, agreed commercial terms, data rights and privacy requirements.",
+    },
   },
 
   intelligence: {
     id: "intelligence-title",
     eyebrow: "03 // INTELLIGENCE_LAYER",
     title: "The intelligence layer for autonomous gaming economies.",
-    body: "Casino Verse captures, synchronises and analyses game-state data in real time, giving licensed operators the AI operating system to power, monitor and scale AI-driven gaming.",
+    body: "Agentium OS captures, synchronises and analyses game-state data in real time, giving licensed operators the AI operating system to power, monitor and scale AI-driven gaming.",
     inputLabel: "RAW GAME-STATE DATA",
-    coreLabel: "CASINO VERSE OS",
+    coreLabel: "AGENTIUM OS",
     outputLabel: "OPERATOR OUTPUTS",
     cards: [
       {
@@ -67,14 +135,14 @@ export const homeA = {
       },
     ],
     sceneAlt:
-      "Visual: chaotic white data strands enter from the left, pass through a central Casino Verse OS core, and leave on the right as ordered lines split into three bundles, one for each output card.",
+      "Visual: chaotic white data strands enter from the left, pass through a central Agentium OS core, and leave on the right as ordered lines split into three bundles, one for each output card.",
   },
 
   architecture: {
     id: "architecture-title",
     eyebrow: "04 // ARCHITECTURE",
     title: "A unified stack built for machine-speed execution.",
-    stackLabel: "CASINO VERSE OS // STACK",
+    stackLabel: "AGENTIUM OS // STACK",
     layers: [
       {
         index: "L1",
@@ -116,50 +184,9 @@ export const homeA = {
       "Visual: four platform layers separate vertically one at a time as you scroll: frosted glass for real-time analytics, a copper lattice for agent capabilities, a steel plate for gaming infrastructure and a graphite base for transaction infrastructure. Small packets of light rise through every layer.",
   },
 
-  agentCore: {
-    id: "agent-core-title",
-    eyebrow: "05 // AGENT_CORE",
-    title: "Agents that reason, not scripts that follow.",
-    scriptLabel: "LEGACY // SCRIPTED BOT",
-    flow: {
-      start: "START",
-      condA: "IF CONDITION A",
-      actionB: "ACTION B",
-      condC: "IF CONDITION C",
-      actionD: "ACTION D",
-      stop: "STOP",
-    },
-    flowCaption: "Predefined scripts. Rigid execution.",
-    loopLabel: "AGENT CORE // REASONING LOOP",
-    loop: [
-      { phase: "assess", index: "01", title: "Assess state", body: "Ingests real-time game state and opponent data." },
-      { phase: "calculate", index: "02", title: "Calculate", body: "Computes pot odds and probability matrices." },
-      { phase: "evaluate", index: "03", title: "Evaluate", body: "Cross-references calculations with adaptable strategies." },
-      { phase: "execute", index: "04", title: "Execute", body: "Makes an independent, non-scripted decision at machine speed." },
-    ],
-    presetsLabel: "RUN A PRESET",
-    presets: [
-      { preset: "poker", label: "Poker" },
-      { preset: "blackjack", label: "Blackjack" },
-      { preset: "roulette", label: "Roulette" },
-    ],
-    traceLabel: "ILLUSTRATIVE TRACE",
-    traceStateLabel: "STATE",
-    traceIdle: "Select a preset to run the agent core loop.",
-    traceResultLabel: "Decision",
-    phaseLabels: {
-      assess: "ASSESS",
-      calculate: "CALCULATE",
-      evaluate: "EVALUATE",
-      execute: "EXECUTE",
-    },
-    sceneAlt:
-      "Visual: a ring split into four quadrants, assess state in red, calculate in blue, evaluate in green and execute in gold. When a preset runs, the quadrants light in sequence while the reasoning trace types out.",
-  },
-
   roundLifecycle: {
     id: "round-lifecycle-title",
-    eyebrow: "06 // ROUND_LIFECYCLE",
+    eyebrow: "05 // ROUND_LIFECYCLE",
     title: "Every game round becomes structured operational data.",
     stepsLabel: "ROUND // 5 STAGES",
     steps: [
@@ -175,7 +202,7 @@ export const homeA = {
 
   risk: {
     id: "risk-title",
-    eyebrow: "07 // RISK_RADAR",
+    eyebrow: "06 // RISK_RADAR",
     title: "Real-time operational intelligence and risk mitigation.",
     body: "Streaming analytics and machine learning flag suspicious activity the moment it appears. Specialised agents investigate, explain and recommend interventions for human approval.",
     panels: {

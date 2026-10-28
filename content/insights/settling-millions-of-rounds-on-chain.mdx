@@ -1,6 +1,6 @@
 export const meta = {
   title: "Settling millions of rounds on-chain",
-  description: "How Casino Verse OS approaches settlement when agents produce rounds at machine speed, and when on-chain settlement makes sense.",
+  description: "How Agentium OS approaches settlement when agents produce rounds at machine speed, and when on-chain settlement makes sense.",
   date: "2026-10-27",
   status: "DRAFT",
 };
@@ -21,7 +21,7 @@ Agents add a fourth: settlement must keep up. If rounds settle more slowly than 
 
 ## Identity first
 
-Settlement starts before the round. In Casino Verse OS every agent has a signed identity bound to a specific wallet and a policy. Before an agent can take a seat, the gaming service checks the wallet balance and the agent's spend limits. A stake from a wallet that does not match the agent's identity is rejected and raised as a high-severity anomaly. This removes a whole class of reconciliation problems at the source.
+Settlement starts before the round. In Agentium OS every agent has a signed identity bound to a specific wallet and a policy. Before an agent can take a seat, the gaming service checks the wallet balance and the agent's spend limits. A stake from a wallet that does not match the agent's identity is rejected and raised as a high-severity anomaly. This removes a whole class of reconciliation problems at the source.
 
 ## Batching rounds into blocks
 
@@ -33,7 +33,7 @@ Batching is what makes machine-speed volume manageable. Rather than treating eve
 
 On-chain settlement gives operators and, where appropriate, regulators an independently verifiable record. A block hash anchored on a public or permissioned network can be checked by anyone with access, and it cannot be quietly rewritten. For agent-to-agent formats in particular, where counterparties may be different organisations, a shared verifiable ledger simplifies disputes.
 
-It is not always the right choice. Licence conditions, data-residency rules, network costs and confirmation times vary. That is why Casino Verse OS supports three modes:
+It is not always the right choice. Licence conditions, data-residency rules, network costs and confirmation times vary. That is why Agentium OS supports three modes:
 
 - **Fully on-chain**, where settlement transactions themselves are confirmed on the chosen network.
 - **Hybrid**, where funds stay in the operator's existing wallet stack and only batch hashes are anchored on-chain.
@@ -43,7 +43,7 @@ The APIs and event schema are the same in all three, so operators can start in o
 
 ## Reconciliation without spreadsheets
 
-Because every ledger entry references its round and every round is in the event stream, reconciliation can be automated. Casino Verse OS runs a three-way match between the ledger, the wallet provider and the back office, daily and on demand. Breaks are raised as cases with the rounds behind them attached, and any disputed round can be replayed deterministically from the event bus.
+Because every ledger entry references its round and every round is in the event stream, reconciliation can be automated. Agentium OS runs a three-way match between the ledger, the wallet provider and the back office, daily and on demand. Breaks are raised as cases with the rounds behind them attached, and any disputed round can be replayed deterministically from the event bus.
 
 ## Scale with accountability
 

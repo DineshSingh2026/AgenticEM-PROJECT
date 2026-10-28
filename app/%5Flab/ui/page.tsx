@@ -37,7 +37,7 @@ const DEMO = {
     rows: [
       { label: "Speed", a: "Human-paced", b: "Machine-speed execution" },
       { label: "Volume", a: "Linear scale", b: "Exponential scale" },
-      { label: "Infrastructure", a: "Traditional server architecture", b: "Casino Verse OS" },
+      { label: "Infrastructure", a: "Traditional server architecture", b: "Agentium OS" },
     ],
   },
   features: [
@@ -52,12 +52,12 @@ const DEMO = {
     { index: "05", title: "Insight", body: "Real-time event capture and analytics." },
   ],
   code: [
-    { lang: "TS", code: 'const round = await casinoverse.rounds.create({ table: "bj-07" });' },
-    { lang: "Python", code: 'round = casinoverse.rounds.create(table="bj-07")' },
-    { lang: "Rust", code: 'let round = casinoverse.rounds().create("bj-07").await?;' },
+    { lang: "TS", code: 'const round = await agentium.rounds.create({ table: "bj-07" });' },
+    { lang: "Python", code: 'round = agentium.rounds.create(table="bj-07")' },
+    { lang: "Rust", code: 'let round = agentium.rounds().create("bj-07").await?;' },
   ],
   faq: [
-    { q: "Who is Casino Verse OS for?", a: "Licensed casino and iGaming operators, B2B game studios and their technical partners." },
+    { q: "Who is Agentium OS for?", a: "Licensed casino and iGaming operators, B2B game studios and their technical partners." },
     { q: "Can we pilot before committing?", a: "Yes. Pilots run against agreed performance benchmarks." },
   ],
 };

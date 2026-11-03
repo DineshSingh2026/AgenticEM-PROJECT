@@ -40,6 +40,25 @@ const CONFIG = {
   calm: { density: 0.4, speed: 0.5 },
   envIntensity: 1.25,
   sweepSpeed: 0.14,
+  /**
+   * Robot agents seated around the back of the wheel. Each one thinks (visor pulse), winds up,
+   * throws its own ball onto the track, follows it with its head and reacts when it lands.
+   */
+  bots: {
+    angles: [1.0, 1.38, 1.76, 2.14] as const,
+    r: 1.24,
+    y: -0.02,
+    scale: 0.25,
+    think: 0.7,
+    windup: 0.3,
+    swing: 0.14,
+    throwDur: 0.42,
+    recover: 0.6,
+    cooldown: 0.8,
+    trackR: 0.89,
+    rollSpeed: 0.5,
+    ballSize: 0.016,
+  },
   colors: {
     gold: "#E8B65A", goldPale: "#F7DFA3", goldDeep: "#B07A2A",
     red: "#4E1C20", graphite: "#15171B", green: "#0F3B2B", lacquer: "#0C0E11",
@@ -293,7 +312,20 @@ function buildEnv(gl: THREE.WebGLRenderer) {
 /* ------------------------------------------------------------------ */
 
 interface Orbit { r: number; y: number; a: number; w: number; size: number; color: THREE.Color; busyUntil: number }
-interface Settle { active: boolean; t0: number; ball: number; pocket: number; a0: number; w0: number; d0: number; landed: boolean; intensity: number }
+interface Settle {
+  active: boolean; t0: number; ball: number; pocket: number; a0: number; w0: number; d0: number; landed: boolean; intensity: number;
+  /** robot that threw it (-1 = an orbiting ball), start radius and ball size */
+  bot: number; r0: number; sz: number;
+  /** last head position (wheel space) and the point it left the robot's hand */
+  p: THREE.Vector3; h: THREE.Vector3; released: boolean;
+}
+interface Bot { busyUntil: number; tl: number; slot: number; flash: number; theta: number }
+
+const ease = (x: number) => (x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x));
+const BOT_YAW = CONFIG.bots.angles.map((a) => Math.atan2(-Math.cos(a), Math.sin(a)));
+/** Shoulder and in-hand ball offset in robot-local units. */
+const SHOULDER = new THREE.Vector3(0.4, 1.0, 0);
+const GRIP = 0.62;
 interface Packet { angle: number; t0: number; w: number }
 
 export function CasinoWheel() {
@@ -456,6 +488,19 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
     const chip = chipGeometry();
     const glowPlane = new THREE.PlaneGeometry(1, 1);
 
+    // Robot agents (robot-local units, ~1.7 tall; scaled by CONFIG.bots.scale)
+    const botBase = new THREE.CylinderGeometry(0.42, 0.5, 0.14, 32).translate(0, 0.07, 0);
+    const botTorso = new THREE.CapsuleGeometry(0.3, 0.42, 6, 20).scale(1.15, 1, 0.85).translate(0, 0.65, 0);
+    const botCollar = new THREE.TorusGeometry(0.17, 0.035, 10, 32).rotateX(Math.PI / 2).translate(0, 1.2, 0);
+    const botHead = new THREE.SphereGeometry(0.27, 32, 20).scale(1.12, 0.92, 1);
+    const botVisor = new THREE.CylinderGeometry(0.285, 0.285, 0.11, 32, 1, true, -1.05, 2.1).scale(1.12, 1, 1.02).translate(0, 0.02, 0);
+    const botArm = new THREE.CapsuleGeometry(0.075, 0.38, 4, 12).translate(0, -0.27, 0);
+    const botHand = new THREE.SphereGeometry(0.1, 16, 12).translate(0, -0.56, 0);
+    const botMat = new THREE.MeshStandardMaterial({ color: new THREE.Color("#8a8f99"), metalness: 0.8, roughness: 0.28, envMapIntensity: 1.3, transparent: true, opacity: 0 });
+    const visorMats = CONFIG.bots.angles.map(
+      () => new THREE.MeshBasicMaterial({ color: new THREE.Color(col.gold), toneMapped: false, transparent: true, opacity: 0, side: THREE.DoubleSide }),
+    );
+
     // Dust
     const dustGeo = new THREE.BufferGeometry();
     const dp = new Float32Array(CONFIG.dust * 3);
@@ -509,9 +554,9 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
     }));
 
     return {
-      rng, gold, goldDeep, lacquer, pocketMat, numberMat, glowMat, ballMat, chipMat, streamMat, hudMat, glowBgMat, dustMat,
+      rng, gold, goldDeep, lacquer, pocketMat, numberMat, glowMat, ballMat, chipMat, streamMat, hudMat, glowBgMat, dustMat, botMat, visorMats,
       textures: [numTex, labelTex, chipTex],
-      geos: { rim, bowl, turret, fret, deflector, pocket, glowSector, numbers, stream, hud, ball, chip, glowPlane, dustGeo },
+      geos: { rim, bowl, turret, fret, deflector, pocket, glowSector, numbers, stream, hud, ball, chip, glowPlane, dustGeo, botBase, botTorso, botCollar, botHead, botVisor, botArm, botHand },
       orbits, pocketColors, chips, packets,
     };
   }, [q]);
@@ -519,7 +564,7 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
   // Environment for the metals (local PMREM, no fetch)
   useEffect(() => {
     const env = buildEnv(gl);
-    for (const m of [res.gold, res.goldDeep, res.lacquer, res.pocketMat, res.numberMat, res.chipMat]) {
+    for (const m of [res.gold, res.goldDeep, res.lacquer, res.pocketMat, res.numberMat, res.chipMat, res.botMat]) {
       m.envMap = env;
       m.needsUpdate = true;
     }
@@ -531,7 +576,7 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
     () => () => {
       Object.values(res.geos).forEach((g) => g.dispose());
       res.textures.forEach((t) => t.dispose());
-      [res.gold, res.goldDeep, res.lacquer, res.pocketMat, res.numberMat, res.glowMat, res.ballMat, res.chipMat, res.streamMat, res.hudMat, res.glowBgMat, res.dustMat].forEach((m) => m.dispose());
+      [res.gold, res.goldDeep, res.lacquer, res.pocketMat, res.numberMat, res.glowMat, res.ballMat, res.chipMat, res.streamMat, res.hudMat, res.glowBgMat, res.dustMat, res.botMat, ...res.visorMats].forEach((m) => m.dispose());
     },
     [res],
   );
@@ -590,7 +635,11 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
     pulse: [0, 0, 0, 0, 0],
     bgPulse: 0,
     queue: [] as { game: number; w: number }[],
-    settles: new Array(CONFIG.settle.slots).fill(0).map<Settle>(() => ({ active: false, t0: 0, ball: 0, pocket: 0, a0: 0, w0: 0, d0: 0, landed: false, intensity: 1 })),
+    settles: new Array(CONFIG.settle.slots).fill(0).map<Settle>(() => ({
+      active: false, t0: 0, ball: 0, pocket: 0, a0: 0, w0: 0, d0: 0, landed: false, intensity: 1,
+      bot: -1, r0: 0, sz: 0, p: new THREE.Vector3(), h: new THREE.Vector3(), released: false,
+    })),
+    bots: CONFIG.bots.angles.map<Bot>((_, i) => ({ busyUntil: 0.4 + i * 0.9, tl: -99, slot: -1, flash: 0, theta: 0 })),
     packets: [] as Packet[],
     calm: false,
     dim: 1,
@@ -606,9 +655,27 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
   });
 
   const tmp = useMemo(
-    () => ({ m: new THREE.Matrix4(), p: new THREE.Vector3(), s: new THREE.Vector3(), q: new THREE.Quaternion(), c: new THREE.Color(), hot: new THREE.Color(CONFIG.colors.goldPale).multiplyScalar(CONFIG.flash.gain), black: new THREE.Color(0, 0, 0), e: new THREE.Euler() }),
+    () => ({ m: new THREE.Matrix4(), p: new THREE.Vector3(), s: new THREE.Vector3(), q: new THREE.Quaternion(), c: new THREE.Color(), hot: new THREE.Color(CONFIG.colors.goldPale).multiplyScalar(CONFIG.flash.gain), black: new THREE.Color(0, 0, 0), e: new THREE.Euler(), botBall: new THREE.Color("#fff3d6").multiplyScalar(2.4) }),
     [],
   );
+
+  const botRefs = useRef<(THREE.Group | null)[]>([]);
+  const headRefs = useRef<(THREE.Group | null)[]>([]);
+  const armRefs = useRef<(THREE.Group | null)[]>([]);
+
+  /** Wheel-space position of a robot's throwing hand (where its ball sits). */
+  const handPos = (bi: number, out: THREE.Vector3) => {
+    const B = CONFIG.bots;
+    const th = st.current.bots[bi].theta;
+    const a = B.angles[bi];
+    const psi = BOT_YAW[bi];
+    const lx = SHOULDER.x;
+    const ly = SHOULDER.y - GRIP * Math.cos(th);
+    const lz = SHOULDER.z - GRIP * Math.sin(th);
+    const x = lx * Math.cos(psi) + lz * Math.sin(psi);
+    const z = -lx * Math.sin(psi) + lz * Math.cos(psi);
+    return out.set(Math.cos(a) * B.r + x * B.scale, B.y + ly * B.scale, -Math.sin(a) * B.r + z * B.scale);
+  };
 
   useFrame((state, dtRaw) => {
     const g = root.current;
@@ -650,7 +717,7 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
 
     // Fade opacity into every material
     const fo = o * s.dim;
-    for (const m of [res.gold, res.goldDeep, res.lacquer, res.pocketMat, res.numberMat, res.ballMat, res.chipMat, res.glowMat]) m.opacity = fo;
+    for (const m of [res.gold, res.goldDeep, res.lacquer, res.pocketMat, res.numberMat, res.ballMat, res.chipMat, res.glowMat, res.botMat, ...res.visorMats]) m.opacity = fo;
     res.streamMat.uniforms.uOpacity.value = fo;
     res.hudMat.uniforms.uOpacity.value = fo;
     res.glowBgMat.uniforms.uOpacity.value = fo;
@@ -681,20 +748,55 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
       const slot = s.settles.findIndex((x, i) => !x.active && i < maxSlots);
       if (slot < 0) break;
       const ev = s.queue.shift()!;
+      const D = CONFIG.settle.duration;
+      const pocket = Math.floor(res.rng() * CONFIG.pockets);
+
+      // A free robot takes the round: it thinks, winds up and throws its own ball onto the track.
+      const bi = s.bots.findIndex((x) => t >= x.busyUntil);
+      if (bi >= 0) {
+        const B = CONFIG.bots;
+        const lead = B.think + B.windup + B.swing + B.throwDur;
+        const a0 = B.angles[bi];
+        const w0 = -B.rollSpeed;
+        const base1 = a0 + w0 * D * 0.5;
+        const target = s.rotor + CONFIG.rotorSpeed * speed * (lead + D) + (pocket + 0.5) * STEP;
+        const d0 = Math.atan2(Math.sin(target - base1), Math.cos(target - base1));
+        Object.assign(s.settles[slot], { active: true, t0: t + lead, ball: -1, bot: bi, r0: B.trackR, sz: B.ballSize, pocket, a0, w0, d0, landed: false, intensity: ev.w, released: false });
+        Object.assign(s.bots[bi], { busyUntil: t + lead + D + B.cooldown, tl: t, slot });
+        s.pulse[ev.game] = 1;
+        continue;
+      }
+
       let ball = Math.floor(res.rng() * visibleOrbits);
       for (let tries = 0; tries < 8 && (res.orbits[ball].busyUntil > t || res.orbits[ball].r > 0.95); tries++) ball = Math.floor(res.rng() * visibleOrbits);
       const ob = res.orbits[ball];
       if (ob.busyUntil > t) break;
-      const pocket = Math.floor(res.rng() * CONFIG.pockets);
-      const D = CONFIG.settle.duration;
       const a0 = ob.a + ob.w * t;
       const base1 = a0 + ob.w * D * 0.5;
       const target = s.rotor + CONFIG.rotorSpeed * speed * D + (pocket + 0.5) * STEP;
       const d0 = Math.atan2(Math.sin(target - base1), Math.cos(target - base1));
       ob.busyUntil = t + D + CONFIG.settle.rest + 0.6;
-      Object.assign(s.settles[slot], { active: true, t0: t, ball, pocket, a0, w0: ob.w, d0, landed: false, intensity: ev.w });
+      Object.assign(s.settles[slot], { active: true, t0: t, ball, bot: -1, r0: ob.r, sz: ob.size, pocket, a0, w0: ob.w, d0, landed: false, intensity: ev.w, released: true });
       s.pulse[ev.game] = 1;
       s.bgPulse = Math.min(1, s.bgPulse + 0.3);
+    }
+
+    // Robot arms: rest -> lift ball -> wind up -> throw -> recover
+    {
+      const B = CONFIG.bots;
+      for (const bs of s.bots) {
+        const x = t - bs.tl;
+        const x1 = B.think;
+        const x2 = x1 + B.windup;
+        const x3 = x2 + B.swing;
+        const x4 = x3 + B.throwDur + B.recover;
+        let th = Math.sin(t * 1.3 + bs.busyUntil) * 0.04;
+        if (x >= 0 && x < x1) th = -0.35 * ease(x / 0.25);
+        else if (x >= x1 && x < x2) th = THREE.MathUtils.lerp(-0.35, 1.05, ease((x - x1) / B.windup));
+        else if (x >= x2 && x < x3) th = THREE.MathUtils.lerp(1.05, -1.7, (x - x2) / B.swing);
+        else if (x >= x3 && x < x4) th = THREE.MathUtils.lerp(-1.7, 0, ease((x - x3) / (x4 - x3)));
+        bs.theta = th;
+      }
     }
 
     // Balls
@@ -714,7 +816,38 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
             b.setMatrixAt(idx, m);
             continue;
           }
-          const ob = res.orbits[S.ball];
+          // Robot ball before it reaches the track: in the hand, then a thrown arc
+          if (S.bot >= 0 && t < S.t0) {
+            if (j > 0) {
+              sc.setScalar(0);
+              m.compose(p.set(0, 0, 0), qq, sc);
+              b.setMatrixAt(idx, m);
+              continue;
+            }
+            const B = CONFIG.bots;
+            const tr = S.t0 - B.throwDur;
+            if (t < tr) {
+              handPos(S.bot, S.p);
+            } else {
+              if (!S.released) {
+                S.released = true;
+                handPos(S.bot, S.h);
+              }
+              const u = (t - tr) / B.throwDur;
+              const ta = S.a0;
+              p.set(Math.cos(ta) * S.r0, heightAt(S.r0) + S.sz, -Math.sin(ta) * S.r0);
+              S.p.lerpVectors(S.h, p, u);
+              S.p.y += Math.sin(Math.PI * u) * 0.16;
+            }
+            sc.setScalar(S.sz);
+            m.compose(S.p, qq, sc);
+            b.setMatrixAt(idx, m);
+            b.setColorAt(idx, tmp.botBall);
+            continue;
+          }
+          const ob = S.bot >= 0 ? null : res.orbits[S.ball];
+          const r0 = S.r0;
+          const sz = S.sz;
           const tt = THREE.MathUtils.clamp((t - S.t0 - j * 0.035) / D, 0, 1);
           const e = tt * tt * (3 - 2 * tt);
           const base = S.a0 + S.w0 * D * tt * (1 - tt / 2);
@@ -722,16 +855,19 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
           const base1 = S.a0 + S.w0 * D * 0.5;
           const d = S.d0 + Math.atan2(Math.sin(target - base1 - S.d0), Math.cos(target - base1 - S.d0));
           const a = base + d * Math.pow(e, 1.4);
-          const r = THREE.MathUtils.lerp(ob.r, 0.52, Math.pow(e, 1.6));
+          const r = THREE.MathUtils.lerp(r0, 0.52, Math.pow(e, 1.6));
           const bounce = Math.abs(Math.sin(tt * Math.PI * 4)) * 0.035 * (1 - tt) * Math.min(1, tt * 3);
-          const y = (r < P1 ? pocketY(r) : heightAt(r)) + ob.size + bounce;
+          const y = (r < P1 ? pocketY(r) : heightAt(r)) + sz + bounce;
           const age = t - S.t0;
-          let size = ob.size * (j === 0 ? 1.15 : 1 - j / (K + 1)) * 1.1;
-          if (age > D) size *= j === 0 ? Math.max(0, 1 - (age - D) / CONFIG.settle.rest) : 0;
+          const rest = S.bot >= 0 ? CONFIG.bots.cooldown + 0.3 : CONFIG.settle.rest;
+          let size = sz * (j === 0 ? 1.15 : 1 - j / (K + 1)) * (S.bot >= 0 ? 1 : 1.1);
+          if (age > D) size *= j === 0 ? Math.max(0, 1 - Math.max(0, age - D - rest * 0.6) / (rest * 0.4)) : 0;
           sc.setScalar(size);
-          m.compose(p.set(Math.cos(a) * r, y, -Math.sin(a) * r), qq, sc);
+          p.set(Math.cos(a) * r, y, -Math.sin(a) * r);
+          if (j === 0) S.p.copy(p);
+          m.compose(p, qq, sc);
           b.setMatrixAt(idx, m);
-          c.copy(ob.color).multiplyScalar(j === 0 ? 1.4 : 0.9 * (1 - j / (K + 1)));
+          c.copy(ob ? ob.color : tmp.botBall).multiplyScalar(j === 0 ? (ob ? 1.4 : 1) : 0.9 * (1 - j / (K + 1)));
           b.setColorAt(idx, c);
         }
         if (S.active && !S.landed && t - S.t0 >= D) {
@@ -740,8 +876,9 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
           const angle = s.rotor + (S.pocket + 0.5) * STEP;
           if (s.packets.length >= CONFIG.stream.max) s.packets.shift();
           s.packets.push({ angle, t0: t, w: S.intensity });
+          if (S.bot >= 0) s.bots[S.bot].flash = 1;
         }
-        if (S.active && t - S.t0 >= D + CONFIG.settle.rest) S.active = false;
+        if (S.active && t - S.t0 >= D + (S.bot >= 0 ? CONFIG.bots.cooldown + 0.3 : CONFIG.settle.rest)) S.active = false;
       }
       for (let i = 0; i < visibleOrbits; i++) {
         const ob = res.orbits[i];
@@ -756,6 +893,43 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
       b.count = settleInst + visibleOrbits;
       b.instanceMatrix.needsUpdate = true;
       if (b.instanceColor) b.instanceColor.needsUpdate = true;
+    }
+
+    // Robots: arm pose, head follows its ball, visor pulses while thinking and flares on landing
+    {
+      const B = CONFIG.bots;
+      const k = 1 - Math.exp(-dt * 6);
+      for (let i = 0; i < s.bots.length; i++) {
+        const bs = s.bots[i];
+        const grp = botRefs.current[i];
+        const head = headRefs.current[i];
+        const arm = armRefs.current[i];
+        if (!grp || !head || !arm) continue;
+        arm.rotation.x = bs.theta;
+        const S = bs.slot >= 0 ? s.settles[bs.slot] : null;
+        const mine = S && S.active && S.bot === i;
+        const a = B.angles[i];
+        let yaw = Math.sin(t * 0.5 + i * 1.7) * 0.3;
+        let pitch = 0.15;
+        if (mine && t >= S.t0 - B.throwDur) {
+          const dx = S.p.x - Math.cos(a) * B.r;
+          const dz = S.p.z + Math.sin(a) * B.r;
+          const rel = Math.atan2(dx, dz) - BOT_YAW[i];
+          yaw = THREE.MathUtils.clamp(Math.atan2(Math.sin(rel), Math.cos(rel)), -1.1, 1.1);
+          pitch = 0.42;
+        } else if (mine) {
+          pitch = 0.3; // looking down at the ball in hand while it reasons
+        }
+        head.rotation.y += (yaw - head.rotation.y) * k;
+        head.rotation.x += (pitch - head.rotation.x) * k;
+        const thinking = mine && t < S.t0 - B.throwDur - B.swing;
+        const pulse = thinking ? 0.5 + 0.5 * Math.sin((t - bs.tl) * 16) : 0;
+        c.set(CONFIG.colors.gold).multiplyScalar(1.1 + pulse * 1.6);
+        c.lerp(tmp.hot, Math.min(1, bs.flash * 0.6));
+        res.visorMats[i].color.copy(c);
+        grp.position.y = B.y + bs.flash * 0.035 * Math.abs(Math.sin(bs.flash * 9));
+        bs.flash *= Math.exp(-dt / 0.45);
+      }
     }
 
     // Pocket flashes (emissive spike -> ~700ms decay)
@@ -827,6 +1001,31 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
             <instancedMesh ref={glowInst} args={[res.geos.glowSector, res.glowMat, CONFIG.pockets]} renderOrder={3} />
           </group>
           <instancedMesh ref={balls} args={[res.geos.ball, res.ballMat, settleInst + orbitN]} frustumCulled={false} renderOrder={4} />
+          {CONFIG.bots.angles.map((a, i) => (
+            <group
+              key={i}
+              ref={(g) => { botRefs.current[i] = g; }}
+              position={[Math.cos(a) * CONFIG.bots.r, CONFIG.bots.y, -Math.sin(a) * CONFIG.bots.r]}
+              rotation={[0, BOT_YAW[i], 0]}
+              scale={CONFIG.bots.scale}
+            >
+              <mesh geometry={res.geos.botBase} material={res.gold} />
+              <mesh geometry={res.geos.botTorso} material={res.botMat} />
+              <mesh geometry={res.geos.botCollar} material={res.gold} />
+              <group ref={(g) => { headRefs.current[i] = g; }} position={[0, 1.44, 0]}>
+                <mesh geometry={res.geos.botHead} material={res.botMat} />
+                <mesh geometry={res.geos.botVisor} material={res.visorMats[i]} />
+              </group>
+              <group ref={(g) => { armRefs.current[i] = g; }} position={SHOULDER.toArray()}>
+                <mesh geometry={res.geos.botArm} material={res.botMat} />
+                <mesh geometry={res.geos.botHand} material={res.gold} />
+              </group>
+              <group position={[-SHOULDER.x, SHOULDER.y, 0]} rotation={[-0.55, 0, 0]}>
+                <mesh geometry={res.geos.botArm} material={res.botMat} />
+                <mesh geometry={res.geos.botHand} material={res.gold} />
+              </group>
+            </group>
+          ))}
         </group>
       </group>
     </>

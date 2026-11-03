@@ -238,7 +238,7 @@ export function Backbone() {
         <header className="grid grid-cols-12 gap-x-6 gap-y-6">
           <div className="bb-reveal col-span-12 lg:col-span-7">
             <Eyebrow>{r.eyebrow}</Eyebrow>
-            <h3 id={r.id} className="t-h2 mt-5 max-w-[18ch] text-balance text-text">
+            <h3 id={r.id} className="t-h2 mt-5 max-w-[22ch] text-balance text-text">
               {r.title}
             </h3>
           </div>
@@ -247,7 +247,36 @@ export function Backbone() {
           </p>
         </header>
 
-        <div className="mt-12 grid grid-cols-12 gap-3 lg:mt-16">
+        {/* Core technology capabilities */}
+        <div className="mt-12 lg:mt-16">
+          <p className="t-label bb-reveal text-text-faint" style={delay(2)}>
+            {r.capabilitiesLabel}
+          </p>
+          <ol className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {r.capabilities.map((cap, i) => (
+              <li
+                key={cap.index}
+                className="bb-reveal group relative flex min-h-[132px] flex-col justify-between overflow-hidden border border-copper/30 bg-bg-elev/70 p-5 backdrop-blur-md transition-colors duration-300 hover:border-copper/70"
+                style={delay(3 + i)}
+              >
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-data-gold/10 blur-2xl transition-opacity duration-300 group-hover:opacity-100 opacity-60"
+                />
+                <div className="flex items-center justify-between">
+                  <span className="t-num text-[13px] text-copper">{cap.index}</span>
+                  <span aria-hidden="true" className="h-1.5 w-1.5 rotate-45 bg-data-gold" />
+                </div>
+                <p className="mt-6 font-display text-[19px] font-medium leading-snug text-text transition-colors duration-300 group-hover:text-copper-soft">
+                  {cap.title}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <p className="t-label bb-reveal mt-12 text-text-faint lg:mt-16">{r.modelLabel}</p>
+        <div className="mt-4 grid grid-cols-12 gap-3">
           {/* R1 Subscription — the hero card */}
           <BracketPanel as="article" className="bb-reveal col-span-12 flex flex-col p-6 md:p-8 lg:col-span-7">
             <div className="flex items-center justify-between">

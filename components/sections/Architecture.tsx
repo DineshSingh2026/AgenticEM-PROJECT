@@ -3,18 +3,17 @@
 import { useRef } from "react";
 import { copy } from "@/content/copy";
 import { cn } from "@/lib/cn";
-import { BracketPanel } from "@/components/ui";
 import { SectionIntro } from "./SectionIntro";
 import { usePinned, useSectionProgress } from "./useSectionProgress";
 
 const CONFIG = {
   /** progress thresholds at which each layer label reveals (top layer first) */
-  reveal: [0.15, 0.35, 0.55, 0.75],
+  reveal: [0.2, 0.45, 0.7],
   /** leader line length in SVG units */
   leader: 160,
 } as const;
 
-/** 04 // ARCHITECTURE — pinned 300vh band over the ExplodedStack scene, then the foundations row. */
+/** 04 // ARCHITECTURE — pinned 300vh band over the ExplodedStack scene, revealing the three core technologies. */
 export function Architecture() {
   const c = copy.home.architecture;
   const bandRef = useRef<HTMLDivElement>(null);
@@ -38,8 +37,10 @@ export function Architecture() {
                 </p>
               </div>
 
-              <ol className="col-span-12 flex flex-col gap-4 md:col-span-6 md:col-start-7 md:justify-center md:gap-8 lg:col-span-5 lg:col-start-8">
-                {c.layers.map((layer, i) => {
+              <div className="col-span-12 flex flex-col md:col-span-6 md:col-start-7 md:justify-center lg:col-span-5 lg:col-start-8">
+              <p className="t-label mb-4 text-text-faint md:mb-6">{c.technologiesLabel}</p>
+              <ol className="flex flex-col gap-4 md:gap-8">
+                {c.technologies.map((layer, i) => {
                   const shown = !pinned || progress >= CONFIG.reveal[i];
                   return (
                     <li key={layer.index} className="relative">
@@ -92,26 +93,10 @@ export function Architecture() {
                   );
                 })}
               </ol>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="container-site relative pb-24 lg:pb-40">
-        <p className="t-label mb-6 text-text-faint">{c.foundationsLabel}</p>
-        <ul className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
-          {c.foundations.map((f, i) => (
-            <li key={f.title}>
-              <BracketPanel className="glass h-full">
-                <span className="t-num text-[12px] text-copper">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="mt-4 font-display text-[20px] font-medium leading-snug tracking-[-0.01em] text-text">
-                  {f.title}
-                </h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-text-dim">{f.body}</p>
-              </BracketPanel>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

@@ -19,7 +19,7 @@ export const homeA = {
     ctaSecondary: { label: "Explore the architecture", href: "/platform/architecture" },
     footnote: "For licensed operators.",
     sceneAlt:
-      "Background visual: a gold roulette wheel rendered as a live data instrument. Hundreds of glowing agent balls orbit its ball track; each time a game round settles on the simulated network, one ball drops into a pocket, the pocket flashes gold and a settlement pulse runs along the rim. Thin instrument rings around the wheel turn with network load and show the game mix: poker, blackjack, roulette, baccarat and dice.",
+      "Background visual: robot AI agents sit around a gold roulette wheel. Each one pauses to think, its visor pulsing, then throws a ball onto the track, follows it with its head as it spins into a pocket and reacts when it lands. Hundreds of glowing agent balls orbit its ball track; each time a game round settles on the simulated network, one ball drops into a pocket, the pocket flashes gold and a settlement pulse runs along the rim. Thin instrument rings around the wheel turn with network load and show the game mix: poker, blackjack, roulette, baccarat and dice.",
   },
 
   backbone: {
@@ -63,9 +63,17 @@ export const homeA = {
     },
     revenue: {
       id: "revenue-title",
-      eyebrow: "02.1 // REVENUE_MODEL",
-      title: "Four revenue engines. One intelligence platform.",
-      body: "Agentium earns where AI meets iGaming: subscriptions to intelligent game APIs and agent execution, token-based usage credits, white-label licensing and revenue-sharing partnerships.",
+      eyebrow: "02.1 // PLATFORM_CAPABILITIES",
+      title: "Agentium Platform Capabilities & Technology Solutions",
+      body: "We empower businesses to accelerate digital transformation through an integrated technology ecosystem combining gaming platforms, AI-agent infrastructure, enterprise software, cloud computing, and digital transaction technologies. Our solutions help organizations simplify complex operations, automate workflows, improve operational efficiency, and build scalable digital businesses.",
+      capabilitiesLabel: "Core Technology Capabilities",
+      capabilities: [
+        { index: "01", title: "Gaming Platform Solutions" },
+        { index: "02", title: "AI-Agent & Computing Infrastructure" },
+        { index: "03", title: "Enterprise Technology Integration" },
+        { index: "04", title: "Transaction & Digital Infrastructure" },
+      ],
+      modelLabel: "REVENUE MODEL",
       subscription: {
         index: "R1",
         tag: "SUBSCRIPTION",
@@ -141,47 +149,28 @@ export const homeA = {
   architecture: {
     id: "architecture-title",
     eyebrow: "04 // ARCHITECTURE",
-    title: "A unified stack built for machine-speed execution.",
+    title: "The AI Operating System for the Agentium Economy",
     stackLabel: "AGENTIUM OS // STACK",
-    layers: [
+    technologiesLabel: "It combines three technologies",
+    technologies: [
       {
-        index: "L1",
-        title: "Real-time analytics and intelligence",
-        body: "Structured gameplay data, performance tracking, profitability metrics.",
-      },
-      {
-        index: "L2",
-        title: "Autonomous agent capabilities",
-        body: "Agent evaluation, reasoning, agent-to-agent interaction.",
-      },
-      {
-        index: "L3",
-        title: "AI gaming infrastructure",
-        body: "Gaming engines, game-state delivery, high-volume execution.",
-      },
-      {
-        index: "L4",
-        title: "Transaction and platform infrastructure",
-        body: "Identity, authentication, wallet integration, on-chain settlement.",
-      },
-    ],
-    foundationsLabel: "FOUNDATIONS",
-    foundations: [
-      {
+        index: "01",
         title: "High-speed deterministic computing",
-        body: "Processes every bet, settlement, wallet movement and financial calculation with sub-second latency.",
+        body: "Processes every bet, settlement, wallet movement and financial calculation.",
       },
       {
+        index: "02",
         title: "Streaming analytics and machine learning",
-        body: "Calculates risk exposure, detects anomalies and monitors performance continuously.",
+        body: "Detects anomalies, calculates risk exposures and monitors casino performance in real time.",
       },
       {
-        title: "Specialised AI agents and LLM reasoning",
-        body: "Interprets data, investigates suspicious activity, recommends interventions and automates approved workflows.",
+        index: "03",
+        title: "Specialized AI agents and LLMs",
+        body: "Interpret the data, explain financial performance, investigate suspicious activity, recommend interventions and automate approved operational workflows.",
       },
     ],
     sceneAlt:
-      "Visual: four platform layers separate vertically one at a time as you scroll: frosted glass for real-time analytics, a copper lattice for agent capabilities, a steel plate for gaming infrastructure and a graphite base for transaction infrastructure. Small packets of light rise through every layer.",
+      "Visual: stacked platform layers separate vertically one at a time as you scroll, with small packets of light rising through every layer.",
   },
 
   roundLifecycle: {

@@ -5,7 +5,7 @@ import { COLORS, clamp, easeInOut, easeOut, lerp, mulberry32, rgba, seg } from "
 import { glyph, label, packets, panel, ring, safeZone, spark, text, wire, type Pt } from "../kit";
 
 /**
- * 02 — One integration. A constellation of game providers lights up; each fires a curve into a single
+ * 01 — One integration. A constellation of game providers lights up; each fires a curve into a single
  * gold API gate; one hot line leaves the gate and fills the operator's catalogue tile by tile.
  */
 export const AGGREGATION = {
@@ -93,10 +93,12 @@ export function createAggregationScene(): FilmScene {
       L.catLabel = { x: gx, y: L.grid.y - 30 };
     } else {
       const gy = z.top + z.height * 0.36;
-      const gw = w * 0.56;
-      L.gate = { x: (w - gw) / 2, y: gy - 9, w: gw, h: 18 };
+      const gw = clamp(w * 0.6, 180, 300);
+      // Tall enough for two lines inside the bar: gate name + "UNIFIED INTEGRATION".
+      const gh = 32;
+      L.gate = { x: (w - gw) / 2, y: gy - gh / 2, w: gw, h: gh };
       L.gateIn = { x: w / 2, y: L.gate.y };
-      L.gateOut = { x: w / 2, y: L.gate.y + 18 };
+      L.gateOut = { x: w / 2, y: L.gate.y + gh };
       for (let i = 0; i < N; i++) {
         const row = i % 2;
         const j = Math.floor(i / 2);
@@ -189,11 +191,31 @@ export function createAggregationScene(): FilmScene {
     f.ctx.restore();
 
     const la = easeOut(seg(p, 0.24, 0.4));
+    const cx = g.x + g.w / 2;
     if (!L.narrow) {
-      text(f.ctx, f.fonts.display, C.gate, g.x + g.w / 2, g.y - 26, { size: 22, weight: 600, color: COLORS.goldPale, alpha: la, align: "center" });
-      label(f, C.gateSub, g.x + g.w / 2, g.y + g.h + 22, { size: 9.5, color: COLORS.dim, alpha: la, align: "center" });
+      // Gate name above the bar: one line when it clears the catalogue, else "Global API" / "Gateway".
+      const size = clamp(L.w * 0.0155, 17, 22);
+      const room = 2 * Math.min(L.grid.x - 20 - cx, cx - L.w * 0.04);
+      f.ctx.save();
+      f.ctx.font = `600 ${size}px ${f.fonts.display}`;
+      const oneLine = f.ctx.measureText(C.gate).width <= room;
+      f.ctx.restore();
+      const lines = oneLine ? [C.gate] : C.gateLines;
+      const lh = size * 1.12;
+      lines.forEach((s, i) => {
+        const y = g.y - 26 - (lines.length - 1 - i) * lh;
+        text(f.ctx, f.fonts.display, s, cx, y, { size, weight: 600, color: COLORS.goldPale, alpha: la, align: "center" });
+      });
+      label(f, C.gateSub, cx, g.y + g.h + 22, { size: 9.5, color: COLORS.dim, alpha: la, align: "center" });
     } else {
-      text(f.ctx, f.fonts.mono, `${C.gate} · ${C.gateSub}`, g.x + g.w / 2, g.y + g.h / 2, { size: 9, weight: 600, color: "#1A1408", alpha: la * clamp(fill * 2), align: "center", track: 0.12 });
+      // Narrow: both lines inside the bar — pale gold on the empty bar, cross-fading to dark ink once
+      // the gold fill has swept past the text.
+      const ink = clamp((fill - 0.55) * 3);
+      const name = C.gate.toUpperCase();
+      for (const [color, a] of [[COLORS.goldPale, la * (1 - ink)], ["#1A1408", la * ink]] as const) {
+        text(f.ctx, f.fonts.mono, name, cx, g.y + g.h * 0.36, { size: 9.5, weight: 700, color, alpha: a, align: "center", track: 0.1 });
+        text(f.ctx, f.fonts.mono, C.gateSub, cx, g.y + g.h * 0.72, { size: 7, weight: 600, color, alpha: a * 0.85, align: "center", track: 0.12 });
+      }
     }
   }
 

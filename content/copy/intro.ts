@@ -1,7 +1,7 @@
 export const intro = {
   ariaLabel: "AGENTIUM · Agentic iGaming OS introduction",
   srSummary:
-    "A 28-second introduction to AGENTIUM, the B2B AI-agentic backbone of the iGaming ecosystem. One platform runs player account management, digital wallets, bonuses and gaming operations; game aggregation brings titles from many providers through one integration; on-chain settlement moves deposits, withdrawals and transactions through supported wallets and blockchain payment rails; intelligent game APIs, agent execution and LLM-based reasoning power the platform; and four revenue engines (API subscriptions, token-based credits, white-label licensing and revenue sharing) complete the model. Figures shown come from a simulated network.",
+    "A 26-second introduction to AGENTIUM. Game aggregation brings titles from many providers through one integration; on-chain settlement moves deposits, withdrawals and transactions through supported wallets and blockchain payment rails; intelligent game APIs, agent execution and LLM-based reasoning power the platform. Global B2B Gaming Network: Agentium provides a multi-tenant infrastructure ecosystem through which licensed iGaming operators and technology providers can serve human players and authorized autonomous gaming agents. Figures shown come from a simulated network.",
   skip: "Skip intro",
   skipHint: "ESC",
   replay: "Replay intro",
@@ -12,11 +12,13 @@ export const intro = {
   logoAlt: "AGENTIUM",
   chapterOf: "of",
   chapters: [
-    { title: "The backbone", sub: "One platform · launch · manage · scale", statLabel: "CORE MODULES ONLINE" },
     { title: "One integration", sub: "Game aggregation · many providers", statLabel: "PROVIDERS CONNECTED" },
     { title: "Settled on-chain", sub: "Deposits · withdrawals · transactions", statLabel: "ROUNDS / SEC" },
     { title: "Agentic intelligence", sub: "Game APIs · agent execution · LLM reasoning", statLabel: "MEDIAN DECISION" },
-    { title: "Four revenue engines", sub: "Subscriptions · credits · white-label · revenue share", statLabel: "REVENUE ENGINES" },
+    {
+      title: "Global B2B Gaming Network",
+      body: "Agentium provides a multi-tenant infrastructure ecosystem through which licensed iGaming operators and technology providers can serve human players and authorized autonomous gaming agents.",
+    },
   ],
   outro: {
     title: "The Agentium operating system for the agentic iGaming economy.",

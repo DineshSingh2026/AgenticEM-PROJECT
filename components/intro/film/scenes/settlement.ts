@@ -5,7 +5,7 @@ import { COLORS, clamp, easeInOut, easeOut, hexHash, lerp, mulberry32, rgba, seg
 import { label, packets, panel, pointAt, ring, safeZone, spark, text, typed, wire, type Pt } from "../kit";
 
 /**
- * 03 — Settled on-chain. Supported wallets emit deposits, withdrawals and transactions; each one flies
+ * 02 — Settled on-chain. Supported wallets emit deposits, withdrawals and transactions; each one flies
  * into the block that is filling; the block seals with a flash, its hash types in and it turns
  * CONFIRMED while the next block links on.
  */

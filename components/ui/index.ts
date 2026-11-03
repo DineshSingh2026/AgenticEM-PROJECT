@@ -11,7 +11,6 @@ export { FeatureValueTable, type FeatureValueTableProps } from "./FeatureValueTa
 export { StepRing, type StepRingProps } from "./StepRing";
 export { AlertRow, type AlertRowProps } from "./AlertRow";
 export { Sparkline, type SparklineProps } from "./Sparkline";
-export { CodeTabs, type CodeTabsProps } from "./CodeTabs";
 export { BriefingForm, type BriefingFormProps } from "./BriefingForm";
 export { Faq, type FaqProps } from "./Faq";
 export { CtaBand, type CtaBandProps } from "./CtaBand";

@@ -19,7 +19,7 @@ export function IntelligenceLayer() {
   useEffect(() => () => setHovered(null), [setHovered]);
 
   return (
-    <section data-scene="Convergence" aria-labelledby={c.id} className="relative">
+    <section id="intelligence" data-scene="Convergence" aria-labelledby={c.id} className="relative">
       <div className="container-site section-pad relative">
         <div className="grid grid-cols-12 gap-x-6 gap-y-16">
           <div className="col-span-12 lg:col-span-5">

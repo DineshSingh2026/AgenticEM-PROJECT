@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { copy } from "@/content/copy";
 import { cn } from "@/lib/cn";
 import { BracketPanel, Eyebrow } from "@/components/ui";
 import { SectionIntro } from "./SectionIntro";
+import { CAPABILITY_ART } from "./CapabilityArt";
 
 /** Flips data-in to "true" the first time the element scrolls into view (drives .bb-reveal). */
 function useInView<T extends HTMLElement>(threshold = 0.15) {
@@ -30,28 +31,7 @@ function useInView<T extends HTMLElement>(threshold = 0.15) {
 
 const delay = (d: number) => ({ "--d": d }) as CSSProperties;
 
-function Tag({ children }: { children: ReactNode }) {
-  return (
-    <span className="t-label inline-flex items-center gap-2 border border-copper/40 bg-copper/[0.07] px-2 py-1 text-[10px] text-copper-soft">
-      <span aria-hidden="true" className="h-1 w-1 rotate-45 bg-copper" />
-      {children}
-    </span>
-  );
-}
-
-function Check({ premium = false }: { premium?: boolean }) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 12 12"
-      className={cn("mt-[5px] h-3 w-3 flex-none", premium ? "text-data-gold" : "text-text-faint")}
-    >
-      <path d="M2 6.2 4.8 9 10 3" fill="none" stroke="currentColor" strokeWidth="1.4" />
-    </svg>
-  );
-}
-
-/** 02 // THE_BACKBONE — platform diagram (what Agentium runs) + revenue model (how it earns). */
+/** 02 // THE_BACKBONE — platform diagram (what Agentium runs) + 02.1 platform capabilities. */
 export function Backbone() {
   const c = copy.home.backbone;
   const d = c.diagram;
@@ -194,8 +174,8 @@ export function Backbone() {
                     ))}
                   </div>
                   <div className="mt-3 flex items-center gap-2">
-                    <span className="bb-wire-h flex-1" style={{ "--pd": "0.2s" } as CSSProperties} />
-                    <span className="t-label text-[10px] text-copper">1 API</span>
+                    <span className="bb-wire-h min-w-6 flex-1" style={{ "--pd": "0.2s" } as CSSProperties} />
+                    <span className="t-label shrink-0 whitespace-nowrap text-[10px] text-copper">{d.aggregation.gatewayLabel}</span>
                   </div>
                 </BracketPanel>
 
@@ -231,205 +211,66 @@ export function Backbone() {
         </div>
       </div>
 
-      {/* ---------------- Part 2: revenue model ---------------- */}
+      {/* ---------------- Part 2: platform capabilities ---------------- */}
       <div ref={rev.ref} data-in={rev.inView} className="container-site relative pb-16 lg:pb-24">
         <div className="mb-12 h-px bg-gradient-to-r from-transparent via-line-strong to-transparent lg:mb-20" />
 
-        <header className="grid grid-cols-12 gap-x-6 gap-y-6">
-          <div className="bb-reveal col-span-12 lg:col-span-7">
+        <header className="grid grid-cols-12 gap-x-6 gap-y-6 lg:gap-x-12">
+          <div className="bb-reveal col-span-12 lg:col-span-6">
             <Eyebrow>{r.eyebrow}</Eyebrow>
-            <h3 id={r.id} className="t-h2 mt-5 max-w-[22ch] text-balance text-text">
+            <h3 id={r.id} className="t-h2 mt-5 max-w-[20ch] text-balance text-text">
               {r.title}
             </h3>
           </div>
-          <p className="t-body bb-reveal col-span-12 self-end lg:col-span-5" style={delay(1)}>
+          <p className="t-body bb-reveal col-span-12 lg:col-span-6 lg:mt-[42px] lg:max-w-none lg:text-[16px] lg:leading-[1.7]" style={delay(1)}>
             {r.body}
           </p>
         </header>
 
-        {/* Core technology capabilities */}
-        <div className="mt-12 lg:mt-16">
-          <p className="t-label bb-reveal text-text-faint" style={delay(2)}>
-            {r.capabilitiesLabel}
-          </p>
-          <ol className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {r.capabilities.map((cap, i) => (
+        <ul aria-labelledby={r.id} className="mt-12 grid gap-3 md:grid-cols-2 lg:mt-16 lg:grid-cols-3">
+          {r.capabilities.map((cap, i) => {
+            const Art = CAPABILITY_ART[i % CAPABILITY_ART.length]!;
+            const wide = i === 0 || i === r.capabilities.length - 1;
+            return (
               <li
                 key={cap.index}
-                className="bb-reveal group relative flex min-h-[132px] flex-col justify-between overflow-hidden border border-copper/30 bg-bg-elev/70 p-5 backdrop-blur-md transition-colors duration-300 hover:border-copper/70"
-                style={delay(3 + i)}
+                className={cn(
+                  "bb-reveal cap-tile group relative flex flex-col overflow-hidden border border-line bg-bg-elev/70 backdrop-blur-md [-webkit-backdrop-filter:blur(12px)]",
+                  "transition-[border-color,box-shadow,translate] duration-500 ease-out hover:-translate-y-1 hover:border-copper/50 hover:shadow-[0_18px_48px_-24px_rgb(var(--data-gold-rgb)/0.45)]",
+                  i === 0 && "md:col-span-2",
+                  wide && i !== 0 && "lg:col-span-2",
+                )}
+                style={delay(2 + i)}
               >
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-data-gold/10 blur-2xl transition-opacity duration-300 group-hover:opacity-100 opacity-60"
-                />
-                <div className="flex items-center justify-between">
-                  <span className="t-num text-[13px] text-copper">{cap.index}</span>
-                  <span aria-hidden="true" className="h-1.5 w-1.5 rotate-45 bg-data-gold" />
+                <span aria-hidden="true" className="pointer-events-none absolute -left-px -top-px z-10 h-2 w-2 border-l border-t border-copper" />
+                <span aria-hidden="true" className="pointer-events-none absolute -bottom-px -right-px z-10 h-2 w-2 border-b border-r border-copper" />
+
+                <div className="cap-art relative h-[200px] overflow-hidden border-b border-line lg:h-[220px]">
+                  <Art />
                 </div>
-                <p className="mt-6 font-display text-[19px] font-medium leading-snug text-text transition-colors duration-300 group-hover:text-copper-soft">
-                  {cap.title}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </div>
 
-        <p className="t-label bb-reveal mt-12 text-text-faint lg:mt-16">{r.modelLabel}</p>
-        <div className="mt-4 grid grid-cols-12 gap-3">
-          {/* R1 Subscription — the hero card */}
-          <BracketPanel as="article" className="bb-reveal col-span-12 flex flex-col p-6 md:p-8 lg:col-span-7">
-            <div className="flex items-center justify-between">
-              <span className="t-num text-[13px] text-copper">{r.subscription.index}</span>
-              <Tag>{r.subscription.tag}</Tag>
-            </div>
-            <h4 className="t-h3 mt-6 text-text">{r.subscription.title}</h4>
-            <p className="mt-3 max-w-[52ch] text-[15px] leading-relaxed text-text-dim">{r.subscription.body}</p>
-
-            <p className="t-label mt-8 text-[10px] text-text-faint">{r.subscription.gamesLabel}</p>
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {r.subscription.games.map((g, i) => (
-                <li
-                  key={g}
-                  className={cn(
-                    "border px-3 py-1.5 text-[13px]",
-                    i === r.subscription.games.length - 1
-                      ? "border-dashed border-line-strong text-text-faint"
-                      : "border-line-strong text-text",
-                  )}
-                >
-                  {g}
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-8 grid flex-1 gap-3 sm:grid-cols-2">
-              <div className="border border-line bg-bg/40 p-5">
-                <p className="t-label text-[10px] text-text-dim">{r.subscription.baseLabel}</p>
-                <ul className="mt-4 space-y-2.5">
-                  {r.subscription.base.map((b) => (
-                    <li key={b} className="flex gap-2.5 text-[14px] text-text-dim">
-                      <Check />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="relative overflow-hidden border border-data-gold/40 bg-gradient-to-br from-data-gold/[0.10] via-copper/[0.05] to-transparent p-5">
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-data-gold/20 blur-3xl"
-                />
-                <p className="t-label text-[10px] text-data-gold">{r.subscription.premiumLabel}</p>
-                <ul className="mt-4 space-y-2.5">
-                  {r.subscription.premium.map((p) => (
-                    <li key={p} className="flex gap-2.5 text-[14px] text-text">
-                      <Check premium />
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </BracketPanel>
-
-          <div className="col-span-12 flex flex-col gap-3 lg:col-span-5">
-            {/* R2 Credits */}
-            <BracketPanel as="article" className="bb-reveal p-6 md:p-8">
-              <div className="flex items-center justify-between">
-                <span className="t-num text-[13px] text-copper">{r.credits.index}</span>
-                <Tag>{r.credits.tag}</Tag>
-              </div>
-              <h4 className="t-h3 mt-6 text-text">{r.credits.title}</h4>
-              <p className="mt-3 text-[15px] leading-relaxed text-text-dim">{r.credits.body}</p>
-              <ol className="mt-6 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-0">
-                {r.credits.steps.map((s, i) => (
-                  <li key={s} className="flex items-center gap-3 sm:flex-1 sm:gap-0 sm:last:flex-none">
-                    <span aria-hidden="true" className="t-num text-[10px] text-copper sm:hidden">0{i + 1}</span>
-                    <span className="t-label text-[10px] leading-snug text-text">{s}</span>
-                    {i < r.credits.steps.length - 1 ? (
-                      <span
-                        aria-hidden="true"
-                        className="bb-wire-h mx-2 hidden min-w-4 flex-1 sm:block"
-                        style={{ "--pd": `${i * 1.1}s` } as CSSProperties}
-                      />
+                <div className="relative flex flex-1 items-start gap-4 overflow-hidden p-5 md:p-6">
+                  <span className="t-num whitespace-nowrap pt-[5px] text-[13px] text-copper">
+                    {cap.index}
+                    <span aria-hidden="true" className="text-text-faint lg:max-xl:hidden"> / {String(r.capabilities.length).padStart(2, "0")}</span>
+                  </span>
+                  <div className="min-w-0">
+                    <h4 className="font-display text-[20px] font-medium leading-snug text-text text-balance transition-colors duration-300 group-hover:text-copper-soft lg:text-[22px]">
+                      {cap.title}
+                    </h4>
+                    {"sub" in cap && cap.sub ? (
+                      <p className="t-label mt-2 text-[11px] leading-relaxed text-copper-soft/80">{cap.sub}</p>
                     ) : null}
-                  </li>
-                ))}
-              </ol>
-              <div aria-hidden="true" className="mt-5">
-                <div className="flex items-center justify-between">
-                  <span className="t-label text-[10px] text-text-faint">{r.credits.meterLabel}</span>
-                  <span className="t-num text-[11px] text-data-gold">CR</span>
-                </div>
-                <div className="bb-meter mt-2 h-2 border border-line bg-bg/60 p-px">
-                  <span className="block h-full bg-gradient-to-r from-copper via-data-gold to-copper-soft" />
-                </div>
-              </div>
-            </BracketPanel>
-
-            {/* R3 + R4 */}
-            <div className="grid flex-1 gap-3 sm:grid-cols-2">
-              {[r.whiteLabel, r.revenueShare].map((s) => (
-                <BracketPanel
-                  key={s.index}
-                  as="article"
-                  className="bb-reveal group flex flex-col p-6 transition-colors duration-300 hover:border-line-strong"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="t-num text-[13px] text-copper">{s.index}</span>
-                    <Tag>{s.tag}</Tag>
                   </div>
-                  <h4 className="mt-5 font-display text-[20px] font-medium leading-snug text-text transition-colors duration-300 group-hover:text-copper-soft">
-                    {s.title}
-                  </h4>
-                  <p className="mt-2 text-[14px] leading-relaxed text-text-dim">{s.body}</p>
-                </BracketPanel>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* AI intelligence ribbon */}
-        <div className="bb-reveal bb-core mt-3 border border-copper/30 bg-bg-elev/80 p-6 backdrop-blur-md md:p-8">
-          <div className="grid items-center gap-8 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <p className="t-label bb-shimmer text-[12px]">{r.intelligence.label}</p>
-              <p className="mt-3 font-display text-[22px] font-medium leading-snug text-text text-balance">
-                {r.intelligence.title}
-              </p>
-            </div>
-            <div className="grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr] lg:col-span-8">
-              <ul className="space-y-2">
-                {r.intelligence.inputs.map((x) => (
-                  <li key={x} className="border border-line bg-bg/50 px-4 py-3 text-[14px] text-text-dim">
-                    {x}
-                  </li>
-                ))}
-              </ul>
-              <div aria-hidden="true" className="flex items-center justify-center gap-2 sm:flex-col">
-                <span className="bb-wire-h w-10 sm:w-14" />
-                <span className="grid h-12 w-12 rotate-45 place-items-center border border-data-gold/60 bg-data-gold/10 shadow-[0_0_24px_rgb(var(--data-gold-rgb)/0.35)]">
-                  <span className="t-num -rotate-45 text-[11px] text-data-gold">AI</span>
-                </span>
-                <span className="bb-wire-h w-10 sm:w-14" style={{ "--pd": "1.2s" } as CSSProperties} />
-              </div>
-              <ul className="space-y-2">
-                {r.intelligence.outputs.map((x) => (
-                  <li
-                    key={x}
-                    className="flex items-center gap-3 border border-copper/30 bg-copper/[0.06] px-4 py-2.5 text-[14px] text-text"
-                  >
-                    <span aria-hidden="true" className="h-1.5 w-1.5 rotate-45 bg-data-gold" />
-                    {x}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <p className="t-label mt-8 max-w-[90ch] text-[10px] leading-relaxed text-text-faint">{r.footnote}</p>
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -bottom-12 -right-12 h-32 w-32 rounded-full bg-data-gold/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
+                  />
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );

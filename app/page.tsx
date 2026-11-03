@@ -3,14 +3,9 @@ import { copy } from "@/content/copy";
 import { Hero } from "@/components/sections/Hero";
 import { Backbone } from "@/components/sections/Backbone";
 import { IntelligenceLayer } from "@/components/sections/IntelligenceLayer";
-import { Architecture } from "@/components/sections/Architecture";
-import { RoundLifecycle } from "@/components/sections/RoundLifecycle";
 import { RiskIntel } from "@/components/sections/RiskIntel";
 import { Settlement } from "@/components/sections/Settlement";
-import { Resilience } from "@/components/sections/Resilience";
 import { Flywheel } from "@/components/sections/Flywheel";
-import { Deploy } from "@/components/sections/Deploy";
-import { FinalCta } from "@/components/sections/FinalCta";
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
 const meta = copy.home.meta;
@@ -66,14 +61,9 @@ export default function Home() {
       <Hero />
       <Backbone />
       <IntelligenceLayer />
-      <Architecture />
-      <RoundLifecycle />
       <RiskIntel />
       <Settlement />
-      <Resilience />
       <Flywheel />
-      <Deploy />
-      <FinalCta />
     </>
   );
 }

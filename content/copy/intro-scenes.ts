@@ -1,19 +1,10 @@
-/** Canvas labels for the intro film's five platform chapters. */
+/** Canvas labels for the intro film's four platform chapters. */
 export const introScenes = {
-  backbone: {
-    core: "AGENTIUM PLATFORM",
-    operators: "OPERATOR BRANDS",
-    operatorVerbs: ["LAUNCH", "MANAGE", "SCALE"],
-    modules: [
-      { code: "PAM", name: "Player accounts" },
-      { code: "WAL", name: "Digital wallets" },
-      { code: "BON", name: "Bonus engine" },
-      { code: "OPS", name: "Gaming operations" },
-    ],
-  },
   aggregation: {
     providers: "GAME PROVIDERS",
-    gate: "1 API",
+    gate: "Global API Gateway",
+    /** Two-line split used when the gate label must wrap. */
+    gateLines: ["Global API", "Gateway"],
     gateSub: "UNIFIED INTEGRATION",
     catalogue: "OPERATOR CATALOGUE",
     types: ["SPORTS", "CARDS", "DICE", "BOARD", "SKILL"],
@@ -33,13 +24,11 @@ export const introScenes = {
     outputs: ["GAMING REASONING", "PERFORMANCE BENCHMARKING", "MODEL EVALUATION"],
     outputsLabel: "GAMING INTELLIGENCE",
   },
-  revenue: {
-    engines: [
-      { code: "R1", name: "API SUBSCRIPTIONS" },
-      { code: "R2", name: "TOKEN CREDITS" },
-      { code: "R3", name: "WHITE-LABEL" },
-      { code: "R4", name: "REVENUE SHARE" },
-    ],
-    credit: "CR",
+  network: {
+    header: "MULTI-TENANT INFRASTRUCTURE",
+    /** Tenant nodes round the hub, clockwise from top-right. */
+    tenants: ["OPERATOR", "PROVIDER", "OPERATOR", "PROVIDER", "OPERATOR", "PROVIDER"],
+    humans: "HUMAN PLAYERS",
+    agents: "AUTONOMOUS AGENTS",
   },
 } as const;

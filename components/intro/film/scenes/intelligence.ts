@@ -5,7 +5,7 @@ import { COLORS, clamp, easeInOut, easeOut, lerp, mulberry32, rgba, seg } from "
 import { glyph, label, panel, ring, safeZone, spark, text, typed } from "../kit";
 
 /**
- * 04 — Agentic intelligence. Intelligent game APIs (sports betting, board games, skill-based games)
+ * 03 — Agentic intelligence. Intelligent game APIs (sports betting, board games, skill-based games)
  * feed an LLM reasoning network; signal waves fire layer to layer and light up the three outputs:
  * gaming reasoning, performance benchmarking and model evaluation. An agent trace types underneath.
  */

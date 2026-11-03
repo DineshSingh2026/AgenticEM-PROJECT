@@ -105,7 +105,8 @@ html[data-intro="play"] { overflow: hidden; }
 .intro-outro { top: calc(40% + min(36vw, 420px, 52.9vh) * 0.2835 + 30px); }
 @media (max-width: 759px) { .intro-outro { top: calc(40% + min(72vw, 52.9vh) * 0.2835 + 26px); } }
 @media (max-width: 767px) {
-  .intro-stat { bottom: auto; top: calc(var(--bar) + 20px); }
+  /* Compact two-row stat (label + number on one row) so it clears the canvas safe zone top (bar + 104px). */
+  .intro-stat { bottom: auto; top: calc(var(--bar) + 14px); }
 }
 
 /* Masked line reveal: text slides up from behind a clip while its tracking settles. */
@@ -115,6 +116,11 @@ html[data-intro="play"] { overflow: hidden; }
 .intro-title .intro-line-in { animation-name: intro-line-in, intro-track-title; animation-duration: 1300ms, 2400ms; }
 .intro-sub { letter-spacing: 0.32em; }
 .intro-sub .intro-line-in { animation-name: intro-line-in, intro-track-label; animation-duration: 1300ms, 2200ms; }
+/* Phones: tighter tracking keeps chapter sub-lines on one line. */
+@media (max-width: 767px) {
+  .intro-sub { letter-spacing: 0.06em; }
+  .intro-sub .intro-line-in { animation-name: intro-line-in, intro-track-label-sm; }
+}
 .intro-outro .intro-line-in { animation-delay: calc(460ms + var(--i, 0) * 170ms); }
 [data-leaving] .intro-line-in { animation: intro-line-out 540ms cubic-bezier(0.7, 0, 0.84, 0) both; animation-delay: calc(var(--i, 0) * 45ms); }
 .intro-gold { color: var(--gold); }
@@ -126,6 +132,7 @@ html[data-intro="play"] { overflow: hidden; }
 @keyframes intro-line-out { to { transform: translateY(-108%); opacity: 0; } }
 @keyframes intro-track-title { from { letter-spacing: 0.03em; } to { letter-spacing: -0.035em; } }
 @keyframes intro-track-label { from { letter-spacing: 0.62em; } to { letter-spacing: 0.32em; } }
+@keyframes intro-track-label-sm { from { letter-spacing: 0.26em; } to { letter-spacing: 0.06em; } }
 @keyframes intro-rule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes intro-flare {
   0%, 68% { opacity: 0; transform: scaleX(0.3); }
@@ -153,7 +160,6 @@ html[data-intro="play"] { overflow: hidden; }
 .bb-core::after { content: ""; position: absolute; inset: 10% 8%; z-index: -2; background: radial-gradient(closest-side, rgb(var(--copper-rgb) / 0.22), transparent); filter: blur(24px); animation: bb-breathe 5s ease-in-out infinite; }
 @property --bb-a { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
 .bb-live { animation: bb-blink 1.6s steps(2, jump-none) infinite; }
-.bb-meter > span { transform-origin: left; animation: bb-meter 5.5s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
 .bb-shimmer { background: linear-gradient(110deg, var(--copper-soft) 20%, #FFF3DC 45%, var(--data-gold) 55%, var(--copper-soft) 80%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: bb-shimmer 6s linear infinite; }
 
 @keyframes bb-packet-v { 0% { top: -14px; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
@@ -161,5 +167,42 @@ html[data-intro="play"] { overflow: hidden; }
 @keyframes bb-spin { to { --bb-a: 360deg; } }
 @keyframes bb-breathe { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
 @keyframes bb-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
-@keyframes bb-meter { 0% { transform: scaleX(0.12); } 45%, 60% { transform: scaleX(0.86); } 100% { transform: scaleX(0.12); } }
 @keyframes bb-shimmer { to { background-position: -250% 0; } }
+
+/* ---------- 02.1 // PLATFORM_CAPABILITIES tiles ---------- */
+.cap-art {
+  background-color: rgb(var(--bg-rgb) / 0.55);
+  background-image:
+    radial-gradient(ellipse 60% 70% at 50% 50%, rgb(var(--copper-rgb) / 0.10), transparent 70%),
+    linear-gradient(rgb(var(--line-rgb) / 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--line-rgb) / 0.5) 1px, transparent 1px);
+  background-size: 100% 100%, 24px 24px, 24px 24px;
+  background-position: center;
+}
+.cap-art svg * { vector-effect: non-scaling-stroke; }
+.cap-art svg { transition: transform 900ms var(--ease-out); -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); }
+.cap-tile:hover .cap-art svg { transform: scale(1.035); }
+.cap-flow { stroke-dasharray: 3 7; animation: cap-flow 1.4s linear infinite; animation-delay: var(--cd, 0s); }
+.cap-orbit { stroke-dasharray: 2 7; animation: cap-flow 2.4s linear infinite reverse; }
+.cap-draw { stroke-dasharray: 420; animation: cap-draw 7s var(--ease-out) infinite; }
+.cap-ping { transform-box: fill-box; transform-origin: center; animation: cap-ping 2.8s ease-out infinite; animation-delay: var(--cd, 0s); opacity: 0.35; }
+.cap-blink { animation: cap-blink 2.6s ease-in-out infinite; animation-delay: var(--cd, 0s); }
+.cap-pulse { animation: cap-blink 3.2s ease-in-out infinite; animation-delay: var(--cd, 0s); }
+.cap-float { animation: cap-float 3.6s ease-in-out infinite; animation-delay: var(--cd, 0s); }
+.cap-spin, .cap-spin-slow { transform-box: fill-box; transform-origin: center; animation: cap-spin 22s linear infinite; }
+.cap-spin-slow { animation-duration: 40s; }
+.cap-grow { transform-box: fill-box; transform-origin: bottom; animation: cap-grow 5s var(--ease-out) infinite; animation-delay: var(--cd, 0s); }
+.cap-glow { filter: drop-shadow(0 0 10px rgb(var(--data-gold-rgb) / 0.28)); }
+[data-in="false"] .cap-art * { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .cap-art *, .cap-art svg { animation: none !important; transition: none !important; }
+  .cap-ping { opacity: 0.35; }
+  .cap-tile:hover .cap-art svg { transform: none; }
+}
+@keyframes cap-flow { to { stroke-dashoffset: -20; } }
+@keyframes cap-draw { 0% { stroke-dashoffset: 420; } 45%, 85% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -420; } }
+@keyframes cap-ping { 0% { transform: scale(0.45); opacity: 0.9; } 80%, 100% { transform: scale(1.25); opacity: 0; } }
+@keyframes cap-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+@keyframes cap-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@keyframes cap-spin { to { transform: rotate(360deg); } }
+@keyframes cap-grow { 0% { transform: scaleY(0.3); } 40%, 85% { transform: scaleY(1); } 100% { transform: scaleY(0.3); } }

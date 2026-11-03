@@ -7,17 +7,42 @@ import {
   useRef,
   useState,
   type KeyboardEvent as ReactKeyboardEvent,
+  type MouseEvent as ReactMouseEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { copy } from "@/content/copy";
 import { cn } from "@/lib/cn";
-import { Button } from "./Button";
+import { getLenis } from "@/lib/scroll";
 import { Logo } from "./Logo";
-import { ScenePoster } from "./ScenePoster";
 
 const n = copy.site.nav;
+const NAV_H = 72;
+/** Breathing room above a heading target so its eyebrow stays visible below the fixed nav. */
+const HEADING_GAP = 80;
+
+/**
+ * Scrolls to the element named by a "#id" hash. Section targets land at their top edge (their own
+ * padding clears the nav); heading targets land just below the nav. Uses Lenis when active, native
+ * scrolling otherwise (Lenis is off under reduced motion). Returns false if the target is missing.
+ */
+function scrollToHash(hash: string, immediate = false): boolean {
+  const id = decodeURIComponent(hash.replace(/^#/, ""));
+  const el = id ? document.getElementById(id) : null;
+  if (!el) return false;
+  const offset = /^H[1-6]$/.test(el.tagName) ? -(NAV_H + HEADING_GAP) : 0;
+  const lenis = getLenis();
+  if (lenis) {
+    lenis.scrollTo(el, { offset, immediate, duration: 1.4 });
+  } else {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const top = el.getBoundingClientRect().top + window.scrollY + offset;
+    window.scrollTo({ top, behavior: immediate || reduced ? "auto" : "smooth" });
+  }
+  return true;
+}
+
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 const linkCls =
@@ -64,6 +89,53 @@ export function Nav() {
     setMegaOpen(false);
     setSheetOpen(false);
   }, [pathname]);
+
+  // Arriving on "/" with a section hash from another page: SceneRoot resets scroll to the top on
+  // route change, so scroll to the section once that (and the new page layout) has settled.
+  const firstPath = useRef(true);
+  useEffect(() => {
+    if (firstPath.current) {
+      firstPath.current = false;
+      return;
+    }
+    if (pathname !== "/" || !window.location.hash) return;
+    const hash = window.location.hash;
+    // Jump (the route change is already a cut), then re-correct while the new page's layout,
+    // fonts and scene bands settle. Stops early once the user scrolls themselves.
+    let userScrolled = false;
+    const onUser = () => {
+      userScrolled = true;
+    };
+    window.addEventListener("wheel", onUser, { passive: true });
+    window.addEventListener("touchstart", onUser, { passive: true });
+    window.addEventListener("keydown", onUser);
+    const timers = [120, 400, 900, 1600].map((ms) =>
+      window.setTimeout(() => {
+        if (userScrolled) return;
+        getLenis()?.resize();
+        scrollToHash(hash, true);
+      }, ms),
+    );
+    return () => {
+      timers.forEach((t) => window.clearTimeout(t));
+      window.removeEventListener("wheel", onUser);
+      window.removeEventListener("touchstart", onUser);
+      window.removeEventListener("keydown", onUser);
+    };
+  }, [pathname]);
+
+  /** Section links: smooth-scroll in place on the homepage; elsewhere let <Link> navigate to "/#id". */
+  const onSectionClick = (href: string) => (e: ReactMouseEvent<HTMLAnchorElement>) => {
+    setMegaOpen(false);
+    setSheetOpen(false);
+    if (pathname !== "/" || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    const hash = href.slice(href.indexOf("#"));
+    if (!document.getElementById(decodeURIComponent(hash.slice(1)))) return;
+    e.preventDefault();
+    if (window.location.hash !== hash) window.history.pushState(window.history.state, "", hash);
+    // Wait a frame so the mobile sheet has closed and released its body scroll lock.
+    window.requestAnimationFrame(() => window.requestAnimationFrame(() => scrollToHash(hash)));
+  };
 
   // Mega menu: Escape + outside click
   useEffect(() => {
@@ -169,28 +241,49 @@ export function Nav() {
                 <div
                   id={megaId}
                   hidden={!megaOpen}
-                  className="fixed inset-x-0 top-[72px] border-b border-line bg-bg/95 backdrop-blur-md"
+                  className="fixed inset-x-0 top-[72px] border-y border-line bg-bg-elev shadow-[0_24px_48px_-12px_rgb(0_0_0/0.65)]"
                 >
-                  <div className="container-site py-8">
-                    <p className="t-label mb-5 text-text-faint">{n.platform.menuLabel}</p>
-                    <ul className="grid grid-cols-3 gap-4 xl:grid-cols-6">
-                      {n.platform.items.map((item) => (
-                        <li key={item.href}>
-                          <Link
-                            href={item.href}
-                            aria-current={isCurrent(item.href)}
-                            onClick={() => setMegaOpen(false)}
-                            className="group flex h-full flex-col gap-3 border border-line bg-bg-elev/60 p-3 transition-colors duration-300 ease-out hover:border-copper/60 aria-[current=page]:border-copper/60"
-                          >
-                            <span className="relative block aspect-[16/10] overflow-hidden border border-line">
-                              <ScenePoster scene={item.scene} className="transition-transform duration-500 ease-out group-hover:scale-[1.04]" />
-                            </span>
-                            <span className="text-[15px] font-medium text-text">{item.label}</span>
-                            <span className="text-[13px] leading-snug text-text-dim">{item.description}</span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="container-site grid gap-8 py-7 xl:grid-cols-12 xl:gap-6">
+                    {/* Intro column: wide desktop only, so 1024 keeps the full width for the items. */}
+                    <div className="hidden flex-col gap-3 border-r border-line pr-6 xl:col-span-3 xl:flex">
+                      <p className="t-label text-copper">{n.platform.menuLabel}</p>
+                      <p className="font-display text-[22px] font-medium leading-tight text-text">{n.platform.label}</p>
+                      <p className="max-w-[30ch] text-[13px] leading-relaxed text-text-dim">{copy.site.brand.mission}</p>
+                    </div>
+                    <div className="xl:col-span-9">
+                      <p className="t-label mb-4 text-text-faint xl:hidden">{n.platform.menuLabel}</p>
+                      <ul className="grid grid-cols-3 gap-px border border-line bg-line">
+                        {n.platform.items.map((item) => (
+                          <li key={item.href} className="bg-bg-elev">
+                            <Link
+                              href={item.href}
+                              scroll={false}
+                              onClick={onSectionClick(item.href)}
+                              className="group relative flex h-full flex-col gap-1.5 px-5 py-4 transition-colors duration-300 ease-out hover:bg-copper/[0.07] focus-visible:bg-copper/[0.07] focus-visible:outline focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-copper/70"
+                            >
+                              <span
+                                aria-hidden="true"
+                                className="absolute inset-y-0 left-0 w-px origin-top scale-y-0 bg-copper transition-transform duration-300 ease-out group-hover:scale-y-100 group-focus-visible:scale-y-100"
+                              />
+                              <span className="flex items-baseline gap-3">
+                                <span className="t-num w-8 shrink-0 text-[11px] text-copper">{item.index}</span>
+                                <span className="min-w-0 flex-1 whitespace-nowrap text-[15px] font-medium text-text transition-colors duration-300 group-hover:text-copper-soft">
+                                  {item.label}
+                                </span>
+                                <svg
+                                  viewBox="0 0 12 12"
+                                  aria-hidden="true"
+                                  className="h-3 w-3 shrink-0 self-center text-text-faint transition-[transform,color] duration-300 ease-out group-hover:translate-x-1 group-hover:text-copper group-focus-visible:translate-x-1 group-focus-visible:text-copper"
+                                >
+                                  <path d="M2 6h8M6.5 2.5 10 6l-3.5 3.5" fill="none" stroke="currentColor" strokeWidth="1.2" />
+                                </svg>
+                              </span>
+                              <span className="line-clamp-2 min-h-[2lh] pl-11 text-[13px] leading-snug text-text-dim">{item.description}</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -202,13 +295,23 @@ export function Nav() {
                 </Link>
               </li>
             ))}
+            <li className="ml-3">
+              <Link
+                href={n.contact.href}
+                aria-current={isCurrent(n.contact.href)}
+                className="group inline-flex h-9 items-center gap-2 whitespace-nowrap rounded-full border border-copper/45 px-4 text-[14px] text-text transition-[border-color,background-color,box-shadow,color] duration-300 ease-out hover:border-copper hover:bg-copper/[0.08] hover:shadow-[0_0_14px_rgb(var(--copper-rgb)/0.22)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-copper aria-[current=page]:border-copper aria-[current=page]:bg-copper/[0.1] aria-[current=page]:text-copper-soft"
+              >
+                <span
+                  aria-hidden="true"
+                  className="h-1.5 w-1.5 rounded-full bg-copper shadow-[0_0_6px_rgb(var(--copper-rgb)/0.7)] transition-transform duration-300 ease-out group-hover:scale-125"
+                />
+                {n.contact.label}
+              </Link>
+            </li>
           </ul>
         </nav>
 
-        <div className="flex items-center gap-3">
-          <Button href={n.cta.href} className="hidden h-10 px-4 text-[14px] sm:inline-flex">
-            {n.cta.label}
-          </Button>
+        <div className="flex items-center gap-3 lg:hidden">
           <button
             ref={sheetBtn}
             type="button"
@@ -262,12 +365,18 @@ export function Nav() {
                   <li key={item.href} className="border-b border-line">
                     <Link
                       href={item.href}
-                      aria-current={isCurrent(item.href)}
-                      onClick={() => setSheetOpen(false)}
-                      className="flex flex-col gap-1 py-4"
+                      scroll={false}
+                      onClick={onSectionClick(item.href)}
+                      className="group flex items-start gap-3 py-3.5"
                     >
-                      <span className="text-[17px] text-text">{item.label}</span>
-                      <span className="text-[14px] text-text-dim">{item.description}</span>
+                      <span className="t-num w-9 shrink-0 pt-[5px] text-[12px] text-copper">{item.index}</span>
+                      <span className="flex min-w-0 flex-1 flex-col gap-1">
+                        <span className="text-[17px] text-text">{item.label}</span>
+                        <span className="text-[14px] leading-snug text-text-dim">{item.description}</span>
+                      </span>
+                      <svg viewBox="0 0 12 12" aria-hidden="true" className="mt-2 h-3 w-3 shrink-0 text-text-faint group-active:text-copper">
+                        <path d="M2 6h8M6.5 2.5 10 6l-3.5 3.5" fill="none" stroke="currentColor" strokeWidth="1.2" />
+                      </svg>
                     </Link>
                   </li>
                 ))}
@@ -286,11 +395,26 @@ export function Nav() {
                   </Link>
                 </li>
               ))}
+              <li className="border-b border-line">
+                <Link
+                  href={n.contact.href}
+                  aria-current={isCurrent(n.contact.href)}
+                  onClick={() => setSheetOpen(false)}
+                  className="font-display group flex items-center justify-between gap-4 py-4 text-[24px] font-medium text-text aria-[current=page]:text-copper"
+                >
+                  {n.contact.label}
+                  <span
+                    aria-hidden="true"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-copper/50 text-copper transition-colors duration-300 group-hover:border-copper group-hover:bg-copper/10"
+                  >
+                    <svg viewBox="0 0 12 12" className="h-3 w-3">
+                      <path d="M2 6h8M6.5 2.5 10 6l-3.5 3.5" fill="none" stroke="currentColor" strokeWidth="1.2" />
+                    </svg>
+                  </span>
+                </Link>
+              </li>
             </ul>
             <div className="mt-auto flex flex-col gap-4 pb-4">
-              <Button href={n.cta.href} className="w-full" onClick={() => setSheetOpen(false)}>
-                {n.cta.label}
-              </Button>
               <p className="t-label text-center text-text-faint">{copy.site.forLicensedOperators}</p>
             </div>
           </nav>

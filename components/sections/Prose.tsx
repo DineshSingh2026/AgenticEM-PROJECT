@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-/** Long-form typography wrapper for MDX content (insights, legal). No typography plugin needed. */
+/** Long-form typography wrapper for MDX content (legal pages). No typography plugin needed. */
 export function Prose({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <div

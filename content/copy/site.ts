@@ -1,42 +1,25 @@
 import type { SceneName } from "@/lib/scene-store";
+import { homeA } from "./home-a";
+import { homeB } from "./home-b";
 
-const platformMenu: { label: string; href: string; description: string; scene: SceneName }[] = [
+/**
+ * "Global Platform" dropdown: one entry per homepage section, linking to its anchor on "/".
+ * Labels mirror each section's eyebrow; descriptions reuse the section title from the home copy.
+ * Keep the hrefs in sync with the section ids in components/sections/*.
+ */
+const platformMenu: { index: string; label: string; href: string; description: string; scene: SceneName }[] = [
+  { index: "02", label: "The Backbone", href: "/#backbone", description: homeA.backbone.title, scene: "CasinoWheel" },
   {
-    label: "Platform overview",
-    href: "/platform",
-    description: "The four capability layers of Agentium OS in one view.",
-    scene: "Convergence",
+    index: "02.1",
+    label: "Platform Capabilities",
+    href: `/#${homeA.backbone.revenue.id}`,
+    description: homeA.backbone.revenue.title,
+    scene: "CasinoWheel",
   },
-  {
-    label: "Architecture",
-    href: "/platform/architecture",
-    description: "A unified stack built for machine-speed execution.",
-    scene: "ExplodedStack",
-  },
-  {
-    label: "AI agents",
-    href: "/platform/agents",
-    description: "Agents that reason, with spend limits, audit logs and a kill switch.",
-    scene: "AgentField",
-  },
-  {
-    label: "Risk and analytics",
-    href: "/platform/risk",
-    description: "Streaming anomaly detection with human-approved interventions.",
-    scene: "AnomalyStream",
-  },
-  {
-    label: "Settlement",
-    href: "/platform/settlement",
-    description: "Identity, wallets and on-chain settlement for autonomous agents.",
-    scene: "Ledger",
-  },
-  {
-    label: "Arena",
-    href: "/platform/arena",
-    description: "Agent-to-agent competitions and spectator formats for communities.",
-    scene: "ArenaGraph",
-  },
+  { index: "03", label: "Intelligence Layer", href: "/#intelligence", description: homeA.intelligence.title, scene: "Convergence" },
+  { index: "06", label: "Risk Radar", href: "/#risk-radar", description: homeA.risk.title, scene: "AnomalyStream" },
+  { index: "07", label: "Settlement", href: "/#settlement", description: homeB.settlement.title, scene: "Ledger" },
+  { index: "09", label: "Flywheel", href: "/#flywheel", description: homeB.flywheel.title, scene: "FlywheelScene" },
 ];
 
 export const site = {
@@ -55,14 +38,13 @@ export const site = {
   forLicensedOperators: "For licensed operators.",
   nav: {
     ariaLabel: "Main navigation",
-    platform: { label: "Platform", menuLabel: "Platform pages", items: platformMenu },
+    platform: { label: "Global Platform", menuLabel: "Platform sections", items: platformMenu },
     links: [
-      { label: "Operators", href: "/operators" },
-      { label: "Developers", href: "/developers" },
-      { label: "Trust", href: "/trust" },
-      { label: "Insights", href: "/insights" },
+      { label: "Products", href: "/products" },
       { label: "Company", href: "/company" },
     ],
+    /** Last nav item, rendered as a hairline copper pill on desktop. */
+    contact: { label: "Contact Us", href: "/contact" },
     cta: { label: "Request briefing", href: "/contact" },
     openMenu: "Open menu",
     closeMenu: "Close menu",
@@ -75,6 +57,7 @@ export const site = {
         title: "Platform",
         links: [
           { label: "Overview", href: "/platform" },
+          { label: "Products", href: "/products" },
           { label: "Architecture", href: "/platform/architecture" },
           { label: "AI agents", href: "/platform/agents" },
           { label: "Risk and analytics", href: "/platform/risk" },
@@ -83,29 +66,11 @@ export const site = {
         ],
       },
       {
-        title: "Developers",
-        links: [
-          { label: "API overview", href: "/developers" },
-          { label: "Sandbox access", href: "/developers#sandbox" },
-          { label: "Status", href: "/developers#status" },
-          { label: "Changelog", href: "/developers#changelog" },
-        ],
-      },
-      {
         title: "Company",
         links: [
           { label: "About", href: "/company" },
-          { label: "Insights", href: "/insights" },
           { label: "Careers", href: "/company#careers" },
-          { label: "Contact", href: "/contact" },
-        ],
-      },
-      {
-        title: "Trust",
-        links: [
-          { label: "Security", href: "/trust#security" },
-          { label: "Responsible gaming", href: "/legal/responsible-gaming" },
-          { label: "Compliance", href: "/trust#compliance" },
+          { label: "Contact Us", href: "/contact" },
         ],
       },
       {
@@ -115,6 +80,7 @@ export const site = {
           { label: "Privacy", href: "/legal/privacy" },
           { label: "Cookies", href: "/legal/cookies" },
           { label: "Disclaimer", href: "/legal/disclaimer" },
+          { label: "Responsible gaming", href: "/legal/responsible-gaming" },
         ],
       },
     ],
@@ -186,7 +152,7 @@ export const site = {
       rateLimited: "ERROR // RATE_LIMITED. Please try again later.",
     },
     required: "required",
-    submit: "Request an operator briefing",
+    submit: "Send request",
     submitting: "SENDING…",
     success: "REQUEST_RECEIVED // WE REPLY WITHIN 2 BUSINESS DAYS",
     successBody: "A member of the operator team will contact you at the address you provided.",
@@ -203,6 +169,7 @@ export const site = {
     eyebrow: "NEXT // OPERATOR_BRIEFING",
     title: "Talk to the Agentium OS team.",
     body: "Tell us about your games, volumes and licence. We will map a pilot against agreed performance benchmarks.",
+    contactLink: { label: "View all contact details", href: "/contact" },
   },
   codeTabs: {
     label: "ILLUSTRATIVE API",

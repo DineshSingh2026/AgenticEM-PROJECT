@@ -168,7 +168,7 @@ export function BriefingForm({ variant = "briefing", className }: BriefingFormPr
           aria-invalid={invalid("jurisdiction")}
           aria-describedby={describe("jurisdiction")}
           aria-required="true"
-          className={cn(inputCls, "appearance-none bg-[length:10px] bg-[right_14px_center] bg-no-repeat pr-9")}
+          className={cn(inputCls, "appearance-none bg-[length:10px] bg-[position:right_14px_center] bg-no-repeat pr-9")}
           style={selectStyle}
           {...register("jurisdiction")}
         >
@@ -186,7 +186,7 @@ export function BriefingForm({ variant = "briefing", className }: BriefingFormPr
           aria-invalid={invalid("role")}
           aria-describedby={describe("role")}
           aria-required="true"
-          className={cn(inputCls, "appearance-none bg-[length:10px] bg-[right_14px_center] bg-no-repeat pr-9")}
+          className={cn(inputCls, "appearance-none bg-[length:10px] bg-[position:right_14px_center] bg-no-repeat pr-9")}
           style={selectStyle}
           {...register("role")}
         >

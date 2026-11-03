@@ -2,7 +2,7 @@ import type { SceneFrame } from "./types";
 import { COLORS, clamp, easeOut, lerp, rgba } from "./util";
 
 /**
- * Shared drawing kit for the platform chapters (backbone → revenue). Everything draws in stage CSS px
+ * Shared drawing kit for the platform chapters (aggregation → network). Everything draws in stage CSS px
  * and respects the frame's globalAlpha (already set by the engine). Emissive accents go to `f.glow`.
  */
 

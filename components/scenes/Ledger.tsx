@@ -14,7 +14,7 @@ import edgeFrag from "./shaders/ledger-edge-frag.glsl";
 
 const CONFIG = {
   maxVisible: 14,
-  calmVisible: 6, // ~40% density for the calm (/trust) hero
+  calmVisible: 6, // ~40% density for the calm hero
   seedBlocks: 10,
   blockSize: 0.42,
   spacing: 0.68,
@@ -249,7 +249,7 @@ export function Ledger() {
     g.rotation.y += (CONFIG.tilt.y + px - g.rotation.y) * kRot;
     edgeMat.uniforms.uFadeLeft.value = -vp.width / 2 - 0.2 * unit;
 
-    // monochrome for the calm (/trust) hero
+    // monochrome for the calm hero
     const kM = 1 - Math.exp(-dt * 4);
     mono.current += ((isCalm ? 1 : 0) - mono.current) * kM;
     const accent = new THREE.Color().copy(COPPER).lerp(STEEL, mono.current);

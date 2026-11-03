@@ -7,7 +7,6 @@ import {
   BracketPanel,
   BriefingForm,
   Button,
-  CodeTabs,
   CompareTable,
   CtaBand,
   Eyebrow,
@@ -50,11 +49,6 @@ const DEMO = {
     { index: "03", title: "Action", body: "Independent decision or bet." },
     { index: "04", title: "Settlement", body: "On-chain transaction processing." },
     { index: "05", title: "Insight", body: "Real-time event capture and analytics." },
-  ],
-  code: [
-    { lang: "TS", code: 'const round = await agentium.rounds.create({ table: "bj-07" });' },
-    { lang: "Python", code: 'round = agentium.rounds.create(table="bj-07")' },
-    { lang: "Rust", code: 'let round = agentium.rounds().create("bj-07").await?;' },
   ],
   faq: [
     { q: "Who is Agentium OS for?", a: "Licensed casino and iGaming operators, B2B game studios and their technical partners." },
@@ -138,9 +132,6 @@ export default function UiLabPage() {
             <AlertRow rule="Velocity spike" severity="med" agentId="agt_1c4" time="12:04:12" score={0.71} />
             <AlertRow rule="Multiple login attempts" severity="low" agentId="agt_77a" time="12:03:58" />
           </BracketPanel>
-        </Block>
-        <Block name="CodeTabs">
-          <CodeTabs tabs={DEMO.code} />
         </Block>
         <Block name="Faq">
           <Faq items={DEMO.faq} />

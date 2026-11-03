@@ -54,7 +54,7 @@ export function RiskIntel() {
   const awaiting = alerts.filter((a) => a.severity !== "low").length;
 
   return (
-    <section data-scene="AnomalyStream" aria-labelledby={c.id} className="relative">
+    <section id="risk-radar" data-scene="AnomalyStream" aria-labelledby={c.id} className="relative">
       <div className="container-site section-pad relative">
         <div className="grid grid-cols-12 gap-x-6">
           <div className="col-span-12 lg:col-span-7">

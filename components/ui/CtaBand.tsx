@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { copy } from "@/content/copy";
 import { BracketPanel } from "./BracketPanel";
 import { BriefingForm } from "./BriefingForm";
@@ -21,6 +22,15 @@ export function CtaBand({ title, body }: CtaBandProps) {
           </h2>
           <p className="t-body">{body ?? c.body}</p>
           <p className="t-label text-text-faint">{copy.site.forLicensedOperators}</p>
+          <Link
+            href={c.contactLink.href}
+            className="group inline-flex w-fit items-center gap-2 py-1 text-[14px] text-text underline decoration-copper/50 underline-offset-4 transition-colors duration-200 ease-out hover:decoration-copper"
+          >
+            {c.contactLink.label}
+            <span aria-hidden="true" className="text-copper transition-transform duration-300 ease-out group-hover:translate-x-0.5">
+              &rarr;
+            </span>
+          </Link>
         </div>
         <BracketPanel className="p-5 md:p-8 lg:col-span-7">
           <BriefingForm />

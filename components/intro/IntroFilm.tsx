@@ -147,6 +147,10 @@ export function IntroFilm() {
   const leaving = phase.kind === "chapter" && phase.leaving;
   const ch = chapter >= 0 ? t.chapters[chapter] : null;
   const total = String(t.chapters.length).padStart(2, "0");
+  /** Chapters with a body sentence get a smaller title and no live stat. */
+  const body = ch && "body" in ch ? ch.body : null;
+  const sub = ch && "sub" in ch ? ch.sub : null;
+  const statLabel = ch && "statLabel" in ch ? ch.statLabel : null;
 
   return (
     <div
@@ -190,7 +194,7 @@ export function IntroFilm() {
           <div
             key={chapter}
             aria-hidden="true"
-            className="intro-chapter absolute left-4 right-4 md:left-[6vw] md:right-auto md:max-w-[60vw]"
+            className={`intro-chapter absolute left-4 right-4 md:left-[6vw] md:right-auto ${body ? "md:max-w-[min(64vw,880px)]" : "md:max-w-[60vw]"}`}
             data-leaving={leaving || undefined}
           >
             <Line i={0} className="t-label text-text-faint">
@@ -198,27 +202,44 @@ export function IntroFilm() {
               <span className="intro-rule" />
               {total}
             </Line>
-            <h2 className="intro-title mt-4 font-display text-[clamp(40px,6vw,96px)] font-semibold leading-[0.98]">
+            <h2
+              className={`intro-title mt-4 font-display font-semibold leading-[0.98] ${body ? "text-[clamp(30px,4.4vw,72px)]" : "text-[clamp(40px,6vw,96px)]"}`}
+            >
               <Line i={1}>{ch.title}</Line>
             </h2>
-            <Line i={2} className="intro-sub mt-4 font-mono text-[11px] uppercase text-text-dim md:text-xs">
-              {ch.sub}
-            </Line>
+            {sub && (
+              <Line i={2} className="intro-sub !mt-4 font-mono text-[9.5px] uppercase text-text-dim [text-wrap:balance] md:!mt-[clamp(20px,2vw,32px)] md:text-xs">
+                {sub}
+              </Line>
+            )}
+            {body && (
+              <Line i={2} className="!mt-6 md:!mt-[clamp(20px,2vw,32px)]">
+                <span className="block max-w-[58ch] border-l border-[#E8B65A]/60 pl-4 text-[14.5px] leading-[1.55] text-text-dim md:pl-5 md:text-[clamp(15px,1.15vw,18px)]">
+                  {body}
+                </span>
+              </Line>
+            )}
           </div>
         )}
 
         {/* Live stat */}
-        {ch && (
-          <div key={`s${chapter}`} aria-hidden="true" className="intro-stat absolute right-4 text-right md:right-[6vw]" data-leaving={leaving || undefined}>
+        {ch && statLabel && (
+          <div
+            key={`s${chapter}`}
+            aria-hidden="true"
+            /* Phones: compact grid — label + number on one row, sim tag below — so it clears the canvas. */
+            className="intro-stat absolute right-4 grid grid-cols-[auto_auto] items-center justify-end gap-x-3 text-right md:right-[6vw] md:block"
+            data-leaving={leaving || undefined}
+          >
             <Line i={1} className="t-label text-text-faint">
-              {ch.statLabel}
+              {statLabel}
             </Line>
-            <Line i={2} className="mt-1">
-              <span ref={statRef} className="t-num block text-[clamp(26px,3.4vw,52px)] leading-none text-text">
+            <Line i={2} className="md:mt-1">
+              <span ref={statRef} className="t-num block text-[22px] leading-[1.1] text-text md:text-[clamp(26px,3.4vw,52px)]">
                 0
               </span>
             </Line>
-            <Line i={3} className="t-label mt-2 text-[10px] text-text-faint">
+            <Line i={3} className="t-label col-span-2 mt-1.5 text-[9px] text-text-faint md:mt-2 md:text-[10px]">
               <span className="flex items-center justify-end gap-2">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-data-green" />
                 {t.simLabel}

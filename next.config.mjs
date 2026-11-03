@@ -9,6 +9,16 @@ const nextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   transpilePackages: ["three"],
   images: { formats: ["image/avif", "image/webp"] },
+  // Developers, Trust, Insights and Operators pages were removed; keep old bookmarks and shared links working.
+  async redirects() {
+    return [
+      { source: "/developers", destination: "/contact", permanent: true },
+      { source: "/trust", destination: "/", permanent: true },
+      { source: "/operators", destination: "/", permanent: true },
+      { source: "/insights", destination: "/", permanent: true },
+      { source: "/insights/:slug*", destination: "/", permanent: true },
+    ];
+  },
   turbopack: {
     rules: {
       "*.glsl": { loaders: ["raw-loader"], as: "*.js" },

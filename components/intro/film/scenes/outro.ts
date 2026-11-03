@@ -2,9 +2,9 @@ import type { FilmScene } from "../types";
 import { Lockup, type LockupTiming } from "../lockup";
 
 /**
- * 17.6 – 20s · The previous scene collapses into a point of light (core camera), which bursts and
+ * 23.7 – 26.1s · The previous scene collapses into a point of light (core camera), which bursts and
  * re-forms the full AGENTIUM lockup — a faster echo of the opening. The HTML headline sits beneath;
- * the exit wipe starts at 18.9s.
+ * the exit wipe starts at 25.0s.
  */
 const CONFIG = {
   timing: {

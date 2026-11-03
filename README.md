@@ -45,7 +45,7 @@ See `.env.example` for the same variables.
 - `components/scenes/` — WebGL scenes for the shared background canvas
 - `components/sections/` — homepage and inner-page sections
 - `components/ui/` — UI kit
-- `content/` — all site copy (`copy.ts` and `copy/*`), data files, MDX insights and legal pages
+- `content/` — all site copy (`copy.ts` and `copy/*`), data files, MDX legal pages
 - `lib/sim/` — seeded simulator behind every live number (labelled "SIMULATED NETWORK")
 - `public/brand/` — AGENTIUM logo assets
 - `middleware.ts` — security headers (CSP, HSTS, frame and referrer policies)

@@ -18,7 +18,7 @@ export function Footer() {
             <p className="sr-only">{copy.site.brand.tagline}</p>
             <p className="max-w-[36ch] text-[15px] leading-relaxed text-text-dim">{copy.site.brand.mission}</p>
           </div>
-          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:col-span-8 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:col-span-7 lg:col-start-6">
             {f.columns.map((col) => (
               <nav key={col.title} aria-label={col.title}>
                 <p className="t-label mb-4 text-text-faint">{col.title}</p>

@@ -14,7 +14,7 @@ export const homeA = {
     id: "hero-title",
     eyebrow: "AGENTIUM · AGENTIC iGAMING OS",
     title: "The Agentium operating system for the agentic iGaming economy.",
-    sub: "Agentium is a unified B2B AI technology platform powering the global agentic iGaming economy. It brings together independent gaming engines, secure on-chain financial transactions, distributed event processing, specialized AI intelligence, dedicated datasets, and enterprise-grade analytics within a single, scalable infrastructure. Designed for business clients, the platform enables operators and technology partners to build, deploy, manage, and scale AI-powered gaming ecosystems with flexible B2B monetization into a unified infrastructure platform.",
+    sub: "Agentium is a next-generation B2B AI-powered iGaming infrastructure platform integrating high-performance gaming engines, secure on-chain financial transactions, autonomous AI agents, real-time intelligence, and enterprise analytics. Built for global scalability, Agentium empowers gaming operators and technology partners to deploy, manage, and monetize intelligent gaming ecosystems through one unified platform.",
     ctaPrimary: { label: "Request an operator briefing", href: "/contact" },
     ctaSecondary: { label: "Explore the architecture", href: "/platform/architecture" },
     footnote: "For licensed operators.",
@@ -25,8 +25,9 @@ export const homeA = {
   backbone: {
     id: "backbone-title",
     eyebrow: "02 // THE_BACKBONE",
-    title: "The AI-agentic backbone of the iGaming ecosystem.",
-    body: "Agentium is the B2B solutions provider operators build on: one platform to launch, manage and scale, with player accounts, wallets, bonuses and game operations at the core, a unified game catalogue on one side and on-chain settlement on the other.",
+    title: "The AI-Agentic Backbone of the Global iGaming Ecosystem",
+    tagline: "One Unified Platform. Intelligent Operations. Limitless Scalability.",
+    body: "Agentium is a next-generation B2B AI-powered infrastructure provider, enabling iGaming operators to launch, manage, optimize, and scale their gaming ecosystems through one unified platform. Integrating player management, digital wallets, bonus systems, game aggregation, autonomous AI intelligence, and secure on-chain financial settlement, Agentium delivers a seamless, scalable technology foundation for the future of intelligent gaming.",
     outcomesLabel: "WHAT OPERATORS GET",
     outcomes: [
       { index: "01", title: "Streamlined operations", body: "One integration replaces a patchwork of vendors." },
@@ -44,7 +45,11 @@ export const homeA = {
           { code: "BON", name: "Bonus engine" },
           { code: "OPS", name: "Gaming operations" },
         ],
-        ai: { code: "AI", name: "Agent execution · LLM reasoning · gaming intelligence" },
+        compute: [
+          { code: "DET", name: "High-speed deterministic computing" },
+          { code: "LLM", name: "Specialized AI agents and data sets, with reasoning through LLMs" },
+        ],
+        ai: { code: "AI", name: "Autonomous AI Agents. Intelligent Decision-Making. Enterprise Gaming Intelligence." },
       },
       aggregation: {
         index: "A",
@@ -65,8 +70,8 @@ export const homeA = {
     revenue: {
       id: "revenue-title",
       eyebrow: "02.1 // PLATFORM_CAPABILITIES",
-      title: "Agentium Platform Capabilities & Technology Solutions",
-      body: "Agentium is an AI-enabled B2B iGaming infrastructure and intelligence platform that combines advanced gaming execution technology, purpose-built AI systems, specialized datasets, and enterprise-grade analytics within a unified, scalable architecture. It delivers intelligent capabilities across financial forecasting, risk analysis, game economics, fraud detection, agent behaviour, cybersecurity, compliance, and operational decision-making. By integrating technology, operational intelligence, and flexible commercial monetization models, Agentium empowers iGaming businesses to build, manage, optimize, and scale next-generation AI-driven gaming ecosystems.",
+      title: "Agentium — Enterprise Platform Capabilities & Technology Solutions",
+      body: "Agentium combines high-performance gaming execution technology, specialized data sets and AI intelligence, real-time analytics, and secure financial infrastructure into one scalable B2B platform. From financial forecasting and risk management to fraud detection, security, and operational intelligence, Agentium empowers iGaming operators to build, optimize, and scale intelligent gaming ecosystems worldwide.",
       capabilities: [
         { index: "01", title: "Global B2B Gaming Network", sub: "Licensed Provider Ecosystem" },
         { index: "02", title: "iGaming Aggregator" },

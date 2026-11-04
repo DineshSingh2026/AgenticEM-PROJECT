@@ -225,7 +225,7 @@ function Card({ x, y, rot, rank, suit, red, hot }: { x: number; y: number; rot: 
     <g transform={`rotate(${rot} ${x + w / 2} ${y + h})`}>
       <rect x={x} y={y} width={w} height={h} rx={6} className={hot ? "fill-bg-elev-2 stroke-data-gold" : "fill-bg-elev stroke-line-strong"} />
       <rect x={x + 6} y={y + 6} width={w - 12} height={h - 12} rx={3} className="stroke-line" />
-      <text x={x + 12} y={y + 24} fontSize={15} className={`font-mono ${red ? "fill-copper" : "fill-text"}`} stroke="none">
+      <text x={x + 12} y={y + 26} fontSize={18} fontWeight={500} className={`font-display ${red ? "fill-copper" : "fill-text"}`} stroke="none">
         {rank}
       </text>
       <text x={x + w / 2} y={y + h / 2 + 12} fontSize={34} textAnchor="middle" className={red ? "fill-copper" : "fill-text-dim"} stroke="none">
@@ -446,7 +446,7 @@ function ArtSlots() {
             {/* payline symbol */}
             <Gem x={cx} y={y0 + h / 2} s={14} className={i === 1 ? "fill-data-gold/15 stroke-data-gold" : "fill-copper/10 stroke-copper"} />
             {/* bottom symbol (faded) */}
-            <text x={cx} y={y0 + h - 14} fontSize={20} textAnchor="middle" className="fill-text-faint font-mono" stroke="none">
+            <text x={cx} y={y0 + h - 14} fontSize={23} fontWeight={500} textAnchor="middle" className="fill-text-faint font-display" stroke="none">
               7
             </text>
           </g>

@@ -232,7 +232,7 @@ export function createIntelligenceScene(): FilmScene {
     // Model label and agent trace.
     const ma = easeOut(seg(p, 0.16, 0.32));
     if (!n) {
-      text(ctx, fonts.display, C.model, L.modelLabel.x, L.modelLabel.y, { size: 13, weight: 600, color: COLORS.goldPale, alpha: ma, align: "center", track: 0.16 });
+      text(ctx, fonts.display, C.model, L.modelLabel.x, L.modelLabel.y, { size: 14.5, weight: 500, color: COLORS.goldPale, alpha: ma, align: "center", track: 0.1 });
       label(f, C.modelSub, L.modelLabel.x, L.modelLabel.y + 18, { size: 9, color: COLORS.dim, alpha: ma, align: "center" });
     }
     const tk = seg(p, CONFIG.trace[0], CONFIG.trace[1]);

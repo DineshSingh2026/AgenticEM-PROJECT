@@ -58,7 +58,7 @@ export function Backbone() {
         <div className="grid grid-cols-12 gap-x-6 gap-y-16">
           <div className="col-span-12 lg:col-span-5">
             <div className="bb-reveal">
-              <SectionIntro id={c.id} eyebrow={c.eyebrow} title={c.title} body={c.body} />
+              <SectionIntro id={c.id} eyebrow={c.eyebrow} title={c.title} tagline={c.tagline} body={c.body} />
             </div>
 
             <p className="t-label bb-reveal mt-12 text-text-faint" style={delay(2)}>
@@ -73,7 +73,7 @@ export function Backbone() {
                 >
                   <span className="t-num text-[12px] text-copper">{o.index}</span>
                   <div>
-                    <p className="font-display text-[19px] font-medium leading-snug text-text transition-colors duration-300 group-hover:text-copper-soft">
+                    <p className="font-display text-[21px] font-medium leading-snug text-text transition-colors duration-300 group-hover:text-copper-soft">
                       {o.title}
                     </p>
                     <p className="mt-1 text-[15px] text-text-dim">{o.body}</p>
@@ -87,7 +87,7 @@ export function Backbone() {
           <div
             className="col-span-12 lg:col-span-7 lg:pl-6"
             role="img"
-            aria-label={`${d.top.label} connect to the ${d.core.label}, which runs ${d.core.modules.map((m) => m.name).join(", ")} and ${d.core.ai.name}, joined to ${d.aggregation.label} and ${d.settlement.label}.`}
+            aria-label={`${d.top.label} connect to the ${d.core.label}, which runs ${d.core.modules.map((m) => m.name).join(", ")}, ${d.core.compute.map((m) => m.name).join(", ")} and ${d.core.ai.name}, joined to ${d.aggregation.label} and ${d.settlement.label}.`}
           >
             <div aria-hidden="true">
               {/* Operators */}
@@ -135,9 +135,23 @@ export function Backbone() {
                     </div>
                   ))}
                 </div>
+                <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
+                  {d.core.compute.map((m, i) => (
+                    <div
+                      key={m.code}
+                      className="bb-reveal group border border-line bg-bg/60 p-3 transition-colors duration-300 hover:border-copper/60"
+                      style={delay(7 + i)}
+                    >
+                      <span className="t-num text-[11px] text-copper">{m.code}</span>
+                      <p className="mt-2 text-[13px] leading-snug text-text-dim transition-colors duration-300 group-hover:text-text">
+                        {m.name}
+                      </p>
+                    </div>
+                  ))}
+                </div>
                 <div
                   className="bb-reveal mt-2 flex items-center gap-3 border border-data-gold/30 bg-gradient-to-r from-data-gold/[0.10] via-copper/[0.05] to-transparent p-3"
-                  style={delay(7)}
+                  style={delay(9)}
                 >
                   <span className="t-num border border-data-gold/50 px-1.5 text-[11px] text-data-gold">
                     {d.core.ai.code}
@@ -160,7 +174,7 @@ export function Backbone() {
               <div className="grid gap-3 md:grid-cols-2">
                 {/* Aggregation */}
                 <BracketPanel className="bb-reveal glass" label={`${d.aggregation.index} · ${d.aggregation.label}`}>
-                  <p className="font-display text-[19px] font-medium leading-snug text-text">{d.aggregation.title}</p>
+                  <p className="font-display text-[21px] font-medium leading-snug text-text">{d.aggregation.title}</p>
                   <p className="mt-2 text-[14px] leading-relaxed text-text-dim">{d.aggregation.body}</p>
                   <div className="mt-5 grid grid-cols-3 gap-1.5">
                     {d.aggregation.providers.map((p, i) => (
@@ -181,7 +195,7 @@ export function Backbone() {
 
                 {/* Settlement */}
                 <BracketPanel className="bb-reveal glass" label={`${d.settlement.index} · ${d.settlement.label}`}>
-                  <p className="font-display text-[19px] font-medium leading-snug text-text">{d.settlement.title}</p>
+                  <p className="font-display text-[21px] font-medium leading-snug text-text">{d.settlement.title}</p>
                   <p className="mt-2 text-[14px] leading-relaxed text-text-dim">{d.settlement.body}</p>
                   <div className="mt-5 flex items-center">
                     {d.settlement.flows.map((f, i) => (
@@ -255,7 +269,7 @@ export function Backbone() {
                     <span aria-hidden="true" className="text-text-faint lg:max-xl:hidden"> / {String(r.capabilities.length).padStart(2, "0")}</span>
                   </span>
                   <div className="min-w-0">
-                    <h4 className="font-display text-[20px] font-medium leading-snug text-text text-balance transition-colors duration-300 group-hover:text-copper-soft lg:text-[22px]">
+                    <h4 className="font-display text-[22px] font-medium leading-snug text-text text-balance transition-colors duration-300 group-hover:text-copper-soft lg:text-[24px]">
                       {cap.title}
                     </h4>
                     {"sub" in cap && cap.sub ? (

@@ -203,7 +203,7 @@ export function IntroFilm() {
               {total}
             </Line>
             <h2
-              className={`intro-title mt-4 font-display font-semibold leading-[0.98] ${body ? "text-[clamp(30px,4.4vw,72px)]" : "text-[clamp(40px,6vw,96px)]"}`}
+              className={`intro-title mt-4 font-display font-medium leading-[0.98] ${body ? "text-[clamp(30px,4.4vw,72px)]" : "text-[clamp(40px,6vw,96px)]"}`}
             >
               <Line i={1}>{ch.title}</Line>
             </h2>
@@ -251,7 +251,7 @@ export function IntroFilm() {
         {/* Outro headline under the canvas lockup */}
         {phase.kind === "outro" && (
           <div aria-hidden="true" className="intro-outro absolute inset-x-4 flex flex-col items-center text-center">
-            <div className="max-w-[24ch] font-display text-[clamp(22px,2.5vw,38px)] font-semibold leading-[1.1] tracking-[-0.02em]">
+            <div className="max-w-[24ch] font-display text-[clamp(24px,2.75vw,42px)] font-medium leading-[1.1] tracking-[-0.01em]">
               <Line i={0}>{t.outro.title}</Line>
             </div>
             <Line i={1} className="t-label mt-4 text-[11px] text-[#E8B65A]/80">

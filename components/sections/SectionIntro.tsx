@@ -6,12 +6,15 @@ export function SectionIntro({
   id,
   eyebrow,
   title,
+  tagline,
   body,
   className,
 }: {
   id: string;
   eyebrow: string;
   title: string;
+  /** Optional premium subhead between the heading and the body. */
+  tagline?: string;
   body?: string;
   className?: string;
 }) {
@@ -21,6 +24,11 @@ export function SectionIntro({
       <h2 id={id} className="t-h2 relative z-10 max-w-[20ch] text-balance text-text">
         {title}
       </h2>
+      {tagline ? (
+        <p className="relative z-10 max-w-[30ch] text-balance font-display text-[20px] font-medium italic leading-snug text-copper-soft lg:text-[25px]">
+          {tagline}
+        </p>
+      ) : null}
       {/* Soft dark backdrop keeps body copy legible where scene lines pass behind it. */}
       {body ? (
         <p className="t-body relative isolate before:absolute before:-inset-x-4 before:-inset-y-6 md:before:-inset-x-8 before:-z-10 before:rounded-[40px] before:bg-bg/85 before:blur-2xl before:content-['']">

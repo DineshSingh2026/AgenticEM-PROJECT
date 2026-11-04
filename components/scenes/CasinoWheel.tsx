@@ -8,6 +8,7 @@ import { useSimFeed } from "@/lib/sim/useSimFeed";
 import { sim } from "@/lib/sim/engine";
 import { mulberry32 } from "@/lib/sim/prng";
 import seed from "@/lib/sim/seed.json";
+import { afterCanvasFonts, canvasFont } from "@/lib/canvas-fonts";
 import { useSceneFade } from "./shared/useSceneFade";
 import polarVert from "./shaders/casinoWheel-polar-vert.glsl";
 import streamFrag from "./shaders/casinoWheel-stream-frag.glsl";
@@ -143,27 +144,36 @@ function numberTexture(): THREE.CanvasTexture {
   c.width = cell * CONFIG.pockets;
   c.height = h;
   const ctx = c.getContext("2d")!;
-  for (let i = 0; i < CONFIG.pockets; i++) {
-    const n = ORDER[(CONFIG.pockets - i) % CONFIG.pockets];
-    const x = i * cell;
-    ctx.fillStyle = n === 0 ? "#134a36" : i % 2 === 0 ? "#5a2025" : "#1a1c21";
-    if (n !== 0) ctx.fillStyle = (CONFIG.pockets - i) % 2 === 1 ? "#5a2025" : "#1a1c21";
-    ctx.fillRect(x, 0, cell, h);
-    ctx.fillStyle = CONFIG.colors.goldPale;
-    ctx.font = "600 44px Georgia, 'Times New Roman', serif";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(String(n), x + cell / 2, h / 2 + 2);
+  const paint = () => {
+    const serif = canvasFont("display");
+    for (let i = 0; i < CONFIG.pockets; i++) {
+      const n = ORDER[(CONFIG.pockets - i) % CONFIG.pockets];
+      const x = i * cell;
+      ctx.fillStyle = n === 0 ? "#134a36" : i % 2 === 0 ? "#5a2025" : "#1a1c21";
+      if (n !== 0) ctx.fillStyle = (CONFIG.pockets - i) % 2 === 1 ? "#5a2025" : "#1a1c21";
+      ctx.fillRect(x, 0, cell, h);
+      ctx.fillStyle = CONFIG.colors.goldPale;
+      // EB Garamond runs narrower / smaller than Georgia: 48px still leaves ~12px side margin on "36".
+      ctx.font = `500 48px ${serif}`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(String(n), x + cell / 2, h / 2 + 3);
+      ctx.fillStyle = CONFIG.colors.gold;
+      ctx.fillRect(x, 0, 3, h);
+    }
     ctx.fillStyle = CONFIG.colors.gold;
-    ctx.fillRect(x, 0, 3, h);
-  }
-  ctx.fillStyle = CONFIG.colors.gold;
-  ctx.fillRect(0, 0, c.width, 4);
-  ctx.fillRect(0, h - 5, c.width, 5);
+    ctx.fillRect(0, 0, c.width, 4);
+    ctx.fillRect(0, h - 5, c.width, 5);
+  };
+  paint();
   const t = new THREE.CanvasTexture(c);
   t.flipY = false;
   t.colorSpace = THREE.SRGBColorSpace;
   t.anisotropy = 8;
+  afterCanvasFonts(() => {
+    paint();
+    t.needsUpdate = true;
+  });
   return t;
 }
 
@@ -174,21 +184,28 @@ function labelTexture(): THREE.CanvasTexture {
   c.width = w;
   c.height = h;
   const ctx = c.getContext("2d")!;
-  ctx.fillStyle = "#000";
-  ctx.fillRect(0, 0, w, h);
-  ctx.fillStyle = "#fff";
-  ctx.font = "500 46px ui-monospace, 'JetBrains Mono', Menlo, monospace";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  let prev = 0;
-  for (const g of GAMES) {
-    const f = seed.gameMix[g];
-    const mid = prev + f / 2;
-    ctx.fillText(`${g.toUpperCase()} ${Math.round(f * 100)}%`, mid * w, h / 2);
-    prev += f;
-  }
+  const paint = () => {
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = "#fff";
+    ctx.font = `500 46px ${canvasFont("mono")}`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    let prev = 0;
+    for (const g of GAMES) {
+      const f = seed.gameMix[g];
+      const mid = prev + f / 2;
+      ctx.fillText(`${g.toUpperCase()} ${Math.round(f * 100)}%`, mid * w, h / 2);
+      prev += f;
+    }
+  };
+  paint();
   const t = new THREE.CanvasTexture(c);
   t.flipY = false;
+  afterCanvasFonts(() => {
+    paint();
+    t.needsUpdate = true;
+  });
   return t;
 }
 
@@ -203,7 +220,7 @@ function chipTexture(): THREE.CanvasTexture {
   c.width = 512 * 3;
   c.height = 640;
   const ctx = c.getContext("2d")!;
-  variants.forEach((v, k) => {
+  const paint = () => variants.forEach((v, k) => {
     const x0 = k * 512;
     const cx = x0 + 256;
     const cy = 256;
@@ -236,10 +253,10 @@ function chipTexture(): THREE.CanvasTexture {
       ctx.fill();
     }
     ctx.fillStyle = v.ring;
-    ctx.font = "600 150px Georgia, serif";
+    ctx.font = `500 164px ${canvasFont("display")}`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText("A", cx, cy + 8);
+    ctx.fillText("A", cx, cy + 10);
     // edge strip
     ctx.fillStyle = v.stripe;
     for (let s = 0; s < 8; s++) {
@@ -247,10 +264,15 @@ function chipTexture(): THREE.CanvasTexture {
       ctx.fillRect(x0 + u * 512 - 18, 512, 36, 128);
     }
   });
+  paint();
   const t = new THREE.CanvasTexture(c);
   t.flipY = false;
   t.colorSpace = THREE.SRGBColorSpace;
   t.anisotropy = 8;
+  afterCanvasFonts(() => {
+    paint();
+    t.needsUpdate = true;
+  });
   return t;
 }
 

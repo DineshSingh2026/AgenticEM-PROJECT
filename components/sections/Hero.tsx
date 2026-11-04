@@ -22,7 +22,7 @@ export function Hero() {
             <Eyebrow>{c.eyebrow}</Eyebrow>
             <h1
               id={c.id}
-              className="t-display mt-5 text-balance text-text lg:mt-6 lg:text-[64px] xl:text-[72px] 2xl:text-[80px]"
+              className="t-display mt-5 text-balance text-text lg:mt-6 lg:text-[70px] xl:text-[80px] 2xl:text-[88px]"
             >
               {c.title}
             </h1>

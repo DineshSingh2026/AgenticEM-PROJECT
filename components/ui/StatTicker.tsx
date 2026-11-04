@@ -101,7 +101,7 @@ export function StatTicker({ value, format = "int", label, className }: StatTick
 
   return (
     <div ref={ref} className={cn("flex flex-col gap-1", className)}>
-      <span className="t-num text-xl text-text md:text-2xl">{formatStat(rounded, format)}</span>
+      <span className="font-display text-[26px] font-medium leading-none tabular-nums lining-nums text-text md:text-[28px]">{formatStat(rounded, format)}</span>
       <span className="t-label text-[11px] text-text-faint">{label}</span>
     </div>
   );

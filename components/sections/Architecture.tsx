@@ -84,7 +84,7 @@ export function Architecture() {
                           <span className="t-num text-copper">{layer.index}</span>
                           <span aria-hidden="true" className="h-px w-6 bg-line-strong" />
                         </p>
-                        <h3 className="mt-2 font-display text-[19px] font-medium leading-tight tracking-[-0.01em] text-text lg:text-[22px]">
+                        <h3 className="mt-2 font-display text-[21px] font-medium leading-tight tracking-[-0.01em] text-text lg:text-[24px]">
                           {layer.title}
                         </h3>
                         <p className="mt-1.5 text-[14px] leading-relaxed text-text-dim lg:text-[15px]">{layer.body}</p>

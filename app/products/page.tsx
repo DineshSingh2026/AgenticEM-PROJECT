@@ -53,7 +53,7 @@ export default function ProductsPage() {
                   {pad(i + 1)} / {pad(features.length)}
                 </span>
               </div>
-              <h3 className="mt-8 font-display text-[22px] font-medium leading-snug text-text text-balance transition-colors duration-300 group-hover:text-copper-soft lg:text-[24px]">
+              <h3 className="mt-8 font-display text-[24px] font-medium leading-snug text-text text-balance transition-colors duration-300 group-hover:text-copper-soft lg:text-[26px]">
                 {f.title}
               </h3>
               <p className="mt-3 text-[15px] leading-relaxed text-text-dim">{f.body}</p>
@@ -74,7 +74,7 @@ export default function ProductsPage() {
               </h2>
             </div>
             <div className="flex flex-col gap-5 lg:col-span-6 lg:pt-[42px]">
-              <p className="font-display text-[20px] font-medium leading-snug text-copper-soft text-balance md:text-[24px]">
+              <p className="font-display text-[22px] font-medium leading-snug text-copper-soft text-balance md:text-[26px]">
                 {c.portfolio.tagline}
               </p>
               <p className="t-body">{c.portfolio.body}</p>
@@ -95,7 +95,7 @@ export default function ProductsPage() {
                   <div className="flex items-baseline justify-between gap-4">
                     <h3
                       id={`cat-${cat.key}`}
-                      className="font-display text-[20px] font-medium leading-snug text-text text-balance transition-colors duration-300 group-hover:text-copper-soft lg:text-[22px]"
+                      className="font-display text-[22px] font-medium leading-snug text-text text-balance transition-colors duration-300 group-hover:text-copper-soft lg:text-[24px]"
                     >
                       {cat.title}
                     </h3>

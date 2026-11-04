@@ -129,7 +129,7 @@ export function RiskIntel() {
               <StatTicker value={approved} format="int" label={c.interventionsLabel} />
               <div className="mt-6 flex items-baseline justify-between gap-3 border-t border-line pt-4">
                 <span className="t-label text-text-faint">{c.pendingLabel}</span>
-                <span className="t-num text-[18px] text-data-gold">{awaiting}</span>
+                <span className="font-display text-[22px] font-medium leading-none tabular-nums lining-nums text-data-gold">{awaiting}</span>
               </div>
               <p className="mt-6 text-[14px] leading-relaxed text-text-dim">{c.interventionsNote}</p>
               <SimLabel className="mt-auto pt-6" />

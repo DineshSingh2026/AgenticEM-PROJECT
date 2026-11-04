@@ -194,17 +194,17 @@ export function createAggregationScene(): FilmScene {
     const cx = g.x + g.w / 2;
     if (!L.narrow) {
       // Gate name above the bar: one line when it clears the catalogue, else "Global API" / "Gateway".
-      const size = clamp(L.w * 0.0155, 17, 22);
+      const size = clamp(L.w * 0.017, 19, 24); // EB Garamond: ~10% up for its smaller x-height
       const room = 2 * Math.min(L.grid.x - 20 - cx, cx - L.w * 0.04);
       f.ctx.save();
-      f.ctx.font = `600 ${size}px ${f.fonts.display}`;
+      f.ctx.font = `500 ${size}px ${f.fonts.display}`;
       const oneLine = f.ctx.measureText(C.gate).width <= room;
       f.ctx.restore();
       const lines = oneLine ? [C.gate] : C.gateLines;
       const lh = size * 1.12;
       lines.forEach((s, i) => {
         const y = g.y - 26 - (lines.length - 1 - i) * lh;
-        text(f.ctx, f.fonts.display, s, cx, y, { size, weight: 600, color: COLORS.goldPale, alpha: la, align: "center" });
+        text(f.ctx, f.fonts.display, s, cx, y, { size, weight: 500, color: COLORS.goldPale, alpha: la, align: "center" });
       });
       label(f, C.gateSub, cx, g.y + g.h + 22, { size: 9.5, color: COLORS.dim, alpha: la, align: "center" });
     } else {
@@ -213,8 +213,8 @@ export function createAggregationScene(): FilmScene {
       const ink = clamp((fill - 0.55) * 3);
       const name = C.gate.toUpperCase();
       for (const [color, a] of [[COLORS.goldPale, la * (1 - ink)], ["#1A1408", la * ink]] as const) {
-        text(f.ctx, f.fonts.mono, name, cx, g.y + g.h * 0.36, { size: 9.5, weight: 700, color, alpha: a, align: "center", track: 0.1 });
-        text(f.ctx, f.fonts.mono, C.gateSub, cx, g.y + g.h * 0.72, { size: 7, weight: 600, color, alpha: a * 0.85, align: "center", track: 0.12 });
+        text(f.ctx, f.fonts.mono, name, cx, g.y + g.h * 0.36, { size: 9.5, weight: 500, color, alpha: a, align: "center", track: 0.1 });
+        text(f.ctx, f.fonts.mono, C.gateSub, cx, g.y + g.h * 0.72, { size: 7, weight: 500, color, alpha: a * 0.85, align: "center", track: 0.12 });
       }
     }
   }

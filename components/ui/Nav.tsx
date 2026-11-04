@@ -247,7 +247,7 @@ export function Nav() {
                     {/* Intro column: wide desktop only, so 1024 keeps the full width for the items. */}
                     <div className="hidden flex-col gap-3 border-r border-line pr-6 xl:col-span-3 xl:flex">
                       <p className="t-label text-copper">{n.platform.menuLabel}</p>
-                      <p className="font-display text-[22px] font-medium leading-tight text-text">{n.platform.label}</p>
+                      <p className="font-display text-[24px] font-medium leading-tight text-text">{n.platform.label}</p>
                       <p className="max-w-[30ch] text-[13px] leading-relaxed text-text-dim">{copy.site.brand.mission}</p>
                     </div>
                     <div className="xl:col-span-9">
@@ -389,7 +389,7 @@ export function Nav() {
                     href={l.href}
                     aria-current={isCurrent(l.href)}
                     onClick={() => setSheetOpen(false)}
-                    className="font-display block py-4 text-[24px] font-medium text-text aria-[current=page]:text-copper"
+                    className="font-display block py-4 text-[26px] font-medium text-text aria-[current=page]:text-copper"
                   >
                     {l.label}
                   </Link>
@@ -400,7 +400,7 @@ export function Nav() {
                   href={n.contact.href}
                   aria-current={isCurrent(n.contact.href)}
                   onClick={() => setSheetOpen(false)}
-                  className="font-display group flex items-center justify-between gap-4 py-4 text-[24px] font-medium text-text aria-[current=page]:text-copper"
+                  className="font-display group flex items-center justify-between gap-4 py-4 text-[26px] font-medium text-text aria-[current=page]:text-copper"
                 >
                   {n.contact.label}
                   <span

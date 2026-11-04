@@ -55,7 +55,7 @@ export function StepRing({ steps, active, orientation = "row", className }: Step
             </div>
             <div className="flex flex-col gap-2 pb-4">
               <span className={cn("t-label", isActive ? "text-copper" : "text-text-faint")}>{s.index}</span>
-              <h3 className="font-display text-[20px] font-medium leading-tight text-text">{s.title}</h3>
+              <h3 className="font-display text-[22px] font-medium leading-tight text-text">{s.title}</h3>
               <p className="text-[15px] leading-relaxed text-text-dim">{s.body}</p>
             </div>
           </li>

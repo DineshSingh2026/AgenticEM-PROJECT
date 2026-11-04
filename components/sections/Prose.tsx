@@ -7,8 +7,8 @@ export function Prose({ children, className }: { children: ReactNode; className?
     <div
       className={cn(
         "max-w-[68ch] text-[17px] leading-[1.7] text-text-dim",
-        "[&_h2]:mt-14 [&_h2]:font-display [&_h2]:text-[28px] [&_h2]:font-semibold [&_h2]:leading-tight [&_h2]:tracking-[-0.02em] [&_h2]:text-text md:[&_h2]:text-[32px]",
-        "[&_h3]:mt-10 [&_h3]:font-display [&_h3]:text-[21px] [&_h3]:font-medium [&_h3]:text-text",
+        "[&_h2]:mt-14 [&_h2]:font-display [&_h2]:text-[30px] [&_h2]:font-medium [&_h2]:leading-tight [&_h2]:tracking-[-0.01em] [&_h2]:text-text md:[&_h2]:text-[36px]",
+        "[&_h3]:mt-10 [&_h3]:font-display [&_h3]:text-[23px] [&_h3]:font-medium [&_h3]:text-text",
         "[&_p]:mt-5 [&_strong]:font-medium [&_strong]:text-text",
         "[&_a]:text-copper [&_a]:underline [&_a]:decoration-copper/40 [&_a]:underline-offset-4 hover:[&_a]:decoration-copper",
         "[&_ul]:mt-5 [&_ul]:flex [&_ul]:list-none [&_ul]:flex-col [&_ul]:gap-2 [&_ul>li]:relative [&_ul>li]:pl-6",

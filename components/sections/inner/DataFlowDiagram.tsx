@@ -107,7 +107,15 @@ export function DataFlowDiagram({ nodes, label, title, desc }: DataFlowDiagramPr
               >
                 {String(i + 1).padStart(2, "0")}
               </text>
-              <text x={b.x + 14} y={b.y + 44} className="fill-text font-sans" fontSize={14} fontWeight={500}>
+              <text
+                x={b.x + 14}
+                y={b.y + 44}
+                className="fill-text font-sans"
+                fontSize={14}
+                fontWeight={500}
+                // Open Sans runs ~7.4px/char here; squeeze long labels to the box interior instead of overflowing.
+                {...(n.label.length * 7.4 > w - 28 ? { textLength: w - 28, lengthAdjust: "spacingAndGlyphs" } : {})}
+              >
                 {n.label}
               </text>
               <text
@@ -115,7 +123,7 @@ export function DataFlowDiagram({ nodes, label, title, desc }: DataFlowDiagramPr
                 y={b.y + 62}
                 className="fill-text-dim font-mono"
                 fontSize={9.5}
-                letterSpacing="0.06em"
+                letterSpacing="0.03em"
               >
                 {n.sub}
               </text>

@@ -27,26 +27,28 @@
   html { background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
   html.lenis, html.lenis body { height: auto; }
   .lenis.lenis-smooth { scroll-behavior: auto !important; }
-  body { background: var(--bg); font-family: var(--font-sans), system-ui, sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+  body { background: var(--bg); font-family: var(--font-sans), system-ui, sans-serif; font-weight: 400; font-size: 16px; line-height: 1.65; overflow-x: hidden; }
   @media (min-width: 768px) { body { font-size: 18px; } }
   ::selection { background: rgb(var(--copper-rgb) / 0.35); color: var(--text); }
   :focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
-  h1, h2, h3 { font-family: var(--font-display), system-ui, sans-serif; }
+  h1, h2, h3 { font-family: var(--font-display), Georgia, serif; font-weight: 500; }
 }
 
 @layer components {
   .container-site { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: 16px; }
   @media (min-width: 768px) { .container-site { padding-inline: 24px; } }
-  .t-display { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.03em; line-height: 1; font-size: 44px; }
-  @media (min-width: 1024px) { .t-display { font-size: 88px; } }
-  .t-h2 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; line-height: 1.05; font-size: 32px; }
-  @media (min-width: 1024px) { .t-h2 { font-size: 56px; } }
-  .t-h3 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; line-height: 1.2; font-size: 22px; }
-  @media (min-width: 1024px) { .t-h3 { font-size: 28px; } }
-  .t-body { font-family: var(--font-sans); font-size: 16px; line-height: 1.6; max-width: 64ch; color: var(--text-dim); }
+  /* Type scale: EB Garamond display (low x-height -> sized up, light tracking), Open Sans text. */
+  .t-display { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.015em; line-height: 1.02; font-size: 48px; }
+  @media (min-width: 768px) { .t-display { font-size: 72px; } }
+  @media (min-width: 1024px) { .t-display { font-size: 96px; } }
+  .t-h2 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; line-height: 1.08; font-size: 36px; }
+  @media (min-width: 1024px) { .t-h2 { font-size: 60px; } }
+  .t-h3 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.005em; line-height: 1.2; font-size: 24px; }
+  @media (min-width: 1024px) { .t-h3 { font-size: 30px; } }
+  .t-body { font-family: var(--font-sans); font-weight: 300; font-size: 16px; line-height: 1.7; max-width: 64ch; color: var(--text-dim); }
   @media (min-width: 768px) { .t-body { font-size: 18px; } }
-  .t-label { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; font-variant-numeric: tabular-nums; }
-  .t-num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  .t-label { font-family: var(--font-sans); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; font-variant-numeric: tabular-nums; }
+  .t-num { font-family: var(--font-sans); font-variant-numeric: tabular-nums lining-nums; }
   .section-pad { padding-block: 96px; }
   @media (min-width: 1024px) { .section-pad { padding-block: 160px; } }
   .glass { background: rgb(var(--bg-rgb) / 0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }

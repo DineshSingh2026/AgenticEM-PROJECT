@@ -50,7 +50,7 @@ export function FeatureValueTable({ rows, className }: FeatureValueTableProps) {
                 onClick={() => setOpen(isOpen ? null : i)}
                 className="grid w-full grid-cols-[1fr_24px] items-start gap-x-6 gap-y-2 px-2 py-5 text-left md:grid-cols-[1fr_1fr_24px] md:px-4"
               >
-                <span className="font-display text-[18px] font-medium text-text md:text-[20px]">{r.feature}</span>
+                <span className="font-display text-[20px] font-medium text-text md:text-[22px]">{r.feature}</span>
                 <span className="col-start-1 row-start-2 text-[15px] text-text-dim md:col-start-2 md:row-start-1">{r.benefit}</span>
                 <span aria-hidden="true" className="relative col-start-2 row-start-1 mt-2 h-3 w-3 md:col-start-3">
                   <span className="absolute left-0 top-1/2 h-px w-3 -translate-y-1/2 bg-copper" />
@@ -68,7 +68,7 @@ export function FeatureValueTable({ rows, className }: FeatureValueTableProps) {
                 <p className="t-body">{r.detail}</p>
                 <div className="flex flex-col gap-2">
                   <MiniBars data={r.chart} />
-                  <span className="t-label text-[11px] md:text-[10px] text-text-faint">{t.chartLabel}</span>
+                  <span className="t-label text-[11px] text-text-faint">{t.chartLabel}</span>
                 </div>
               </div>
             </div>

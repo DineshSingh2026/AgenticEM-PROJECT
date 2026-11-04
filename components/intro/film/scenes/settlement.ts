@@ -194,7 +194,7 @@ export function createSettlementScene(): FilmScene {
       if (!L.narrow) {
         const px = b.x + 14;
         text(ctx, fonts.mono, C.block, px, b.y + 18, { size: 9, color: COLORS.dim, alpha: k, track: 0.14 });
-        text(ctx, fonts.mono, `#${b.n.toLocaleString("en-US")}`, px, b.y + 38, { size: 13, weight: 600, color: sealed ? COLORS.goldPale : COLORS.text, alpha: k, track: 0.02 });
+        text(ctx, fonts.mono, `#${b.n.toLocaleString("en-US")}`, px, b.y + 38, { size: 13, weight: 500, color: sealed ? COLORS.goldPale : COLORS.text, alpha: k, track: 0.02 });
         // Tx cells.
         const cw = (b.w - 28 - 5 * 4) / 6;
         for (let c = 0; c < CONFIG.txPerBlock; c++) {
@@ -219,7 +219,7 @@ export function createSettlementScene(): FilmScene {
         }
       } else {
         const cy = b.y + b.h / 2;
-        text(ctx, fonts.mono, `${C.block} #${b.n.toLocaleString("en-US")}`, b.x + 12, cy, { size: 9.5, weight: 600, color: sealed ? COLORS.goldPale : COLORS.text, alpha: k, track: 0.06 });
+        text(ctx, fonts.mono, `${C.block} #${b.n.toLocaleString("en-US")}`, b.x + 12, cy, { size: 9.5, weight: 500, color: sealed ? COLORS.goldPale : COLORS.text, alpha: k, track: 0.06 });
         const cw = 7;
         for (let c = 0; c < CONFIG.txPerBlock; c++) {
           ctx.save();

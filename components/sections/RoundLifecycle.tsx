@@ -37,7 +37,7 @@ export function RoundLifecycle() {
               </div>
               <div aria-hidden="true" className="col-span-12 mt-6 hidden md:col-span-4 md:col-start-9 md:mt-0 md:block md:text-right">
                 <p className="t-label text-text-faint">{c.stepsLabel}</p>
-                <p className="t-num mt-2 text-[28px] text-text">
+                <p className="mt-2 font-display text-[32px] font-medium leading-none tabular-nums lining-nums text-text">
                   <span className="text-copper">{String(Math.max(0, reached)).padStart(2, "0")}</span>
                   <span className="text-text-faint"> / {String(c.steps.length).padStart(2, "0")}</span>
                 </p>
@@ -72,7 +72,7 @@ export function RoundLifecycle() {
                     </p>
                     <h3
                       className={cn(
-                        "mt-3 font-display text-[19px] font-medium tracking-[-0.01em] transition-colors duration-500 lg:text-[22px]",
+                        "mt-3 font-display text-[21px] font-medium tracking-[-0.01em] transition-colors duration-500 lg:text-[24px]",
                         open ? "text-text" : "text-text-faint",
                       )}
                     >

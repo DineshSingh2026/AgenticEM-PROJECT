@@ -41,7 +41,7 @@ export function Flywheel() {
                   <span aria-hidden="true" className="pointer-events-none absolute -left-px -top-px h-2 w-2 border-l border-t border-copper" />
                   <span aria-hidden="true" className="pointer-events-none absolute -bottom-px -right-px h-2 w-2 border-b border-r border-copper" />
                   <div className="flex items-baseline justify-between gap-4">
-                    <span className="t-num font-mono text-[40px] font-medium leading-none text-copper/90 md:text-[48px]">{s.index}</span>
+                    <span className="font-display text-[44px] font-medium leading-none tabular-nums lining-nums text-copper/90 md:text-[54px]">{s.index}</span>
                     <span aria-hidden="true" className="h-px flex-1 bg-line" />
                   </div>
                   <h3 className="t-h3 mt-6 text-text">{s.title}</h3>

@@ -1,4 +1,5 @@
 import seed from "@/lib/sim/seed.json";
+import { canvasFont, loadCanvasFonts } from "@/lib/canvas-fonts";
 import { TIMELINE, type SceneId } from "./timeline";
 import type { FilmAssets, FilmScene, SceneFrame } from "./types";
 import { clamp, easeInOutSine, easeOut, lerp, mulberry32, seg } from "./util";
@@ -115,7 +116,7 @@ export function loadFilmAssets(): Promise<FilmAssets> {
   const all = Promise.all([loadImage(A.logo), loadImage(A.emblem), loadImage(A.wordmark), loadImage(A.tagline)]).then(
     async ([logo, emblem, wordmark, tagline]) => {
       try {
-        await document.fonts?.ready;
+        await loadCanvasFonts();
       } catch {}
       return { logo, emblem, wordmark, tagline };
     },
@@ -194,9 +195,9 @@ export class FilmEngine {
     this.vignette = mk();
     this.buildSprites();
 
-    const cs = getComputedStyle(document.documentElement);
-    const mono = cs.getPropertyValue("--font-mono").trim() || "ui-monospace, monospace";
-    const display = cs.getPropertyValue("--font-display").trim() || "system-ui, sans-serif";
+    // Resolved next/font stacks (EB Garamond / Roboto Mono); faces are preloaded in loadFilmAssets.
+    const mono = canvasFont("mono");
+    const display = canvasFont("display");
 
     this.slots = TIMELINE.scenes.map((s, idx) => ({ scene: SCENE_FACTORIES[s.id](), start: s.start, end: s.end, idx }));
     this.frame = {

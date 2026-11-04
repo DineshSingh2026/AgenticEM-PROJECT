@@ -7,6 +7,7 @@ import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeom
 import { useSceneStore } from "@/lib/scene-store";
 import { useSimFeed } from "@/lib/sim/useSimFeed";
 import { mulberry32 } from "@/lib/sim/prng";
+import { afterCanvasFonts, canvasFont } from "@/lib/canvas-fonts";
 import { useSceneFade } from "./shared/useSceneFade";
 import uvVert from "./shaders/turbine-uv-vert.glsl";
 import ribbonFrag from "./shaders/turbine-ribbon-frag.glsl";
@@ -156,7 +157,13 @@ function chipTexture(): { tex: THREE.CanvasTexture; drawEmblem: (img: HTMLImageE
   c.width = 512 * 4;
   c.height = 640;
   const ctx = c.getContext("2d")!;
-  variants.forEach((v, k) => {
+  let emblem: HTMLImageElement | null = null;
+  const paintEmblem = (img: HTMLImageElement) => {
+    const w = 250;
+    const h = (w * img.height) / img.width;
+    ctx.drawImage(img, 3 * 512 + 256 - w / 2, 256 - h / 2, w, h);
+  };
+  const paint = () => variants.forEach((v, k) => {
     const x0 = k * 512;
     const cx = x0 + 256;
     const cy = 256;
@@ -189,10 +196,10 @@ function chipTexture(): { tex: THREE.CanvasTexture; drawEmblem: (img: HTMLImageE
     }
     if (k < 3) {
       ctx.fillStyle = v.ring;
-      ctx.font = "600 150px Georgia, serif";
+      ctx.font = `500 164px ${canvasFont("display")}`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText("A", cx, cy + 8);
+      ctx.fillText("A", cx, cy + 10);
     }
     ctx.fillStyle = v.stripe;
     for (let s = 0; s < 8; s++) {
@@ -200,16 +207,21 @@ function chipTexture(): { tex: THREE.CanvasTexture; drawEmblem: (img: HTMLImageE
       ctx.fillRect(x0 + u * 512 - 18, 512, 36, 128);
     }
   });
+  paint();
   const tex = new THREE.CanvasTexture(c);
   tex.flipY = false;
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.anisotropy = 8;
   const drawEmblem = (img: HTMLImageElement) => {
-    const w = 250;
-    const h = (w * img.height) / img.width;
-    ctx.drawImage(img, 3 * 512 + 256 - w / 2, 256 - h / 2, w, h);
+    emblem = img;
+    paintEmblem(img);
     tex.needsUpdate = true;
   };
+  afterCanvasFonts(() => {
+    paint();
+    if (emblem) paintEmblem(emblem);
+    tex.needsUpdate = true;
+  });
   return { tex, drawEmblem };
 }
 
@@ -245,32 +257,39 @@ function cardTexture(): THREE.CanvasTexture {
   c.width = 256;
   c.height = 360;
   const ctx = c.getContext("2d")!;
-  ctx.fillStyle = "#101216";
-  ctx.fillRect(0, 0, 256, 360);
-  ctx.strokeStyle = CONFIG.colors.gold;
-  ctx.lineWidth = 6;
-  ctx.strokeRect(14, 14, 228, 332);
-  ctx.lineWidth = 1.5;
-  ctx.strokeRect(28, 28, 200, 304);
-  ctx.strokeStyle = CONFIG.colors.goldDeep;
-  for (let i = -12; i < 24; i++) {
+  const paint = () => {
+    ctx.fillStyle = "#101216";
+    ctx.fillRect(0, 0, 256, 360);
+    ctx.strokeStyle = CONFIG.colors.gold;
+    ctx.lineWidth = 6;
+    ctx.strokeRect(14, 14, 228, 332);
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(28, 28, 200, 304);
+    ctx.strokeStyle = CONFIG.colors.goldDeep;
+    for (let i = -12; i < 24; i++) {
+      ctx.beginPath();
+      ctx.moveTo(28 + i * 16, 28);
+      ctx.lineTo(28 + i * 16 + 304, 332);
+      ctx.stroke();
+    }
+    ctx.fillStyle = "#101216";
     ctx.beginPath();
-    ctx.moveTo(28 + i * 16, 28);
-    ctx.lineTo(28 + i * 16 + 304, 332);
-    ctx.stroke();
-  }
-  ctx.fillStyle = "#101216";
-  ctx.beginPath();
-  ctx.arc(128, 180, 54, 0, TAU);
-  ctx.fill();
-  ctx.fillStyle = CONFIG.colors.goldPale;
-  ctx.font = "600 76px Georgia, serif";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText("A", 128, 186);
+    ctx.arc(128, 180, 54, 0, TAU);
+    ctx.fill();
+    ctx.fillStyle = CONFIG.colors.goldPale;
+    ctx.font = `500 84px ${canvasFont("display")}`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("A", 128, 187);
+  };
+  paint();
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;
   t.anisotropy = 8;
+  afterCanvasFonts(() => {
+    paint();
+    t.needsUpdate = true;
+  });
   return t;
 }
 
@@ -324,25 +343,31 @@ function labelTexture(lines: string[]): THREE.CanvasTexture {
   c.width = W;
   c.height = H * lines.length;
   const ctx = c.getContext("2d")!;
-  ctx.fillStyle = "#000";
-  ctx.fillRect(0, 0, c.width, c.height);
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  lines.forEach((l, i) => {
-    const [idx, rest] = l.split("|");
-    ctx.font = "500 46px ui-monospace, 'JetBrains Mono', Menlo, monospace";
-    const wi = ctx.measureText(idx).width;
-    ctx.font = "500 46px ui-monospace, 'JetBrains Mono', Menlo, monospace";
-    const wr = ctx.measureText(rest).width;
-    const x0 = W / 2 - (wi + 28 + wr) / 2;
-    ctx.textAlign = "left";
-    ctx.fillStyle = "#ffffff";
-    ctx.fillText(idx, x0, i * H + H / 2);
-    ctx.fillStyle = "#a9a9a9";
-    ctx.fillText(rest, x0 + wi + 28, i * H + H / 2);
-  });
+  const paint = () => {
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, c.width, c.height);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.font = `500 46px ${canvasFont("mono")}`;
+    lines.forEach((l, i) => {
+      const [idx, rest] = l.split("|");
+      const wi = ctx.measureText(idx).width;
+      const wr = ctx.measureText(rest).width;
+      const x0 = W / 2 - (wi + 28 + wr) / 2;
+      ctx.textAlign = "left";
+      ctx.fillStyle = "#ffffff";
+      ctx.fillText(idx, x0, i * H + H / 2);
+      ctx.fillStyle = "#a9a9a9";
+      ctx.fillText(rest, x0 + wi + 28, i * H + H / 2);
+    });
+  };
+  paint();
   const t = new THREE.CanvasTexture(c);
   t.anisotropy = 8;
+  afterCanvasFonts(() => {
+    paint();
+    t.needsUpdate = true;
+  });
   return t;
 }
 

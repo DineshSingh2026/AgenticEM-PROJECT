@@ -69,7 +69,6 @@ export const site = {
         title: "Company",
         links: [
           { label: "About", href: "/company" },
-          { label: "Careers", href: "/company#careers" },
           { label: "Contact Us", href: "/contact" },
         ],
       },

@@ -12,8 +12,8 @@ export const homeB = {
 
   settlement: {
     eyebrow: "07 // SETTLEMENT",
-    kicker: "Secure Financial Infrastructure & On-Chain Settlement",
-    title: "Every settlement, traced.",
+    title: "Secure Financial Infrastructure & On-Chain Settlement",
+    tagline: "Every settlement, traced.",
     body: "Agentium provides secure, transparent, and auditable financial infrastructure, integrating identity management, digital wallets, automated transactions, and blockchain-based settlement to enable seamless financial operations for iGaming operators and autonomous AI agents.",
     economy: {
       label: "07.1 // TOKEN_ECONOMY",

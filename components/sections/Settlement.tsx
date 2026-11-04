@@ -1,6 +1,7 @@
 import { copy } from "@/content/copy";
 import { BlueprintGrid, Eyebrow } from "@/components/ui";
 import { SettlementLivePanel } from "./live/SettlementLivePanel";
+import { MonetizationIcon } from "./MonetizationIcon";
 
 /** 08 // SETTLEMENT — Ledger scene behind; identity → wallets → on-chain stack + live ledger panel. */
 export function Settlement() {
@@ -19,10 +20,10 @@ export function Settlement() {
         <div className="lg:col-span-6">
           <header className="flex flex-col gap-5">
             <Eyebrow>{c.eyebrow}</Eyebrow>
+            <h2 className="t-h2 max-w-[20ch] text-balance text-text lg:text-[52px]">{c.title}</h2>
             <p className="max-w-[32ch] text-balance font-display text-[20px] font-medium italic leading-snug text-copper-soft lg:text-[24px]">
-              {c.kicker}
+              {c.tagline}
             </p>
-            <h2 className="t-h2 max-w-[20ch] text-balance text-text">{c.title}</h2>
             <p className="t-body">{c.body}</p>
           </header>
 
@@ -71,9 +72,14 @@ export function Settlement() {
             <div className="lg:col-span-7">
               <p className="t-body max-w-none">{c.economy.body}</p>
               <ul className="mt-8 grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3">
-                {c.economy.models.map((m) => (
-                  <li key={m} className="flex items-center gap-3 border border-line bg-bg/60 px-4 py-3 text-[14px] text-text-dim">
-                    <span aria-hidden="true" className="h-[7px] w-[7px] shrink-0 rotate-45 border border-data-gold" />
+                {c.economy.models.map((m, i) => (
+                  <li
+                    key={m}
+                    className="group flex items-center gap-4 border border-line bg-bg/60 px-4 py-3.5 text-[14px] leading-snug text-text-dim transition-colors duration-300 hover:border-data-gold/50 hover:text-text"
+                  >
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-data-gold/40 bg-gradient-to-br from-data-gold/[0.16] via-copper/[0.06] to-transparent text-data-gold shadow-[inset_0_0_12px_rgb(var(--data-gold-rgb)/0.08)] transition-[box-shadow,border-color] duration-300 group-hover:border-data-gold/80 group-hover:shadow-[0_0_18px_rgb(var(--data-gold-rgb)/0.25)]">
+                      <MonetizationIcon index={i} />
+                    </span>
                     {m}
                   </li>
                 ))}

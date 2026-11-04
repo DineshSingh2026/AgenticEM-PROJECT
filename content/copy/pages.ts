@@ -634,7 +634,7 @@ export const pages = {
     meta: {
       title: "Company",
       description:
-        "AGENTIUM builds Agentium OS, the AI operating system for the autonomous gaming economy. Mission, leadership, group and careers.",
+        "AGENTIUM builds Agentium OS, the AI operating system for the autonomous gaming economy. Our mission and leadership.",
       path: "/company",
     },
     hero: {
@@ -644,26 +644,12 @@ export const pages = {
     },
     mission: {
       eyebrow: "01 // MISSION",
-      title: "Our mission.",
-      body: "Autonomous agents are becoming participants in gaming. We expect them to account for a growing share of activity at licensed tables. Our job is to give operators the infrastructure to run that activity safely, see it clearly and settle it transparently.",
-      principles: [
-        { label: "PRINCIPLE 01", title: "Licensed only", body: "We build for regulated operators and the partners that supply them." },
-        { label: "PRINCIPLE 02", title: "Humans decide", body: "Agents recommend interventions. People approve them." },
-        { label: "PRINCIPLE 03", title: "Everything traced", body: "Every decision and settlement leaves a record that can be replayed." },
-      ],
-    },
-    flywheel: {
-      eyebrow: "02 // FLYWHEEL",
-      title: "The agentic intelligence flywheel.",
-      steps: [
-        { index: "01", title: "Machine-speed execution", body: "Agents play continuously." },
-        { index: "02", title: "Real-time capture", body: "Gameplay becomes structured data." },
-        { index: "03", title: "Operational intelligence", body: "Analytics surface actionable risk and revenue insight." },
-        { index: "04", title: "Format evolution", body: "Operators launch optimised new formats, which drive more execution." },
-      ],
+      title: "Our Mission",
+      tagline: "Empowering the Future of Autonomous AI-Driven iGaming",
+      body: "Our mission is to build the trusted technology foundation for the next generation of agentic iGaming, empowering licensed operators to seamlessly integrate autonomous AI agents into gaming ecosystems. Through secure infrastructure, intelligent automation, real-time operational visibility, and transparent financial settlement, Agentium aims to create a scalable, responsible, and intelligent gaming economy where AI agents and human players can participate with confidence.",
     },
     leadership: {
-      eyebrow: "03 // LEADERSHIP",
+      eyebrow: "02 // LEADERSHIP",
       title: "Leadership.",
       body: "Leadership profiles will be published here (TO CONFIRM).",
       people: [
@@ -672,25 +658,6 @@ export const pages = {
         { role: "Chief Risk and Compliance Officer", name: "Name TO CONFIRM", bio: "Biography to be supplied." },
         { role: "Head of Operator Partnerships", name: "Name TO CONFIRM", bio: "Biography to be supplied." },
       ],
-    },
-    group: {
-      eyebrow: "04 // GROUP",
-      title: "Group.",
-      body: "AGENTIUM operates within a wider group of companies. Entity details and links will be published here.",
-      items: [
-        { label: "ENTITY", title: "AGENTIUM", body: "Developer of Agentium OS. Registered details TO CONFIRM." },
-        { label: "ENTITY", title: "Group entity", body: "Name, role and link TO CONFIRM." },
-        { label: "ENTITY", title: "Group entity", body: "Name, role and link TO CONFIRM." },
-      ],
-    },
-    careers: {
-      eyebrow: "05 // CAREERS",
-      title: "Careers.",
-      body: "We hire engineers, researchers and operators who want to build regulated infrastructure for a new kind of player. Open roles will be listed here; until then, send a short note and your CV.",
-      label: "WE HIRE FOR",
-      points: ["Distributed systems and real-time data", "Machine learning and agent research", "Risk, compliance and payments", "Operator partnerships"],
-      email: "careers@agentium.com (TO CONFIRM)",
-      emailLabel: "CAREERS EMAIL",
     },
     cta: {
       title: "Talk to the team behind Agentium OS.",

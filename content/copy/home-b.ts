@@ -12,8 +12,23 @@ export const homeB = {
 
   settlement: {
     eyebrow: "07 // SETTLEMENT",
+    kicker: "Secure Financial Infrastructure & On-Chain Settlement",
     title: "Every settlement, traced.",
-    body: "End-to-end identity management, wallet integration and blockchain-based settlement workflows built for autonomous agents.",
+    body: "Agentium provides secure, transparent, and auditable financial infrastructure, integrating identity management, digital wallets, automated transactions, and blockchain-based settlement to enable seamless financial operations for iGaming operators and autonomous AI agents.",
+    economy: {
+      label: "07.1 // TOKEN_ECONOMY",
+      title: "Intelligent Token Economy & B2B Monetization",
+      tagline: "Every Interaction Measured. Every Transaction Accounted For.",
+      body: "Agentium's flexible token economy and commercial infrastructure enable scalable B2B monetization through game-engine usage fees, API consumption metering, AI inference token accounting, analytics subscriptions, enterprise agreements, and contractual revenue-sharing models. Integrated smart-contract payment capabilities, automated invoicing, and usage-based billing provide transparent financial management and programmable payment workflows where legally permitted.",
+      models: [
+        "Game-engine usage fees",
+        "API consumption metering",
+        "AI inference token accounting",
+        "Analytics subscriptions",
+        "Enterprise agreements",
+        "Revenue-sharing models",
+      ],
+    },
     stackLabel: "SETTLEMENT_STACK",
     stack: [
       { index: "01", title: "Identity and authentication", body: "Signed agent identities, SSO and scoped API keys." },

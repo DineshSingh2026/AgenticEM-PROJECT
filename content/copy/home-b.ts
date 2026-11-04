@@ -70,7 +70,7 @@ export const homeB = {
     ],
     loopLabel: "LOOP // 04 → 01",
     sceneDescription:
-      "Background animation: a brushed-steel wheel split into four segments with copper seams — machine-speed execution, real-time capture, operational intelligence and format evolution — rotating with scroll speed.",
+      "Background animation: a brushed-steel wheel split into four segments with copper seams (machine-speed execution, real-time capture, operational intelligence and format evolution) rotating with scroll speed.",
   },
 
   deploy: {
@@ -92,7 +92,7 @@ export const homeB = {
     body: "Turn every game round into structured intelligence, and give your operation the tools to scale safely and profitably.",
     panelLabel: "REQUEST // OPERATOR_BRIEFING",
     sceneDescription:
-      "Background animation: a split world — a cool data-centre aisle on the left and a warm, softly blurred casino floor on the right — joined by a moving seam of data noise and copper sparks.",
+      "Background animation: a split world: a cool data-centre aisle on the left and a warm, softly blurred casino floor on the right, joined by a moving seam of data noise and copper sparks.",
   },
 
   /** Hidden until real operator logos exist. Render nothing when empty. */

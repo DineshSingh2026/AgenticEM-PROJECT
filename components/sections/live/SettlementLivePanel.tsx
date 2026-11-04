@@ -107,10 +107,10 @@ export function SettlementLivePanel({ labels }: { labels: SettlementLiveLabels }
           })}
           {Array.from({ length: placeholders }).map((_, i) => (
             <div role="row" key={`ph-${i}`} className={cn(ROW, "border-b border-line/40 py-2 text-text-faint/60")}>
-              <span role="cell">———</span>
+              <span role="cell">···</span>
               <span role="cell" className="truncate">{labels.awaiting}</span>
-              <span role="cell" className="hidden text-right sm:block">—</span>
-              <span role="cell" className="text-right">—</span>
+              <span role="cell" className="hidden text-right sm:block">·</span>
+              <span role="cell" className="text-right">·</span>
             </div>
           ))}
         </div>

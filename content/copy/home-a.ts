@@ -70,7 +70,7 @@ export const homeA = {
     revenue: {
       id: "revenue-title",
       eyebrow: "02.1 // PLATFORM_CAPABILITIES",
-      title: "Agentium — Enterprise Platform Capabilities & Technology Solutions",
+      title: "Agentium Enterprise Platform Capabilities & Technology Solutions",
       body: "Agentium combines high-performance gaming execution technology, specialized data sets and AI intelligence, real-time analytics, and secure financial infrastructure into one scalable B2B platform. From financial forecasting and risk management to fraud detection, security, and operational intelligence, Agentium empowers iGaming operators to build, optimize, and scale intelligent gaming ecosystems worldwide.",
       capabilities: [
         { index: "01", title: "Global B2B Gaming Network", sub: "Licensed Provider Ecosystem" },

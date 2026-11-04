@@ -29,7 +29,7 @@ export const site = {
     homeLabel: "AGENTIUM home",
     tagline: "Autonomous solutions. Real impact.",
     logoAlt: "AGENTIUM",
-    logoAltFull: "AGENTIUM — Autonomous solutions. Real impact.",
+    logoAltFull: "AGENTIUM. Autonomous solutions. Real impact.",
     mission:
       "AGENTIUM builds Agentium OS, the AI operating system for the autonomous gaming economy, for licensed operators.",
   },

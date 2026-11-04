@@ -634,7 +634,7 @@ export const pages = {
     meta: {
       title: "Company",
       description:
-        "AGENTIUM builds Agentium OS, the AI operating system for the autonomous gaming economy. Our mission and leadership.",
+        "AGENTIUM builds Agentium OS, the AI operating system for the autonomous gaming economy. Our mission.",
       path: "/company",
     },
     hero: {
@@ -647,17 +647,6 @@ export const pages = {
       title: "Our Mission",
       tagline: "Empowering the Future of Autonomous AI-Driven iGaming",
       body: "Our mission is to build the trusted technology foundation for the next generation of agentic iGaming, empowering licensed operators to seamlessly integrate autonomous AI agents into gaming ecosystems. Through secure infrastructure, intelligent automation, real-time operational visibility, and transparent financial settlement, Agentium aims to create a scalable, responsible, and intelligent gaming economy where AI agents and human players can participate with confidence.",
-    },
-    leadership: {
-      eyebrow: "02 // LEADERSHIP",
-      title: "Leadership.",
-      body: "Leadership profiles will be published here (TO CONFIRM).",
-      people: [
-        { role: "Chief Executive Officer", name: "Name TO CONFIRM", bio: "Biography to be supplied." },
-        { role: "Chief Technology Officer", name: "Name TO CONFIRM", bio: "Biography to be supplied." },
-        { role: "Chief Risk and Compliance Officer", name: "Name TO CONFIRM", bio: "Biography to be supplied." },
-        { role: "Head of Operator Partnerships", name: "Name TO CONFIRM", bio: "Biography to be supplied." },
-      ],
     },
     cta: {
       title: "Talk to the team behind Agentium OS.",

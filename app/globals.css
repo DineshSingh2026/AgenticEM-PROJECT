@@ -8,9 +8,9 @@
   --bg-elev-2: #1B1F26; --bg-elev-2-rgb: 27 31 38;
   --line: #262B33; --line-rgb: 38 43 51;
   --line-strong: #3A414C; --line-strong-rgb: 58 65 76;
-  --text: #ECEEF1; --text-rgb: 236 238 241;
-  --text-dim: #9AA3AF; --text-dim-rgb: 154 163 175;
-  --text-faint: #5D6672; --text-faint-rgb: 93 102 114;
+  --text: #F5F6F8; --text-rgb: 245 246 248;
+  --text-dim: #D4D9E0; --text-dim-rgb: 212 217 224;
+  --text-faint: #9EA7B3; --text-faint-rgb: 158 167 179;
   --copper: #C9825B; --copper-rgb: 201 130 91;
   --copper-soft: #E2A985; --copper-soft-rgb: 226 169 133;
   --steel: #7FA3C6; --steel-rgb: 127 163 198;
@@ -45,7 +45,7 @@
   @media (min-width: 1024px) { .t-h2 { font-size: 60px; } }
   .t-h3 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.005em; line-height: 1.2; font-size: 24px; }
   @media (min-width: 1024px) { .t-h3 { font-size: 30px; } }
-  .t-body { font-family: var(--font-sans); font-weight: 300; font-size: 16px; line-height: 1.7; max-width: 64ch; color: var(--text-dim); }
+  .t-body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 1.7; max-width: 64ch; color: var(--text-dim); }
   @media (min-width: 768px) { .t-body { font-size: 18px; } }
   .t-label { font-family: var(--font-sans); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; font-variant-numeric: tabular-nums; }
   .t-num { font-family: var(--font-sans); font-variant-numeric: tabular-nums lining-nums; }

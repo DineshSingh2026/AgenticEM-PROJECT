@@ -13,7 +13,7 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
           <div className="flex flex-col gap-5 lg:col-span-4">
             <Link href="/" aria-label={copy.site.brand.homeLabel} className="-ml-2 w-fit py-1">
-              <Logo variant="stacked" decorative className="h-32 sm:h-36" />
+              <Logo variant="stacked" decorative className="h-40 sm:h-44" />
             </Link>
             <p className="sr-only">{copy.site.brand.tagline}</p>
             <p className="max-w-[36ch] text-[15px] leading-relaxed text-text-dim">{copy.site.brand.mission}</p>

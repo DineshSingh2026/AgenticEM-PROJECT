@@ -10,7 +10,7 @@ Utility classes in app/globals.css: `container-site`, `t-display`, `t-h2`, `t-h3
 `export const copy = { site, home: {...homeA, ...homeB}, pages }`. Owners:
 - content/copy/site.ts → `export const site = {...} as const` (nav, footer, cookie banner, briefing form labels/options/success, liveStrip labels, misc) — UI-kit agent
 - content/copy/home-a.ts → `export const homeA = { boot, hero, shift, intelligence, architecture, agentCore, roundLifecycle, risk } as const` — Home-A agent
-- content/copy/home-b.ts → `export const homeB = { settlement, arena, features, resilience, flywheel, deploy, finalCta, proof: [] } as const` — Home-B agent
+- content/copy/home-b.ts → `export const homeB = { settlement, arena, features, resilience, deploy, finalCta, proof: [] } as const` — Home-B agent
 - content/copy/pages.ts → `export const pages = { platform, architecture, agents, risk, settlement, arena, operators, developers, trust, insights, company, contact, notFound } as const` — Inner-pages agent
 Components never hard-code user-visible copy.
 

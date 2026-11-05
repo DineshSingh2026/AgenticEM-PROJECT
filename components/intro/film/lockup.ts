@@ -7,16 +7,23 @@ import { COLORS, clamp, easeInOut, easeInOutSine, easeOut, lerp, mulberry32, seg
  * outro scenes; each passes its own timing.
  */
 
+/** Lockup width / height, for layout callbacks. */
+export const LOCKUP_ASPECT = 508 / 360;
+
 const CONFIG = {
-  /** Source geometry of the lockup in PNG px (the composite is 508x288). */
+  /**
+   * Lockup geometry in virtual px (508 wide = the wordmark width). Emblem/wordmark positions mirror the
+   * client's master artwork (public/brand/original-logo-source.png); the tagline sits under the wordmark.
+   */
   src: {
     w: 508,
-    h: 288,
-    emblem: { w: 294, h: 188, y: 0 },
-    wordmark: { w: 426, h: 60, y: 199 },
-    tagline: { w: 508, h: 26, y: 262 },
-    /** The emblem's orbit ring as an ellipse in emblem px (used for the glint + ring particles). */
-    ring: { cx: 144, cy: 92, rx: 146, ry: 34, rot: -0.27 },
+    h: 360,
+    /** dx: emblem centre offset from the lockup centre (the A sits right of centre in the artwork). */
+    emblem: { w: 364, h: 273, y: 0, dx: 24 },
+    wordmark: { w: 508, h: 39, y: 284 },
+    tagline: { w: 508, h: 26, y: 334 },
+    /** The teal swoosh as an ellipse in emblem px (used for the glint + ring particles). */
+    ring: { cx: 207, cy: 163, rx: 144, ry: 21, rot: -0.41 },
   },
   particles: { desktop: 3400, narrow: 1500, ringShare: 0.16, alphaMin: 140 },
   sweepWidth: 0.22,
@@ -66,7 +73,7 @@ type Particle = {
   ring: boolean;
 };
 
-const BUCKETS = [COLORS.goldDeep, COLORS.gold, COLORS.goldPale, "#FFF6E0", "#C9CED6"];
+const BUCKETS = [COLORS.accentDeep, COLORS.accent, COLORS.accentPale, "#EFFFFD", "#C9CED6"];
 
 function makeCanvas(w = 1, h = 1) {
   const c = document.createElement("canvas");
@@ -85,16 +92,16 @@ function ctx2d(c: HTMLCanvasElement, opts?: CanvasRenderingContext2DSettings) {
 let sprites: { band: HTMLCanvasElement; dot: HTMLCanvasElement; streak: HTMLCanvasElement; ramp: HTMLCanvasElement; ringSprite: HTMLCanvasElement } | null = null;
 function getSprites() {
   if (sprites) return sprites;
-  // Specular band: soft gold-white vertical bar.
+  // Specular band: soft cool-white vertical bar.
   const band = makeCanvas(256, 4);
   {
     const c = ctx2d(band);
     const g = c.createLinearGradient(0, 0, 256, 0);
-    g.addColorStop(0, "rgba(255,240,200,0)");
-    g.addColorStop(0.3, "rgba(247,223,163,0.35)");
-    g.addColorStop(0.5, "rgba(255,252,240,1)");
-    g.addColorStop(0.7, "rgba(247,223,163,0.35)");
-    g.addColorStop(1, "rgba(255,240,200,0)");
+    g.addColorStop(0, "rgba(225,255,252,0)");
+    g.addColorStop(0.3, "rgba(168,255,244,0.35)");
+    g.addColorStop(0.5, "rgba(245,255,254,1)");
+    g.addColorStop(0.7, "rgba(168,255,244,0.35)");
+    g.addColorStop(1, "rgba(225,255,252,0)");
     c.fillStyle = g;
     c.fillRect(0, 0, 256, 4);
   }
@@ -103,10 +110,10 @@ function getSprites() {
   {
     const c = ctx2d(dot);
     const g = c.createRadialGradient(32, 32, 0, 32, 32, 32);
-    g.addColorStop(0, "rgba(255,250,235,1)");
-    g.addColorStop(0.18, "rgba(255,228,170,0.75)");
-    g.addColorStop(0.45, "rgba(232,182,90,0.22)");
-    g.addColorStop(1, "rgba(232,182,90,0)");
+    g.addColorStop(0, "rgba(240,255,254,1)");
+    g.addColorStop(0.18, "rgba(190,255,248,0.75)");
+    g.addColorStop(0.45, "rgba(46,230,220,0.22)");
+    g.addColorStop(1, "rgba(46,230,220,0)");
     c.fillStyle = g;
     c.fillRect(0, 0, 64, 64);
   }
@@ -115,10 +122,10 @@ function getSprites() {
   {
     const c = ctx2d(streak);
     const g = c.createRadialGradient(256, 16, 0, 256, 16, 256);
-    g.addColorStop(0, "rgba(255,248,230,1)");
-    g.addColorStop(0.08, "rgba(247,223,163,0.6)");
-    g.addColorStop(0.4, "rgba(232,182,90,0.12)");
-    g.addColorStop(1, "rgba(232,182,90,0)");
+    g.addColorStop(0, "rgba(235,255,253,1)");
+    g.addColorStop(0.08, "rgba(168,255,244,0.6)");
+    g.addColorStop(0.4, "rgba(46,230,220,0.12)");
+    g.addColorStop(1, "rgba(46,230,220,0)");
     c.fillStyle = g;
     c.setTransform(1, 0, 0, 1 / 16, 0, 15);
     c.fillRect(0, 0, 512, 512);
@@ -138,9 +145,9 @@ function getSprites() {
   {
     const c = ctx2d(ringSprite);
     const g = c.createRadialGradient(128, 128, 96, 128, 128, 128);
-    g.addColorStop(0, "rgba(232,182,90,0)");
-    g.addColorStop(0.75, "rgba(247,223,163,0.8)");
-    g.addColorStop(1, "rgba(232,182,90,0)");
+    g.addColorStop(0, "rgba(46,230,220,0)");
+    g.addColorStop(0.75, "rgba(168,255,244,0.8)");
+    g.addColorStop(1, "rgba(46,230,220,0)");
     c.fillStyle = g;
     c.fillRect(0, 0, 256, 256);
   }
@@ -179,7 +186,7 @@ export class Lockup {
     const T = CONFIG.src.tagline;
     return {
       s,
-      ex: cx - (E.w * s) / 2,
+      ex: cx + (E.dx - E.w / 2) * s,
       ey: top + E.y * s,
       ew: E.w * s,
       eh: E.h * s,
@@ -192,7 +199,7 @@ export class Lockup {
       tw: T.w * s,
       th: T.h * s,
       // Emblem visual centre (the spark position).
-      scx: cx - (E.w * s) / 2 + CONFIG.src.ring.cx * s,
+      scx: cx + (E.dx - E.w / 2 + CONFIG.src.ring.cx) * s,
       scy: top + (CONFIG.src.ring.cy + 6) * s,
     };
   }

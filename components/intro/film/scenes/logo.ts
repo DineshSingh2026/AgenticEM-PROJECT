@@ -1,8 +1,8 @@
 import type { FilmScene } from "../types";
-import { Lockup, type LockupTiming } from "../lockup";
+import { LOCKUP_ASPECT, Lockup, type LockupTiming } from "../lockup";
 
 /**
- * 0 – 4.4s · The hero moment. Black → one gold spark → thousands of gold particles bloom out and
+ * 0 – 4.4s · The hero moment. Black → one teal spark → thousands of silver + teal particles bloom out and
  * assemble along the emblem's silhouette → the real emblem resolves with a specular sweep and an
  * orbiting glint → AGENTIUM wordmark reveals left→right → tagline settles.
  */
@@ -31,7 +31,7 @@ export function createLogoScene(): FilmScene {
   const L = CONFIG.layout;
   const lockup = new Lockup(CONFIG.timing, (w, h, narrow) => {
     let width = narrow ? w * L.narrowVw : Math.min(w * L.desktopVw, L.maxPx);
-    width = Math.min(width, ((h * L.maxHFrac) * 508) / 288);
+    width = Math.min(width, h * L.maxHFrac * LOCKUP_ASPECT);
     return { cx: w / 2, cy: h * L.cy, width };
   });
   return {

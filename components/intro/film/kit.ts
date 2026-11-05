@@ -104,7 +104,7 @@ export function wire(
   const a = o.alpha ?? 0.55;
   ctx.save();
   ctx.globalAlpha *= a;
-  ctx.strokeStyle = o.color ?? COLORS.gold;
+  ctx.strokeStyle = o.color ?? COLORS.accent;
   ctx.lineWidth = o.width ?? 1;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
@@ -117,7 +117,7 @@ export function wire(
   if (g > 0) {
     glow.save();
     glow.globalAlpha *= g;
-    glow.strokeStyle = o.color ?? COLORS.gold;
+    glow.strokeStyle = o.color ?? COLORS.accent;
     glow.lineWidth = (o.width ?? 1) + 1.5;
     glow.lineCap = "round";
     glow.beginPath();
@@ -132,7 +132,7 @@ export function wire(
 }
 
 /** A bright point with bloom. */
-export function spark(f: SceneFrame, x: number, y: number, r: number, a = 1, color: string = COLORS.goldPale) {
+export function spark(f: SceneFrame, x: number, y: number, r: number, a = 1, color: string = COLORS.accentPale) {
   if (a <= 0) return;
   const { ctx, glow } = f;
   ctx.save();
@@ -165,7 +165,7 @@ export function packets(f: SceneFrame, pts: Pt[], n: number, o: { speed?: number
 }
 
 /** Expanding ring pulse, k: 0..1. */
-export function ring(f: SceneFrame, x: number, y: number, r0: number, r1: number, k: number, color: string = COLORS.goldPale) {
+export function ring(f: SceneFrame, x: number, y: number, r0: number, r1: number, k: number, color: string = COLORS.accentPale) {
   if (k <= 0 || k >= 1) return;
   const { ctx, glow } = f;
   const r = lerp(r0, r1, easeOut(k));
@@ -210,7 +210,7 @@ export function rectPts(x: number, y: number, w: number, h: number): Pt[] {
 }
 
 /**
- * Glass panel: smoked fill fades in, the gold border traces round, copper L-brackets snap on.
+ * Glass panel: smoked fill fades in, the teal border traces round, copper L-brackets snap on.
  * `k` 0..1 build, `hot` 0..1 extra border glow (e.g. on activation).
  */
 export function panel(f: SceneFrame, x: number, y: number, w: number, h: number, k: number, o: { hot?: number; border?: string; fill?: number } = {}) {
@@ -226,7 +226,7 @@ export function panel(f: SceneFrame, x: number, y: number, w: number, h: number,
   ctx.fillRect(x, y, w, h);
   ctx.restore();
 
-  wire(f, rectPts(x, y, w, h), easeOut(clamp(k * 1.15)), { color: o.border ?? COLORS.gold, alpha: 0.32 + 0.5 * (o.hot ?? 0), glow: 0.12 + 0.6 * (o.hot ?? 0) });
+  wire(f, rectPts(x, y, w, h), easeOut(clamp(k * 1.15)), { color: o.border ?? COLORS.accent, alpha: 0.32 + 0.5 * (o.hot ?? 0), glow: 0.12 + 0.6 * (o.hot ?? 0) });
 
   const bk = clamp(k * 2 - 1);
   if (bk > 0) {
@@ -247,7 +247,7 @@ export function panel(f: SceneFrame, x: number, y: number, w: number, h: number,
   if ((o.hot ?? 0) > 0) {
     glow.save();
     glow.globalAlpha *= (o.hot ?? 0) * 0.18;
-    glow.fillStyle = COLORS.gold;
+    glow.fillStyle = COLORS.accent;
     glow.fillRect(x, y, w, h);
     glow.restore();
   }
@@ -266,9 +266,9 @@ export function emblemCore(f: SceneFrame, cx: number, cy: number, R: number, k: 
   glow.globalCompositeOperation = "lighter";
   glow.globalAlpha *= k * (0.45 + 0.2 * breathe);
   const hg = glow.createRadialGradient(cx, cy, 0, cx, cy, R * 2.2);
-  hg.addColorStop(0, rgba(COLORS.gold, 0.6));
-  hg.addColorStop(0.4, rgba(COLORS.goldDeep, 0.18));
-  hg.addColorStop(1, rgba(COLORS.goldDeep, 0));
+  hg.addColorStop(0, rgba(COLORS.accent, 0.6));
+  hg.addColorStop(0.4, rgba(COLORS.accentDeep, 0.18));
+  hg.addColorStop(1, rgba(COLORS.accentDeep, 0));
   glow.fillStyle = hg;
   glow.fillRect(cx - R * 2.2, cy - R * 2.2, R * 4.4, R * 4.4);
   glow.restore();
@@ -289,7 +289,7 @@ export function emblemCore(f: SceneFrame, cx: number, cy: number, R: number, k: 
     const ticks = (r: number, n: number, rot: number, len: number, a: number) => {
       ctx.save();
       ctx.globalAlpha *= a * k;
-      ctx.strokeStyle = COLORS.gold;
+      ctx.strokeStyle = COLORS.accent;
       ctx.lineWidth = 1;
       ctx.beginPath();
       for (let i = 0; i < n; i++) {
@@ -306,7 +306,7 @@ export function emblemCore(f: SceneFrame, cx: number, cy: number, R: number, k: 
     ticks(R * 1.28, 36, -local / 6000, R * 0.04, 0.3);
     ctx.save();
     ctx.globalAlpha *= k * 0.7;
-    ctx.strokeStyle = COLORS.gold;
+    ctx.strokeStyle = COLORS.accent;
     ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.arc(cx, cy, R, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * easeOut(k));
@@ -314,7 +314,7 @@ export function emblemCore(f: SceneFrame, cx: number, cy: number, R: number, k: 
     ctx.restore();
     glow.save();
     glow.globalAlpha *= k * 0.5;
-    glow.strokeStyle = COLORS.gold;
+    glow.strokeStyle = COLORS.accent;
     glow.lineWidth = 2;
     glow.beginPath();
     glow.arc(cx, cy, R, 0, Math.PI * 2);

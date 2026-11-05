@@ -1,5 +1,5 @@
 import type { FilmScene } from "../types";
-import { Lockup, type LockupTiming } from "../lockup";
+import { LOCKUP_ASPECT, Lockup, type LockupTiming } from "../lockup";
 
 /**
  * 23.7 – 26.1s · The previous scene collapses into a point of light (core camera), which bursts and
@@ -31,7 +31,7 @@ export function createOutroScene(): FilmScene {
   const L = CONFIG.layout;
   const lockup = new Lockup(CONFIG.timing, (w, h, narrow) => {
     let width = narrow ? w * L.narrowVw : Math.min(w * L.desktopVw, L.maxPx);
-    width = Math.min(width, ((h * L.maxHFrac) * 508) / 288);
+    width = Math.min(width, h * L.maxHFrac * LOCKUP_ASPECT);
     return { cx: w / 2, cy: h * L.cy, width };
   });
   return {

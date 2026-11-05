@@ -6,7 +6,7 @@ import { glyph, label, packets, panel, ring, safeZone, spark, text, wire, type P
 
 /**
  * 01 — One integration. A constellation of game providers lights up; each fires a curve into a single
- * gold API gate; one hot line leaves the gate and fills the operator's catalogue tile by tile.
+ * teal API gate; one hot line leaves the gate and fills the operator's catalogue tile by tile.
  */
 export const AGGREGATION = {
   providers: 24,
@@ -149,14 +149,14 @@ export function createAggregationScene(): FilmScene {
       f.ctx.save();
       f.ctx.globalAlpha *= appear;
       f.ctx.fillStyle = rgba(COLORS.bgElev, 0.95);
-      f.ctx.strokeStyle = connected ? COLORS.gold : COLORS.line;
+      f.ctx.strokeStyle = connected ? COLORS.accent : COLORS.line;
       f.ctx.lineWidth = 1;
       f.ctx.beginPath();
       f.ctx.rect(pv.x - s - 3, pv.y - s - 3, (s + 3) * 2, (s + 3) * 2);
       f.ctx.fill();
       f.ctx.stroke();
       f.ctx.restore();
-      glyph(f.ctx, pv.kind, pv.x, pv.y, s * 0.62, connected ? COLORS.goldPale : COLORS.dim, appear);
+      glyph(f.ctx, pv.kind, pv.x, pv.y, s * 0.62, connected ? COLORS.accentPale : COLORS.dim, appear);
       ring(f, pv.x, pv.y, s, s * 3.4, (p - pv.t) * 6);
     }
   }
@@ -173,19 +173,19 @@ export function createAggregationScene(): FilmScene {
     glow.save();
     glow.globalAlpha *= k * (0.12 + 0.18 * fill) * (0.85 + 0.15 * Math.sin(local / 140));
     const grd = L.narrow ? glow.createLinearGradient(g.x, 0, g.x + g.w, 0) : glow.createLinearGradient(0, g.y + g.h, 0, g.y);
-    grd.addColorStop(0, rgba(COLORS.goldPale, 0.9));
-    grd.addColorStop(clamp(fill), rgba(COLORS.gold, 0.6));
-    grd.addColorStop(1, rgba(COLORS.gold, 0));
+    grd.addColorStop(0, rgba(COLORS.accentPale, 0.9));
+    grd.addColorStop(clamp(fill), rgba(COLORS.accent, 0.6));
+    grd.addColorStop(1, rgba(COLORS.accent, 0));
     glow.fillStyle = grd;
     glow.fillRect(g.x + 3, g.y + 3, g.w - 6, g.h - 6);
     glow.restore();
     f.ctx.save();
     f.ctx.globalAlpha *= k * 0.9;
     const cg = L.narrow ? f.ctx.createLinearGradient(g.x, 0, g.x + g.w, 0) : f.ctx.createLinearGradient(0, g.y + g.h, 0, g.y);
-    cg.addColorStop(0, rgba(COLORS.gold, 0.7));
-    cg.addColorStop(clamp(fill), rgba(COLORS.gold, 0.35));
-    cg.addColorStop(clamp(fill + 0.001), rgba(COLORS.gold, 0.04));
-    cg.addColorStop(1, rgba(COLORS.gold, 0.04));
+    cg.addColorStop(0, rgba(COLORS.accent, 0.7));
+    cg.addColorStop(clamp(fill), rgba(COLORS.accent, 0.35));
+    cg.addColorStop(clamp(fill + 0.001), rgba(COLORS.accent, 0.04));
+    cg.addColorStop(1, rgba(COLORS.accent, 0.04));
     f.ctx.fillStyle = cg;
     f.ctx.fillRect(g.x + 3, g.y + 3, g.w - 6, g.h - 6);
     f.ctx.restore();
@@ -204,15 +204,15 @@ export function createAggregationScene(): FilmScene {
       const lh = size * 1.12;
       lines.forEach((s, i) => {
         const y = g.y - 26 - (lines.length - 1 - i) * lh;
-        text(f.ctx, f.fonts.display, s, cx, y, { size, weight: 500, color: COLORS.goldPale, alpha: la, align: "center" });
+        text(f.ctx, f.fonts.display, s, cx, y, { size, weight: 500, color: COLORS.accentPale, alpha: la, align: "center" });
       });
       label(f, C.gateSub, cx, g.y + g.h + 22, { size: 9.5, color: COLORS.dim, alpha: la, align: "center" });
     } else {
-      // Narrow: both lines inside the bar — pale gold on the empty bar, cross-fading to dark ink once
-      // the gold fill has swept past the text.
+      // Narrow: both lines inside the bar — pale teal on the empty bar, cross-fading to dark ink once
+      // the teal fill has swept past the text.
       const ink = clamp((fill - 0.55) * 3);
       const name = C.gate.toUpperCase();
-      for (const [color, a] of [[COLORS.goldPale, la * (1 - ink)], ["#1A1408", la * ink]] as const) {
+      for (const [color, a] of [[COLORS.accentPale, la * (1 - ink)], ["#03201E", la * ink]] as const) {
         text(f.ctx, f.fonts.mono, name, cx, g.y + g.h * 0.36, { size: 9.5, weight: 500, color, alpha: a, align: "center", track: 0.1 });
         text(f.ctx, f.fonts.mono, C.gateSub, cx, g.y + g.h * 0.72, { size: 7, weight: 500, color, alpha: a * 0.85, align: "center", track: 0.12 });
       }
@@ -254,14 +254,14 @@ export function createAggregationScene(): FilmScene {
         f.ctx.save();
         f.ctx.globalAlpha *= e;
         const tg = f.ctx.createLinearGradient(tx, ty, tx, ty + tile);
-        tg.addColorStop(0, rgba(COLORS.gold, 0.12 + 0.16 * hot));
-        tg.addColorStop(1, rgba(COLORS.goldDeep, 0.05));
+        tg.addColorStop(0, rgba(COLORS.accent, 0.12 + 0.16 * hot));
+        tg.addColorStop(1, rgba(COLORS.accentDeep, 0.05));
         f.ctx.fillStyle = tg;
         f.ctx.fillRect(tx, ty, tile, tile);
-        f.ctx.strokeStyle = rgba(COLORS.gold, 0.55 + 0.4 * hot);
+        f.ctx.strokeStyle = rgba(COLORS.accent, 0.55 + 0.4 * hot);
         f.ctx.strokeRect(tx + 0.5, ty + 0.5, tile - 1, tile - 1);
         f.ctx.restore();
-        glyph(f.ctx, c, tx + tile / 2, ty + tile / 2, tile * 0.2, COLORS.goldPale, e);
+        glyph(f.ctx, c, tx + tile / 2, ty + tile / 2, tile * 0.2, COLORS.accentPale, e);
         if (hot > 0) spark(f, tx + tile / 2, ty + tile / 2, tile * 0.07, hot * 0.5);
       }
     }

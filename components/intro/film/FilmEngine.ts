@@ -41,10 +41,10 @@ export const CONFIG = {
   vignette: 0.82,
   loadTimeoutMs: 9000,
   assets: {
-    logo: "/brand/agentium-logo.png",
-    emblem: "/brand/agentium-emblem.png",
-    wordmark: "/brand/agentium-wordmark.png",
-    tagline: "/brand/agentium-tagline.png",
+    logo: "/brand/agentium-logo-v2.png",
+    emblem: "/brand/agentium-emblem-v2.png",
+    wordmark: "/brand/agentium-wordmark-v2.png",
+    tagline: "/brand/agentium-tagline-v2.png",
   },
 };
 
@@ -163,7 +163,7 @@ export class FilmEngine {
   private streakA: Mip;
   private streakB: Mip;
   private vignette: Mip;
-  private nebulaGold = makeCanvas(128, 128);
+  private nebulaAccent = makeCanvas(128, 128);
   private nebulaSteel = makeCanvas(128, 128);
   private leak = makeCanvas(128, 128);
   private mote = makeCanvas(32, 32);
@@ -225,10 +225,10 @@ export class FilmEngine {
       x.fillStyle = g;
       x.fillRect(0, 0, c.width, c.height);
     };
-    radial(this.nebulaGold, [
-      [0, "rgba(232,182,90,0.55)"],
-      [0.35, "rgba(176,122,42,0.22)"],
-      [1, "rgba(176,122,42,0)"],
+    radial(this.nebulaAccent, [
+      [0, "rgba(46,230,220,0.42)"],
+      [0.35, "rgba(14,138,132,0.18)"],
+      [1, "rgba(14,138,132,0)"],
     ]);
     radial(this.nebulaSteel, [
       [0, "rgba(127,163,198,0.38)"],
@@ -236,15 +236,15 @@ export class FilmEngine {
       [1, "rgba(80,104,130,0)"],
     ]);
     radial(this.leak, [
-      [0, "rgba(255,214,150,0.9)"],
-      [0.3, "rgba(232,150,80,0.4)"],
-      [0.7, "rgba(201,100,60,0.08)"],
-      [1, "rgba(201,100,60,0)"],
+      [0, "rgba(170,250,245,0.9)"],
+      [0.3, "rgba(46,200,210,0.4)"],
+      [0.7, "rgba(20,110,140,0.08)"],
+      [1, "rgba(20,110,140,0)"],
     ]);
     radial(this.mote, [
-      [0, "rgba(255,236,190,1)"],
-      [0.35, "rgba(247,223,163,0.45)"],
-      [1, "rgba(232,182,90,0)"],
+      [0, "rgba(205,255,249,1)"],
+      [0.35, "rgba(168,255,244,0.45)"],
+      [1, "rgba(46,230,220,0)"],
     ]);
     // Film grain tile: luminance noise, both lifting and darkening.
     const T = CONFIG.grain.tile;
@@ -410,17 +410,17 @@ export class FilmEngine {
     const s = t / 1000;
     const big = Math.max(w, h);
 
-    // Nebula: slow drifting gold + steel light.
+    // Nebula: slow drifting teal + steel light.
     ctx.globalCompositeOperation = "lighter";
     ctx.globalAlpha = A.nebulaAlpha * on * (0.85 + 0.15 * Math.sin(s * 0.4));
     let r = big * 0.95;
-    ctx.drawImage(this.nebulaGold, w * (0.5 + 0.08 * Math.sin(s * 0.07)) - r, h * (0.42 + 0.05 * Math.cos(s * 0.09)) - r * 0.62, r * 2, r * 1.24);
+    ctx.drawImage(this.nebulaAccent, w * (0.5 + 0.08 * Math.sin(s * 0.07)) - r, h * (0.42 + 0.05 * Math.cos(s * 0.09)) - r * 0.62, r * 2, r * 1.24);
     ctx.globalAlpha = A.nebulaAlpha * 0.9 * on;
     r = big * 0.7;
     ctx.drawImage(this.nebulaSteel, w * (0.86 - 0.06 * Math.sin(s * 0.05)) - r, h * (0.12 + 0.06 * Math.sin(s * 0.08)) - r * 0.7, r * 2, r * 1.4);
     ctx.globalAlpha = A.nebulaAlpha * 0.55 * on;
     r = big * 0.6;
-    ctx.drawImage(this.nebulaGold, w * (0.1 + 0.05 * Math.cos(s * 0.06)) - r, h * (0.9 - 0.04 * Math.sin(s * 0.1)) - r * 0.6, r * 2, r * 1.2);
+    ctx.drawImage(this.nebulaAccent, w * (0.1 + 0.05 * Math.cos(s * 0.06)) - r, h * (0.9 - 0.04 * Math.sin(s * 0.1)) - r * 0.6, r * 2, r * 1.2);
 
     // Dust motes with depth parallax (nearer = larger, brighter, faster).
     const span = w + 80;

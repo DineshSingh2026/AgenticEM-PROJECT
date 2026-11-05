@@ -1,11 +1,11 @@
 import type { SceneId } from "./timeline";
 
 export interface FilmAssets {
-  /** Full AGENTIUM lockup (emblem + wordmark + tagline), transparent PNG 508x288. */
+  /** Full AGENTIUM lockup (emblem + wordmark + horizon arc), transparent PNG 776x600. */
   logo: HTMLImageElement;
-  /** Gold "A" emblem with orbit ring only, 294x188. */
+  /** Silver "A" emblem with teal swoosh only, 579x434. */
   emblem: HTMLImageElement;
-  /** "AGENTIUM" gold wordmark only, 426x60. */
+  /** "AGENTIUM" silver wordmark only, 1076x82. */
   wordmark: HTMLImageElement;
   /** "— AUTONOMOUS SOLUTIONS. REAL IMPACT. —", 508x26. */
   tagline: HTMLImageElement;

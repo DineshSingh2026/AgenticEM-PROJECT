@@ -15,6 +15,7 @@ import { usePathname } from "next/navigation";
 import { copy } from "@/content/copy";
 import { cn } from "@/lib/cn";
 import { getLenis } from "@/lib/scroll";
+import { Button } from "./Button";
 import { Logo } from "./Logo";
 
 const n = copy.site.nav;
@@ -56,6 +57,15 @@ function Chevron({ open }: { open: boolean }) {
       className={cn("h-1.5 w-2.5 transition-transform duration-300 ease-out", open && "rotate-180")}
     >
       <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.2" />
+    </svg>
+  );
+}
+
+/** Up-right arrow marking an off-site link. */
+function ExternalArrow() {
+  return (
+    <svg viewBox="0 0 12 12" aria-hidden="true" className="h-2.5 w-2.5 shrink-0 text-copper">
+      <path d="M3.5 8.5l5-5M4.5 3.5h4v4" fill="none" stroke="currentColor" strokeWidth="1.2" />
     </svg>
   );
 }
@@ -217,7 +227,7 @@ export function Nav() {
         solid ? "border-line/80 bg-bg/80 backdrop-blur-md [-webkit-backdrop-filter:blur(12px)]" : "border-transparent bg-transparent",
       )}
     >
-      <div className="container-site flex h-[72px] items-center justify-between gap-6">
+      <div className="container-site flex h-[72px] items-center justify-between gap-3 lg:gap-6">
         <Link href="/" aria-label={copy.site.brand.homeLabel} className="flex shrink-0 items-center rounded-btn py-2">
           <Logo decorative priority className="h-8 sm:h-9" />
         </Link>
@@ -308,10 +318,32 @@ export function Nav() {
                 {n.contact.label}
               </Link>
             </li>
+            <li className="ml-2">
+              <Button
+                href={n.appHub.href}
+                external
+                ariaLabel={n.appHub.ariaLabel}
+                variant="ghost"
+                className="h-9 rounded-full px-4 text-[14px]"
+              >
+                {n.appHub.label}
+                <ExternalArrow />
+              </Button>
+            </li>
           </ul>
         </nav>
 
-        <div className="flex items-center gap-3 lg:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
+          <Button
+            href={n.appHub.href}
+            external
+            ariaLabel={n.appHub.ariaLabel}
+            variant="ghost"
+            className="h-10 gap-1.5 rounded-full px-3 text-[13px] max-[359px]:hidden"
+          >
+            {n.appHub.label}
+            <ExternalArrow />
+          </Button>
           <button
             ref={sheetBtn}
             type="button"
@@ -415,6 +447,17 @@ export function Nav() {
               </li>
             </ul>
             <div className="mt-auto flex flex-col gap-4 pb-4">
+              <Button
+                href={n.appHub.href}
+                external
+                ariaLabel={n.appHub.ariaLabel}
+                variant="ghost"
+                className="w-full"
+                onClick={() => setSheetOpen(false)}
+              >
+                {n.appHub.label}
+                <ExternalArrow />
+              </Button>
               <p className="t-label text-center text-text-faint">{copy.site.forLicensedOperators}</p>
             </div>
           </nav>

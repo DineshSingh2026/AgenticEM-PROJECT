@@ -7,7 +7,7 @@ import { emblemCore, label, packets, panel, ring, spark, wire, type Pt } from ".
 /**
  * 04 — Global B2B Gaming Network. The Agentium hub ignites inside a slowly turning wireframe globe;
  * operator and provider tenants are spawned out of it onto a shared ring and wired back to the core;
- * each tenant then reaches out to its endpoints — human players (gold) and authorized autonomous
+ * each tenant then reaches out to its endpoints — human players (teal) and authorized autonomous
  * agents (steel, with a green authorization lamp) — and value flows both ways along every link.
  * The chapter copy (title + a full sentence of body) sits bottom-left in HTML, so this scene keeps
  * its visuals higher than the other chapters (see `zone`).
@@ -59,8 +59,8 @@ function human(c: CanvasRenderingContext2D, x: number, y: number, s: number, a: 
   if (a <= 0) return;
   c.save();
   c.globalAlpha *= clamp(a);
-  c.strokeStyle = COLORS.goldPale;
-  c.fillStyle = COLORS.goldPale;
+  c.strokeStyle = COLORS.accentPale;
+  c.fillStyle = COLORS.accentPale;
   c.lineWidth = 1.2;
   c.beginPath();
   c.arc(x, y - s * 0.32, s * 0.3, 0, Math.PI * 2);
@@ -194,7 +194,7 @@ export function createNetworkScene(): FilmScene {
     if (k <= 0) return;
     const G = L.G * lerp(0.6, 1, k);
     ctx.save();
-    ctx.strokeStyle = COLORS.gold;
+    ctx.strokeStyle = COLORS.accent;
     ctx.lineWidth = 0.8;
     ctx.globalAlpha *= 0.16 * k;
     // Meridians turning.
@@ -218,7 +218,7 @@ export function createNetworkScene(): FilmScene {
     ctx.restore();
     glow.save();
     glow.globalAlpha *= 0.22 * k;
-    glow.strokeStyle = COLORS.gold;
+    glow.strokeStyle = COLORS.accent;
     glow.lineWidth = 1.5;
     glow.beginPath();
     glow.arc(L.cx, L.cy, G, 0, Math.PI * 2);
@@ -232,7 +232,7 @@ export function createNetworkScene(): FilmScene {
     if (k <= 0) return;
     ctx.save();
     ctx.globalAlpha *= 0.32;
-    ctx.strokeStyle = COLORS.gold;
+    ctx.strokeStyle = COLORS.accent;
     ctx.lineWidth = 1;
     ctx.setLineDash([2, 7]);
     ctx.lineDashOffset = -local / 45;
@@ -259,10 +259,10 @@ export function createNetworkScene(): FilmScene {
     for (const e of L.ends) {
       const wk = easeInOut(seg(p, e.at, e.at + 0.05));
       if (wk <= 0) continue;
-      const col = e.agent ? COLORS.steel : COLORS.gold;
+      const col = e.agent ? COLORS.steel : COLORS.accent;
       wire(f, e.path, wk, { color: col, alpha: e.agent ? 0.5 : 0.45, glow: 0.3 });
       if (wk >= 1) {
-        const pc = e.agent ? COLORS.steel : COLORS.goldPale;
+        const pc = e.agent ? COLORS.steel : COLORS.accentPale;
         packets(f, e.path, 1, { speed: 0.55 + e.phase * 0.35, phase: e.phase, r: L.narrow ? 1.3 : 1.6, color: pc });
         packets(f, [...e.path].reverse(), 1, { speed: 0.45 + e.phase * 0.2, phase: e.phase + 0.5, r: 1.1, alpha: 0.7, color: pc });
       }
@@ -282,12 +282,12 @@ export function createNetworkScene(): FilmScene {
       // Soft emissive dot so endpoints bloom like the rest of the network.
       glow.save();
       glow.globalAlpha *= easeOut(kk) * 0.35;
-      glow.fillStyle = e.agent ? COLORS.steel : COLORS.gold;
+      glow.fillStyle = e.agent ? COLORS.steel : COLORS.accent;
       glow.beginPath();
       glow.arc(e.x, e.y, s * 1.1, 0, Math.PI * 2);
       glow.fill();
       glow.restore();
-      ring(f, e.x, e.y, s, s * 3.4, (p - t0) * 9, e.agent ? COLORS.steel : COLORS.goldPale);
+      ring(f, e.x, e.y, s, s * 3.4, (p - t0) * 9, e.agent ? COLORS.steel : COLORS.accentPale);
       // Authorized agents get a green lamp once the handshake completes.
       if (e.agent && p >= t0 + 0.05) {
         ctx.save();
@@ -326,8 +326,8 @@ export function createNetworkScene(): FilmScene {
         const mx = ch.x + 13;
         ctx.save();
         ctx.globalAlpha *= e;
-        ctx.strokeStyle = COLORS.gold;
-        ctx.fillStyle = COLORS.gold;
+        ctx.strokeStyle = COLORS.accent;
+        ctx.fillStyle = COLORS.accent;
         ctx.lineWidth = 1.1;
         if (isOp) ctx.fillRect(mx - 3, ch.c.y - 3, 6, 6);
         else {
@@ -363,13 +363,13 @@ export function createNetworkScene(): FilmScene {
     if (k <= 0) return;
     const size = L.narrow ? 8.5 : 10;
     label(f, C.header, L.cx, L.headerY, { size, color: COLORS.dim, alpha: k, align: "center" });
-    // Flanking gold rules grow out from the label.
+    // Flanking teal rules grow out from the label.
     const half = measure(f, C.header, size) / 2 + (L.narrow ? 8 : 14);
     const len = (L.narrow ? 18 : 40) * k;
     const { ctx } = f;
     ctx.save();
     ctx.globalAlpha *= 0.6 * k;
-    ctx.strokeStyle = COLORS.gold;
+    ctx.strokeStyle = COLORS.accent;
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(L.cx - half, L.headerY);

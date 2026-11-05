@@ -14,7 +14,7 @@ export const easeInOut = (t: number) => {
 };
 export const easeInOutSine = (t: number) => -(Math.cos(Math.PI * clamp(t)) - 1) / 2;
 
-/** Brand + data palette. GOLD tones match the AGENTIUM logo; data colours carry meaning only. */
+/** Brand + data palette. ACCENT tones match the AGENTIUM logo (teal swoosh); data colours carry meaning only. */
 export const COLORS = {
   bg: TOKENS.bg,
   bgElev: TOKENS.bgElev,
@@ -26,9 +26,9 @@ export const COLORS = {
   copper: TOKENS.copper,
   copperSoft: TOKENS.copperSoft,
   steel: TOKENS.steel,
-  gold: "#E8B65A",
-  goldDeep: "#B07A2A",
-  goldPale: "#F7DFA3",
+  accent: "#2EE6DC",
+  accentDeep: "#0E8A84",
+  accentPale: "#A8FFF4",
   red: TOKENS.dataRed,
   green: TOKENS.dataGreen,
   blue: TOKENS.dataBlue,

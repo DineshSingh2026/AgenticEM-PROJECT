@@ -117,7 +117,7 @@ export function createSettlementScene(): FilmScene {
         const gy = wl.y + wl.h / 2;
         f.ctx.save();
         f.ctx.globalAlpha *= k;
-        f.ctx.strokeStyle = COLORS.gold;
+        f.ctx.strokeStyle = COLORS.accent;
         f.ctx.lineWidth = 1.2;
         f.ctx.strokeRect(gx - 9, gy - 7, 18, 14);
         f.ctx.beginPath();
@@ -162,7 +162,7 @@ export function createSettlementScene(): FilmScene {
         // Short comet trail.
         for (let s = 0; s < 6; s++) {
           const q = pointAt(path, Math.max(0, u - s * 0.025));
-          spark(f, q.x, q.y, (L.narrow ? 1.6 : 2.2) * (1 - s / 6), (1 - s / 6) * 0.9, j % 3 === 1 ? COLORS.copperSoft : COLORS.goldPale);
+          spark(f, q.x, q.y, (L.narrow ? 1.6 : 2.2) * (1 - s / 6), (1 - s / 6) * 0.9, j % 3 === 1 ? COLORS.copperSoft : COLORS.accentPale);
         }
         if (!L.narrow && txJit[bi * CONFIG.txPerBlock + j] > 0.5) {
           const q = pointAt(path, u);
@@ -188,19 +188,19 @@ export function createSettlementScene(): FilmScene {
         wire(f, b.link, lk, { width: 2, alpha: 0.8, glow: 0.6 });
         if (lk >= 1) packets(f, b.link, 1, { speed: 1.2, phase: i * 0.3, r: 1.6 });
       }
-      panel(f, b.x, b.y, b.w, b.h, k, { hot: hot * 0.9 + (sealed ? 0.08 : 0), border: sealed ? COLORS.gold : COLORS.steel });
+      panel(f, b.x, b.y, b.w, b.h, k, { hot: hot * 0.9 + (sealed ? 0.08 : 0), border: sealed ? COLORS.accent : COLORS.steel });
       // Fill gauge: tx count.
       const filled = Math.min(CONFIG.txPerBlock, Math.floor(seg(p, b.t0, seal) * CONFIG.txPerBlock + (sealed ? 1 : 0)));
       if (!L.narrow) {
         const px = b.x + 14;
         text(ctx, fonts.mono, C.block, px, b.y + 18, { size: 9, color: COLORS.dim, alpha: k, track: 0.14 });
-        text(ctx, fonts.mono, `#${b.n.toLocaleString("en-US")}`, px, b.y + 38, { size: 13, weight: 500, color: sealed ? COLORS.goldPale : COLORS.text, alpha: k, track: 0.02 });
+        text(ctx, fonts.mono, `#${b.n.toLocaleString("en-US")}`, px, b.y + 38, { size: 13, weight: 500, color: sealed ? COLORS.accentPale : COLORS.text, alpha: k, track: 0.02 });
         // Tx cells.
         const cw = (b.w - 28 - 5 * 4) / 6;
         for (let c = 0; c < CONFIG.txPerBlock; c++) {
           ctx.save();
           ctx.globalAlpha *= k;
-          ctx.fillStyle = c < filled ? rgba(COLORS.gold, sealed ? 0.75 : 0.55) : rgba(COLORS.line, 0.8);
+          ctx.fillStyle = c < filled ? rgba(COLORS.accent, sealed ? 0.75 : 0.55) : rgba(COLORS.line, 0.8);
           ctx.fillRect(px + c * (cw + 4), b.y + b.h * 0.5, cw, 6);
           ctx.restore();
         }
@@ -219,12 +219,12 @@ export function createSettlementScene(): FilmScene {
         }
       } else {
         const cy = b.y + b.h / 2;
-        text(ctx, fonts.mono, `${C.block} #${b.n.toLocaleString("en-US")}`, b.x + 12, cy, { size: 9.5, weight: 500, color: sealed ? COLORS.goldPale : COLORS.text, alpha: k, track: 0.06 });
+        text(ctx, fonts.mono, `${C.block} #${b.n.toLocaleString("en-US")}`, b.x + 12, cy, { size: 9.5, weight: 500, color: sealed ? COLORS.accentPale : COLORS.text, alpha: k, track: 0.06 });
         const cw = 7;
         for (let c = 0; c < CONFIG.txPerBlock; c++) {
           ctx.save();
           ctx.globalAlpha *= k;
-          ctx.fillStyle = c < filled ? rgba(COLORS.gold, 0.7) : rgba(COLORS.line, 0.8);
+          ctx.fillStyle = c < filled ? rgba(COLORS.accent, 0.7) : rgba(COLORS.line, 0.8);
           ctx.fillRect(b.x + b.w * 0.56 + c * (cw + 3), cy - 3, cw, 6);
           ctx.restore();
         }

@@ -74,20 +74,6 @@ export const homeB = {
       "Background animation: eight agent nodes sit on a ring around a central octagonal gaming service, each linked by a spoke carrying a heartbeat pulse. A dropped node greys out, its spoke flatlines, its neighbours reroute, and it reconnects after two seconds with a copper flash.",
   },
 
-  flywheel: {
-    eyebrow: "09 // FLYWHEEL",
-    title: "The agentic intelligence flywheel.",
-    steps: [
-      { index: "01", title: "Machine-speed execution", body: "Agents play continuously." },
-      { index: "02", title: "Real-time capture", body: "Gameplay becomes structured data." },
-      { index: "03", title: "Operational intelligence", body: "Analytics surface actionable risk and revenue insight." },
-      { index: "04", title: "Format evolution", body: "Operators launch optimised new formats, which drive more execution." },
-    ],
-    loopLabel: "LOOP // 04 → 01",
-    sceneDescription:
-      "Background animation: a brushed-steel wheel split into four segments with copper seams (machine-speed execution, real-time capture, operational intelligence and format evolution) rotating with scroll speed.",
-  },
-
   deploy: {
     eyebrow: "10 // DEPLOYMENT",
     title: "How we deploy with operators.",

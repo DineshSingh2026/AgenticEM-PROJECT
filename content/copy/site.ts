@@ -19,7 +19,6 @@ const platformMenu: { index: string; label: string; href: string; description: s
   { index: "03", label: "Intelligence Layer", href: "/#intelligence", description: homeA.intelligence.title, scene: "Convergence" },
   { index: "06", label: "Risk Radar", href: "/#risk-radar", description: homeA.risk.title, scene: "AnomalyStream" },
   { index: "07", label: "Settlement", href: "/#settlement", description: homeB.settlement.title, scene: "Ledger" },
-  { index: "09", label: "Flywheel", href: "/#flywheel", description: homeB.flywheel.title, scene: "FlywheelScene" },
 ];
 
 export const site = {
@@ -29,7 +28,7 @@ export const site = {
     homeLabel: "AGENTIUM home",
     tagline: "Autonomous solutions. Real impact.",
     logoAlt: "AGENTIUM",
-    logoAltFull: "AGENTIUM. Autonomous solutions. Real impact.",
+    logoAltFull: "AGENTIUM",
     mission:
       "AGENTIUM builds Agentium OS, the AI operating system for the autonomous gaming economy, for licensed operators.",
   },
@@ -46,6 +45,12 @@ export const site = {
     /** Last nav item, rendered as a hairline copper pill on desktop. */
     contact: { label: "Contact Us", href: "/contact" },
     cta: { label: "Request briefing", href: "/contact" },
+    /** External app link, top right of the header (beside Contact Us); opens in a new tab. */
+    appHub: {
+      label: "App Hub",
+      href: "https://app.agentium.games/",
+      ariaLabel: "App Hub (opens in a new tab)",
+    },
     openMenu: "Open menu",
     closeMenu: "Close menu",
     mobileMenuLabel: "Site menu",

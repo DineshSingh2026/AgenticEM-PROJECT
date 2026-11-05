@@ -5,7 +5,6 @@ import { Backbone } from "@/components/sections/Backbone";
 import { IntelligenceLayer } from "@/components/sections/IntelligenceLayer";
 import { RiskIntel } from "@/components/sections/RiskIntel";
 import { Settlement } from "@/components/sections/Settlement";
-import { Flywheel } from "@/components/sections/Flywheel";
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
 const meta = copy.home.meta;
@@ -28,7 +27,7 @@ function buildJsonLd() {
       "@id": orgId,
       name: org.name,
       url: `${SITE_URL}/`,
-      logo: `${SITE_URL}/brand/agentium-logo.png`,
+      logo: `${SITE_URL}/brand/agentium-logo-v2.png`,
       description: org.description,
       slogan: org.slogan,
     },
@@ -63,7 +62,6 @@ export default function Home() {
       <IntelligenceLayer />
       <RiskIntel />
       <Settlement />
-      <Flywheel />
     </>
   );
 }

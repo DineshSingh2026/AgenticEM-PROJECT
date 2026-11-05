@@ -13,14 +13,14 @@ const CONFIG = {
   gridAlpha: 0.06,
   bracket: 28,
   inset: 48,
-  /** Full AGENTIUM lockup (transparent PNG, 508x288) rendered at this height. */
-  logoHeight: 200,
+  /** Full AGENTIUM lockup (transparent PNG, 776x600) rendered at this height. */
+  logoHeight: 230,
 } as const;
 
 const LOGO = {
-  path: ["public", "brand", "agentium-logo.png"],
-  width: 508,
-  height: 288,
+  path: ["public", "brand", "agentium-logo-v2.png"],
+  width: 776,
+  height: 600,
 } as const;
 
 function Bracket({ pos }: { pos: "tl" | "tr" | "bl" | "br" }) {
@@ -81,7 +81,7 @@ export default async function OpengraphImage() {
           width={logoW}
           height={CONFIG.logoHeight}
           alt=""
-          style={{ marginLeft: -12 }}
+          style={{ marginLeft: -20, marginTop: -40 }}
         />
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div

@@ -175,14 +175,14 @@ export function IntroFilm() {
         {/* Top row inside the upper bar */}
         <div className="intro-top absolute inset-x-0 top-0 flex items-center justify-between px-4 md:px-[6vw]">
           <span aria-hidden="true" className={`intro-brand flex items-center gap-3 ${phase.kind === "logo" ? "" : "is-on"}`}>
-            <Image src="/brand/agentium-emblem.png" alt="" width={294} height={188} unoptimized className="h-6 w-auto md:h-7" />
-            <Image src="/brand/agentium-wordmark.png" alt="" width={426} height={60} unoptimized className="h-[10px] w-auto md:h-3" />
+            <Image src="/brand/agentium-emblem-v2.png" alt="" width={579} height={434} unoptimized className="h-7 w-auto md:h-8" />
+            <Image src="/brand/agentium-wordmark-v2.png" alt="" width={1076} height={82} unoptimized className="h-[9px] w-auto md:h-[11px]" />
           </span>
           <button
             type="button"
             onClick={exit}
             autoFocus
-            className="intro-skip t-label flex items-center gap-3 border border-white/15 px-3 py-2 text-text-dim transition-colors duration-300 ease-out hover:border-[#E8B65A]/70 hover:text-text"
+            className="intro-skip t-label flex items-center gap-3 border border-white/15 px-3 py-2 text-text-dim transition-colors duration-300 ease-out hover:border-[#2EE6DC]/70 hover:text-text"
           >
             {t.skip}
             <span className="hidden text-text-faint md:inline">{t.skipHint}</span>
@@ -198,7 +198,7 @@ export function IntroFilm() {
             data-leaving={leaving || undefined}
           >
             <Line i={0} className="t-label text-text-faint">
-              <span className="intro-gold">{String(chapter + 1).padStart(2, "0")}</span>
+              <span className="intro-accent">{String(chapter + 1).padStart(2, "0")}</span>
               <span className="intro-rule" />
               {total}
             </Line>
@@ -214,7 +214,7 @@ export function IntroFilm() {
             )}
             {body && (
               <Line i={2} className="!mt-6 md:!mt-[clamp(20px,2vw,32px)]">
-                <span className="block max-w-[58ch] border-l border-[#E8B65A]/60 pl-4 text-[14.5px] leading-[1.55] text-text-dim md:pl-5 md:text-[clamp(15px,1.15vw,18px)]">
+                <span className="block max-w-[58ch] border-l border-[#2EE6DC]/60 pl-4 text-[14.5px] leading-[1.55] text-text-dim md:pl-5 md:text-[clamp(15px,1.15vw,18px)]">
                   {body}
                 </span>
               </Line>
@@ -254,7 +254,7 @@ export function IntroFilm() {
             <div className="max-w-[24ch] font-display text-[clamp(24px,2.75vw,42px)] font-medium leading-[1.1] tracking-[-0.01em]">
               <Line i={0}>{t.outro.title}</Line>
             </div>
-            <Line i={1} className="t-label mt-4 text-[11px] text-[#E8B65A]/80">
+            <Line i={1} className="t-label mt-4 text-[11px] text-[#2EE6DC]/80">
               {t.outro.sub}
             </Line>
           </div>
@@ -269,7 +269,7 @@ export function IntroFilm() {
         </div>
       </div>
 
-      {/* Exit wipe: a horizontal slit with gold edges closes onto a line of light. */}
+      {/* Exit wipe: a horizontal slit with teal edges closes onto a line of light. */}
       <div aria-hidden="true" className="intro-edge intro-edge-top" />
       <div aria-hidden="true" className="intro-edge intro-edge-bottom" />
       <div aria-hidden="true" className="intro-flare" />

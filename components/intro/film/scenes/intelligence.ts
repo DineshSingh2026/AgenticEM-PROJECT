@@ -133,7 +133,7 @@ export function createIntelligenceScene(): FilmScene {
           const ey = lerp(a.y, b.y, ck);
           ctx.save();
           ctx.globalAlpha *= 0.06 + wt * 0.12 + wave * wt * 0.5;
-          ctx.strokeStyle = wave > 0.1 && wt > 0.55 ? COLORS.gold : COLORS.steel;
+          ctx.strokeStyle = wave > 0.1 && wt > 0.55 ? COLORS.accent : COLORS.steel;
           ctx.lineWidth = 0.7 + wave * wt;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
@@ -143,7 +143,7 @@ export function createIntelligenceScene(): FilmScene {
           if (wave > 0.15 && wt > 0.6) {
             glow.save();
             glow.globalAlpha *= wave * wt * 0.5;
-            glow.strokeStyle = COLORS.gold;
+            glow.strokeStyle = COLORS.accent;
             glow.lineWidth = 1.6;
             glow.beginPath();
             glow.moveTo(a.x, a.y);
@@ -175,7 +175,7 @@ export function createIntelligenceScene(): FilmScene {
         ctx.save();
         ctx.globalAlpha *= nkk;
         ctx.fillStyle = "#0E0F12";
-        ctx.strokeStyle = wave > 0.1 ? COLORS.goldPale : rgba(COLORS.gold, 0.6);
+        ctx.strokeStyle = wave > 0.1 ? COLORS.accentPale : rgba(COLORS.accent, 0.6);
         ctx.lineWidth = 1.2;
         ctx.beginPath();
         ctx.arc(n.x, n.y, L.narrow ? 4 : 5.5, 0, Math.PI * 2);
@@ -199,7 +199,7 @@ export function createIntelligenceScene(): FilmScene {
       if (n) {
         text(ctx, fonts.mono, C.inputs[i].split(" ")[0], b.x + b.w / 2, b.y + b.h / 2, { size: 8.5, color: COLORS.text, alpha: k, align: "center", track: 0.1 });
       } else {
-        glyph(ctx, [0, 3, 4][i], b.x + 22, b.y + b.h / 2, 7, COLORS.gold, k);
+        glyph(ctx, [0, 3, 4][i], b.x + 22, b.y + b.h / 2, 7, COLORS.accent, k);
         text(ctx, fonts.mono, C.inputs[i], b.x + 42, b.y + b.h / 2, { size: 10, color: COLORS.text, alpha: k, track: 0.12 });
       }
     });
@@ -215,16 +215,16 @@ export function createIntelligenceScene(): FilmScene {
       panel(f, b.x, b.y, b.w, b.h, k, { hot: hot * 0.8 + (lit ? 0.12 : 0) });
       const nm = C.outputs[i];
       if (n) {
-        text(ctx, fonts.mono, nm.split(" ").slice(-1)[0], b.x + b.w / 2, b.y + b.h / 2, { size: 8.5, color: lit ? COLORS.goldPale : COLORS.dim, alpha: k, align: "center", track: 0.1 });
+        text(ctx, fonts.mono, nm.split(" ").slice(-1)[0], b.x + b.w / 2, b.y + b.h / 2, { size: 8.5, color: lit ? COLORS.accentPale : COLORS.dim, alpha: k, align: "center", track: 0.1 });
       } else {
         ctx.save();
         ctx.globalAlpha *= k;
-        ctx.fillStyle = lit ? COLORS.gold : COLORS.line;
+        ctx.fillStyle = lit ? COLORS.accent : COLORS.line;
         ctx.translate(b.x + 18, b.y + b.h / 2);
         ctx.rotate(Math.PI / 4);
         ctx.fillRect(-3.5, -3.5, 7, 7);
         ctx.restore();
-        text(ctx, fonts.mono, nm, b.x + 34, b.y + b.h / 2, { size: 9.5, color: lit ? COLORS.goldPale : COLORS.dim, alpha: k, track: 0.08 });
+        text(ctx, fonts.mono, nm, b.x + 34, b.y + b.h / 2, { size: 9.5, color: lit ? COLORS.accentPale : COLORS.dim, alpha: k, track: 0.08 });
       }
       ring(f, b.x + 18, b.y + b.h / 2, 4, 30, (p - t0) * 5);
     });
@@ -232,7 +232,7 @@ export function createIntelligenceScene(): FilmScene {
     // Model label and agent trace.
     const ma = easeOut(seg(p, 0.16, 0.32));
     if (!n) {
-      text(ctx, fonts.display, C.model, L.modelLabel.x, L.modelLabel.y, { size: 14.5, weight: 500, color: COLORS.goldPale, alpha: ma, align: "center", track: 0.1 });
+      text(ctx, fonts.display, C.model, L.modelLabel.x, L.modelLabel.y, { size: 14.5, weight: 500, color: COLORS.accentPale, alpha: ma, align: "center", track: 0.1 });
       label(f, C.modelSub, L.modelLabel.x, L.modelLabel.y + 18, { size: 9, color: COLORS.dim, alpha: ma, align: "center" });
     }
     const tk = seg(p, CONFIG.trace[0], CONFIG.trace[1]);

@@ -714,7 +714,7 @@ function TurbineInner({ q, portrait }: { q: 1 | 2; portrait: boolean }) {
     }
     const img = new Image();
     img.onload = () => res.chip.drawEmblem(img);
-    img.src = "/brand/agentium-emblem.png";
+    img.src = "/brand/agentium-emblem-v2.png";
     return () => {
       img.onload = null;
       env.dispose();

@@ -66,19 +66,19 @@ html[data-intro="skip"] #aem-intro,
 html[data-intro="done"] #aem-intro { display: none !important; }
 html[data-intro="play"] { overflow: hidden; }
 .intro-root {
-  --bar: clamp(44px, 8vh, 84px); --gold: #E8B65A; --gold-pale: #F7DFA3;
+  --bar: clamp(44px, 8vh, 84px); --accent: #2EE6DC; --accent-pale: #A8FFF4;
   --ease-film: cubic-bezier(0.16, 1, 0.3, 1); --ease-wipe: cubic-bezier(0.76, 0, 0.24, 1);
 }
 .intro-root[data-exiting] { pointer-events: none; }
-/* Exit: the stage closes to a horizontal slit (1.1s) while gold edges converge on a line of light. */
+/* Exit: the stage closes to a horizontal slit (1.1s) while teal edges converge on a line of light. */
 .intro-stage { clip-path: inset(0 0 0 0); transition: clip-path 1000ms var(--ease-wipe); }
 .intro-root[data-exiting] .intro-stage { clip-path: inset(50% 0 50% 0); }
 .intro-canvas { transition: transform 1100ms var(--ease-wipe), filter 1100ms var(--ease-wipe); }
 .intro-root[data-exiting] .intro-canvas { transform: scale(1.05); filter: brightness(1.3); }
 .intro-edge {
   position: absolute; left: 0; right: 0; height: 1px; opacity: 0; pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgb(232 182 90 / 0.45) 18%, var(--gold-pale) 50%, rgb(232 182 90 / 0.45) 82%, transparent);
-  box-shadow: 0 0 14px 1px rgb(232 182 90 / 0.45);
+  background: linear-gradient(90deg, transparent, rgb(46 230 220 / 0.45) 18%, var(--accent-pale) 50%, rgb(46 230 220 / 0.45) 82%, transparent);
+  box-shadow: 0 0 14px 1px rgb(46 230 220 / 0.45);
   transition: top 1000ms var(--ease-wipe), opacity 260ms ease-out;
 }
 .intro-edge-top { top: 0; }
@@ -86,8 +86,8 @@ html[data-intro="play"] { overflow: hidden; }
 .intro-root[data-exiting] .intro-edge { opacity: 1; top: 50%; }
 .intro-flare {
   position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; opacity: 0; pointer-events: none;
-  background: linear-gradient(90deg, transparent, var(--gold) 25%, #FFF8E6 50%, var(--gold) 75%, transparent);
-  box-shadow: 0 0 28px 5px rgb(232 182 90 / 0.5);
+  background: linear-gradient(90deg, transparent, var(--accent) 25%, #EFFFFD 50%, var(--accent) 75%, transparent);
+  box-shadow: 0 0 28px 5px rgb(46 230 220 / 0.5);
 }
 .intro-root[data-exiting] .intro-flare { animation: intro-flare 1100ms linear both; }
 
@@ -100,12 +100,12 @@ html[data-intro="play"] { overflow: hidden; }
 .intro-skip { animation: intro-fade 1000ms var(--ease-film) 900ms both; }
 .intro-progress { bottom: calc(var(--bar) / 2); opacity: 0; transition: opacity 1200ms var(--ease-film); }
 .intro-root[data-ready] .intro-progress { opacity: 1; }
-.intro-progress-fill { background: linear-gradient(90deg, rgb(176 122 42 / 0.5), var(--gold) 70%, var(--gold-pale)); box-shadow: 0 0 10px rgb(232 182 90 / 0.55); }
+.intro-progress-fill { background: linear-gradient(90deg, rgb(14 138 132 / 0.5), var(--accent) 70%, var(--accent-pale)); box-shadow: 0 0 10px rgb(46 230 220 / 0.55); }
 .intro-chapter { bottom: calc(var(--bar) + 6vh); }
 .intro-stat { bottom: calc(var(--bar) + 6vh); }
 /* Sits under the outro lockup — keep in sync with components/intro/film/scenes/outro.ts layout. */
-.intro-outro { top: calc(40% + min(36vw, 420px, 52.9vh) * 0.2835 + 30px); }
-@media (max-width: 759px) { .intro-outro { top: calc(40% + min(72vw, 52.9vh) * 0.2835 + 26px); } }
+.intro-outro { top: calc(40% + min(36vw, 420px, 42.3vh) * 0.3543 + 30px); }
+@media (max-width: 759px) { .intro-outro { top: calc(40% + min(72vw, 42.3vh) * 0.3543 + 26px); } }
 @media (max-width: 767px) {
   /* Compact two-row stat (label + number on one row) so it clears the canvas safe zone top (bar + 104px). */
   .intro-stat { bottom: auto; top: calc(var(--bar) + 14px); }
@@ -125,8 +125,8 @@ html[data-intro="play"] { overflow: hidden; }
 }
 .intro-outro .intro-line-in { animation-delay: calc(460ms + var(--i, 0) * 170ms); }
 [data-leaving] .intro-line-in { animation: intro-line-out 540ms cubic-bezier(0.7, 0, 0.84, 0) both; animation-delay: calc(var(--i, 0) * 45ms); }
-.intro-gold { color: var(--gold); }
-.intro-rule { display: inline-block; width: 32px; height: 1px; margin: 0 12px; vertical-align: middle; background: var(--gold); transform-origin: left; animation: intro-rule 1200ms var(--ease-film) 520ms both; }
+.intro-accent { color: var(--accent); }
+.intro-rule { display: inline-block; width: 32px; height: 1px; margin: 0 12px; vertical-align: middle; background: var(--accent); transform-origin: left; animation: intro-rule 1200ms var(--ease-film) 520ms both; }
 
 @keyframes intro-bar { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 @keyframes intro-fade { from { opacity: 0; } to { opacity: 1; } }

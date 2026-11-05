@@ -10,6 +10,9 @@ export interface ButtonProps {
   type?: "button" | "submit" | "reset";
   onClick?: MouseEventHandler<HTMLElement>;
   disabled?: boolean;
+  /** Render a plain <a> that opens in a new tab (for off-site links). Requires href. */
+  external?: boolean;
+  ariaLabel?: string;
 }
 
 const base =
@@ -22,17 +25,34 @@ const variants = {
     "border border-line-strong bg-transparent text-text hover:border-copper/70 hover:shadow-[0_0_0_1px_rgb(var(--copper-rgb)/0.25)]",
 } as const;
 
-export function Button({ href, variant = "primary", children, className, type = "button", onClick, disabled }: ButtonProps) {
+export function Button({
+  href,
+  variant = "primary",
+  children,
+  className,
+  type = "button",
+  onClick,
+  disabled,
+  external,
+  ariaLabel,
+}: ButtonProps) {
   const classes = cn(base, variants[variant], className);
+  if (href && external && !disabled) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" aria-label={ariaLabel} className={classes} onClick={onClick}>
+        {children}
+      </a>
+    );
+  }
   if (href && !disabled) {
     return (
-      <Link href={href} className={classes} onClick={onClick}>
+      <Link href={href} aria-label={ariaLabel} className={classes} onClick={onClick}>
         {children}
       </Link>
     );
   }
   return (
-    <button type={type} className={classes} onClick={onClick} disabled={disabled}>
+    <button type={type} aria-label={ariaLabel} className={classes} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );

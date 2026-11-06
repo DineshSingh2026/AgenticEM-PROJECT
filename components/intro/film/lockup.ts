@@ -525,14 +525,7 @@ export class Lockup {
       }
     }
 
-    // ---- Tagline ----------------------------------------------------------------------------
-    const tk = easeInOut(seg(ms, T.tagline[0], T.tagline[1]));
-    if (tk > 0) {
-      const sx = lerp(1.08, 1, easeOut(seg(ms, T.tagline[0], T.tagline[1] + 500)));
-      const tw = G.tw * sx;
-      ctx.globalAlpha = base * tk * 0.92;
-      ctx.drawImage(f.assets.tagline, this.layout.cx - tw / 2, G.ty, tw, G.th);
-    }
+    // Tagline ("Autonomous solutions. Real impact.") intentionally not drawn — removed per client.
 
     ctx.globalAlpha = base;
     glow.globalAlpha = gBase;

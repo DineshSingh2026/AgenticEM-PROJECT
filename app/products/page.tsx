@@ -37,7 +37,13 @@ export default function ProductsPage() {
 
   return (
     <>
-      <PageHero scene="Convergence" eyebrow={c.hero.eyebrow} title={c.hero.title} sub={c.hero.sub} />
+      <PageHero
+        scene="Convergence"
+        eyebrow={c.hero.eyebrow}
+        title={c.hero.title}
+        sub={c.hero.sub}
+        titleClassName="max-w-3xl text-[40px] md:text-[56px] lg:text-[72px]"
+      />
 
       {/* 01.1 — aggregation platform features */}
       <InnerSection id="aggregation" eyebrow={c.aggregation.eyebrow} title={c.aggregation.title}>
@@ -66,19 +72,11 @@ export default function ProductsPage() {
       {/* 01.2 — multi-category portfolio */}
       <section id="portfolio" aria-labelledby="portfolio-title" className="section-pad relative scroll-mt-24">
         <div className="container-site">
-          <header className="grid gap-6 lg:grid-cols-12 lg:gap-6">
-            <div className="flex flex-col gap-5 lg:col-span-6">
-              <Eyebrow>{c.portfolio.eyebrow}</Eyebrow>
-              <h2 id="portfolio-title" className="t-h2 max-w-[20ch] text-balance text-text">
-                {c.portfolio.title}
-              </h2>
-            </div>
-            <div className="flex flex-col gap-5 lg:col-span-6 lg:pt-[42px]">
-              <p className="font-display text-[22px] font-medium leading-snug text-copper-soft text-balance md:text-[26px]">
-                {c.portfolio.tagline}
-              </p>
-              <p className="t-body">{c.portfolio.body}</p>
-            </div>
+          <header className="flex flex-col gap-5">
+            <Eyebrow>{c.portfolio.eyebrow}</Eyebrow>
+            <h2 id="portfolio-title" className="t-h2 max-w-[20ch] text-balance text-text">
+              {c.portfolio.title}
+            </h2>
           </header>
 
           <ul role="list" className="mt-12 grid grid-cols-1 gap-3 md:mt-16 md:grid-cols-2 lg:grid-cols-3">

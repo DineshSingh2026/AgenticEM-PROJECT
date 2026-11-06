@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { copy } from "@/content/copy";
 import { cn } from "@/lib/cn";
 import { BracketPanel, Eyebrow } from "@/components/ui";
 import { SectionIntro } from "./SectionIntro";
 import { CAPABILITY_ART } from "./CapabilityArt";
+import { IconAggregation, IconIntelligence, IconSettlement } from "./PillarIcon";
 
 /** Flips data-in to "true" the first time the element scrolls into view (drives .bb-reveal). */
 function useInView<T extends HTMLElement>(threshold = 0.15) {
@@ -30,6 +31,41 @@ function useInView<T extends HTMLElement>(threshold = 0.15) {
 }
 
 const delay = (d: number) => ({ "--d": d }) as CSSProperties;
+
+const ICON = "-mr-1 -mt-1 h-14 w-14 md:h-16 md:w-16";
+
+/** One pillar card: label + heading, corner illustration, body and mini diagram, arranged by .bb-card (globals.css). */
+function PillarCard({
+  index,
+  label,
+  title,
+  body,
+  icon,
+  className,
+  style,
+  children,
+}: {
+  index: string;
+  label: string;
+  title: string;
+  body: string;
+  icon: ReactNode;
+  className?: string;
+  style?: CSSProperties;
+  children: ReactNode;
+}) {
+  return (
+    <BracketPanel className={cn("bb-reveal bb-card glass h-full", className)} style={style}>
+      <div className="bb-card-head">
+        <p className="t-label mb-4 text-text-faint">{`${index} · ${label}`}</p>
+        <p className="font-display text-[21px] font-medium leading-snug text-text">{title}</p>
+      </div>
+      <div className="bb-card-icon">{icon}</div>
+      <p className="bb-card-body mt-2 text-[14px] leading-relaxed text-text-dim">{body}</p>
+      <div className="bb-card-diag">{children}</div>
+    </BracketPanel>
+  );
+}
 
 /** 02 // THE_BACKBONE — platform diagram (what Agentium runs) + 02.1 platform capabilities. */
 export function Backbone() {
@@ -58,13 +94,10 @@ export function Backbone() {
         <div className="grid grid-cols-12 gap-x-6 gap-y-16">
           <div className="col-span-12 lg:col-span-5">
             <div className="bb-reveal">
-              <SectionIntro id={c.id} eyebrow={c.eyebrow} title={c.title} tagline={c.tagline} body={c.body} />
+              <SectionIntro id={c.id} eyebrow={c.eyebrow} title={c.title} tagline={c.tagline} />
             </div>
 
-            <p className="t-label bb-reveal mt-12 text-text-faint" style={delay(2)}>
-              {c.outcomesLabel}
-            </p>
-            <ol className="mt-4 border-t border-line">
+            <ol aria-label="What operators get" className="mt-12 border-t border-line">
               {c.outcomes.map((o, i) => (
                 <li
                   key={o.index}
@@ -83,128 +116,43 @@ export function Backbone() {
             </ol>
           </div>
 
-          {/* Platform diagram */}
+          {/* Pillars A · B · C: stacked in the right column on lg+, 2 + full-width C on md, 1 col on mobile. */}
           <div
-            className="col-span-12 lg:col-span-7 lg:pl-6"
+            className="col-span-12 lg:col-span-7 lg:pl-6 xl:pl-10"
             role="img"
-            aria-label={`${d.top.label} connect to the ${d.core.label}, which runs ${d.core.modules.map((m) => m.name).join(", ")}, ${d.core.compute.map((m) => m.name).join(", ")} and ${d.core.ai.name}, joined to ${d.aggregation.label} and ${d.settlement.label}.`}
+            aria-label={`One platform: ${d.aggregation.label}, ${d.settlement.label} and ${d.intelligence.label}.`}
           >
-            <div aria-hidden="true">
-              {/* Operators */}
-              <div
-                className="bb-reveal glass flex flex-wrap items-center justify-between gap-3 border border-line px-5 py-4"
-                style={delay(1)}
-              >
-                <span className="t-label text-text-dim">{d.top.label}</span>
-                <div className="flex gap-2">
-                  {d.top.items.map((it) => (
-                    <span key={it} className="t-label border border-line-strong px-2.5 py-1 text-[10px] text-text">
-                      {it}
+            <div aria-hidden="true" className="grid gap-3 md:grid-cols-2 lg:h-full lg:auto-rows-fr lg:grid-cols-1 lg:gap-4">
+              {/* Aggregation */}
+              <PillarCard {...d.aggregation} icon={<IconAggregation className={ICON} />} style={delay(1)}>
+                <div className="grid grid-cols-3 gap-1.5">
+                  {d.aggregation.providers.map((p, i) => (
+                    <span
+                      key={p}
+                      className="t-num border border-line bg-bg/50 py-1.5 text-center text-[10px] text-text-faint"
+                      style={{ animation: `bb-blink 3s ${i * 0.45}s steps(2, jump-none) infinite` }}
+                    >
+                      {p}
                     </span>
                   ))}
                 </div>
-              </div>
-
-              <div className="flex justify-center">
-                <div className="bb-wire-v h-12" />
-              </div>
-
-              {/* Core */}
-              <div
-                className="bb-reveal bb-core border border-copper/30 bg-bg-elev/80 p-5 backdrop-blur-md md:p-6"
-                style={delay(2)}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="t-label bb-shimmer text-[13px]">{d.core.label}</span>
-                  <span className="t-label flex items-center gap-2 text-[10px] text-data-green">
-                    <span className="bb-live h-1.5 w-1.5 rounded-full bg-data-green shadow-[0_0_8px_rgb(var(--data-green-rgb))]" />
-                    {d.core.status}
-                  </span>
+                <div className="mt-3 flex items-center gap-2">
+                  <span className="bb-wire-h min-w-6 flex-1" style={{ "--pd": "0.2s" } as CSSProperties} />
+                  <span className="t-label shrink-0 whitespace-nowrap text-[10px] text-copper">{d.aggregation.gatewayLabel}</span>
                 </div>
-                <div className="mt-5 grid grid-cols-2 gap-2 md:grid-cols-4">
-                  {d.core.modules.map((m, i) => (
-                    <div
-                      key={m.code}
-                      className="bb-reveal group border border-line bg-bg/60 p-3 transition-colors duration-300 hover:border-copper/60"
-                      style={delay(3 + i)}
-                    >
-                      <span className="t-num text-[11px] text-copper">{m.code}</span>
-                      <p className="mt-2 text-[13px] leading-snug text-text-dim transition-colors duration-300 group-hover:text-text">
-                        {m.name}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
-                  {d.core.compute.map((m, i) => (
-                    <div
-                      key={m.code}
-                      className="bb-reveal group border border-line bg-bg/60 p-3 transition-colors duration-300 hover:border-copper/60"
-                      style={delay(7 + i)}
-                    >
-                      <span className="t-num text-[11px] text-copper">{m.code}</span>
-                      <p className="mt-2 text-[13px] leading-snug text-text-dim transition-colors duration-300 group-hover:text-text">
-                        {m.name}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-                <div
-                  className="bb-reveal mt-2 flex items-center gap-3 border border-data-gold/30 bg-gradient-to-r from-data-gold/[0.10] via-copper/[0.05] to-transparent p-3"
-                  style={delay(9)}
-                >
-                  <span className="t-num border border-data-gold/50 px-1.5 text-[11px] text-data-gold">
-                    {d.core.ai.code}
-                  </span>
-                  <p className="text-[13px] text-text">{d.core.ai.name}</p>
-                </div>
-              </div>
+              </PillarCard>
 
-              {/* Branch connectors (desktop: fork; mobile: single drop) */}
-              <div className="relative hidden h-12 md:block">
-                <div className="bb-wire-v absolute left-1/2 top-0 h-6" />
-                <div className="absolute left-1/4 right-1/4 top-6 h-px bg-line-strong" />
-                <div className="bb-wire-v absolute left-1/4 top-6 h-6" style={{ "--pd": "0.4s" } as CSSProperties} />
-                <div className="bb-wire-v absolute right-1/4 top-6 h-6" style={{ "--pd": "1.1s" } as CSSProperties} />
-              </div>
-              <div className="flex justify-center md:hidden">
-                <div className="bb-wire-v h-10" />
-              </div>
-
-              <div className="grid gap-3 md:grid-cols-2">
-                {/* Aggregation */}
-                <BracketPanel className="bb-reveal glass" label={`${d.aggregation.index} · ${d.aggregation.label}`}>
-                  <p className="font-display text-[21px] font-medium leading-snug text-text">{d.aggregation.title}</p>
-                  <p className="mt-2 text-[14px] leading-relaxed text-text-dim">{d.aggregation.body}</p>
-                  <div className="mt-5 grid grid-cols-3 gap-1.5">
-                    {d.aggregation.providers.map((p, i) => (
-                      <span
-                        key={p}
-                        className="t-num border border-line bg-bg/50 py-1.5 text-center text-[10px] text-text-faint"
-                        style={{ animation: `bb-blink 3s ${i * 0.45}s steps(2, jump-none) infinite` }}
-                      >
-                        {p}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-3 flex items-center gap-2">
-                    <span className="bb-wire-h min-w-6 flex-1" style={{ "--pd": "0.2s" } as CSSProperties} />
-                    <span className="t-label shrink-0 whitespace-nowrap text-[10px] text-copper">{d.aggregation.gatewayLabel}</span>
-                  </div>
-                </BracketPanel>
-
-                {/* Settlement */}
-                <BracketPanel className="bb-reveal glass" label={`${d.settlement.index} · ${d.settlement.label}`}>
-                  <p className="font-display text-[21px] font-medium leading-snug text-text">{d.settlement.title}</p>
-                  <p className="mt-2 text-[14px] leading-relaxed text-text-dim">{d.settlement.body}</p>
-                  <div className="mt-5 flex items-center">
+              {/* Settlement */}
+              <PillarCard {...d.settlement} icon={<IconSettlement className={ICON} />} style={delay(2)}>
+                <div className="flex flex-1 flex-col md:justify-between">
+                  <div className="flex items-center">
                     {d.settlement.flows.map((f, i) => (
                       <div key={f} className="flex flex-1 items-center last:flex-none">
                         <span className="t-num border border-copper/40 bg-copper/[0.06] px-2 py-1.5 text-[10px] text-copper-soft">
                           {f}
                         </span>
                         {i < d.settlement.flows.length - 1 ? (
-                          <span className="bb-wire-h mx-1 flex-1" style={{ "--pd": `${i * 0.8}s` } as CSSProperties} />
+                          <span className="bb-wire-h mx-1 min-w-3 flex-1" style={{ "--pd": `${i * 0.8}s` } as CSSProperties} />
                         ) : null}
                       </div>
                     ))}
@@ -218,8 +166,48 @@ export function Backbone() {
                       />
                     ))}
                   </div>
-                </BracketPanel>
-              </div>
+                </div>
+              </PillarCard>
+
+              {/* AI intelligence */}
+              <PillarCard
+                {...d.intelligence}
+                icon={<IconIntelligence className={ICON} />}
+                className="bb-card-wide md:col-span-2 lg:col-span-1"
+                style={delay(3)}
+              >
+                <div className="grid grid-cols-4 gap-1.5">
+                  {d.intelligence.agents.map((a, i) => (
+                    <span
+                      key={a}
+                      className="t-num flex items-center justify-center gap-1.5 border border-line bg-bg/50 py-1.5 text-[10px] text-text-faint"
+                    >
+                      <span
+                        className="h-1 w-1 shrink-0 rounded-full bg-data-gold shadow-[0_0_6px_rgb(var(--data-gold-rgb)/0.8)]"
+                        style={{ animation: `bb-blink 2.2s ${i * 0.55}s steps(2, jump-none) infinite` }}
+                      />
+                      {a}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-3 flex items-center">
+                  <span className="bb-wire-h min-w-4 flex-1" style={{ "--pd": "0.3s" } as CSSProperties} />
+                  <span className="t-label mx-1.5 shrink-0 whitespace-nowrap border border-data-gold/50 bg-data-gold/[0.08] px-2 py-[3px] text-[10px] text-data-gold">
+                    {d.intelligence.engineLabel}
+                  </span>
+                  <span className="bb-wire-h bb-rev min-w-4 flex-1" style={{ "--pd": "1.1s" } as CSSProperties} />
+                </div>
+                <div className="t-label mt-3 flex items-center justify-between text-[10px]">
+                  {d.intelligence.loop.map((s, i) => (
+                    <span key={s} className="contents">
+                      {i > 0 ? <span className="h-px flex-1 bg-line" /> : null}
+                      <span className="bb-step px-1.5" style={{ "--pd": `${i * 1.2}s` } as CSSProperties}>
+                        {s}
+                      </span>
+                    </span>
+                  ))}
+                </div>
+              </PillarCard>
             </div>
           </div>
         </div>
@@ -229,16 +217,11 @@ export function Backbone() {
       <div ref={rev.ref} data-in={rev.inView} className="container-site relative pb-16 lg:pb-24">
         <div className="mb-12 h-px bg-gradient-to-r from-transparent via-line-strong to-transparent lg:mb-20" />
 
-        <header className="grid grid-cols-12 gap-x-6 gap-y-6 lg:gap-x-12">
-          <div className="bb-reveal col-span-12 lg:col-span-6">
-            <Eyebrow>{r.eyebrow}</Eyebrow>
-            <h3 id={r.id} className="t-h2 mt-5 max-w-[20ch] text-balance text-text">
-              {r.title}
-            </h3>
-          </div>
-          <p className="t-body bb-reveal col-span-12 lg:col-span-6 lg:mt-[42px] lg:max-w-none lg:text-[16px] lg:leading-[1.7]" style={delay(1)}>
-            {r.body}
-          </p>
+        <header className="bb-reveal">
+          <Eyebrow>{r.eyebrow}</Eyebrow>
+          <h3 id={r.id} className="t-h2 mt-5 max-w-[20ch] text-balance text-text">
+            {r.title}
+          </h3>
         </header>
 
         <ul aria-labelledby={r.id} className="mt-12 grid gap-3 md:grid-cols-2 lg:mt-16 lg:grid-cols-3">

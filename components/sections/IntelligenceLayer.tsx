@@ -28,7 +28,7 @@ export function IntelligenceLayer() {
 
             <ol
               aria-hidden="true"
-              className="mt-12 hidden items-center gap-3 lg:flex"
+              className="mt-12 hidden items-center gap-3 xl:flex"
             >
               <li className="t-label text-text-faint">{c.inputLabel}</li>
               <li className="h-px flex-1 bg-gradient-to-r from-text/30 to-copper/60" />

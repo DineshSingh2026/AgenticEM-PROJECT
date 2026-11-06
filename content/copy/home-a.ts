@@ -12,9 +12,13 @@ export const homeA = {
 
   hero: {
     id: "hero-title",
-    eyebrow: "AGENTIUM · AGENTIC iGAMING OS",
-    title: "The Agentium operating system for the agentic iGaming economy.",
-    sub: "Agentium is a next-generation B2B AI-powered iGaming infrastructure platform integrating high-performance gaming engines, secure on-chain financial transactions, autonomous AI agents, real-time intelligence, and enterprise analytics. Built for global scalability, Agentium empowers gaming operators and technology partners to deploy, manage, and monetize intelligent gaming ecosystems through one unified platform.",
+    /** Tier 1: brand wordmark (rendered uppercase via CSS so the H1 reads "Agentium: …"). */
+    brand: "Agentium",
+    /** Tier 2: secondary headline, inside the same H1. */
+    title: "Powering the Global Agentic iGaming Economy",
+    /** Tier 3: label line below the headline. Rendered literally (no CSS uppercase) to keep "iGAMING". */
+    tagline: ["AI", "AGENTIC TECHNOLOGY", "iGAMING"],
+    sub: "Agentium is a next-generation Global Agentic iGaming Economy platform integrating gaming engines, autonomous AI agents, secure on-chain settlements, and real-time intelligence, empowering operators to build, scale, and monetize intelligent gaming ecosystems globally.",
     ctaPrimary: { label: "Request an operator briefing", href: "/contact" },
     ctaSecondary: { label: "Explore the architecture", href: "/platform/architecture" },
     footnote: "For licensed operators.",
@@ -27,30 +31,12 @@ export const homeA = {
     eyebrow: "02 // THE_BACKBONE",
     title: "The AI-Agentic Backbone of the Global iGaming Ecosystem",
     tagline: "One Unified Platform. Intelligent Operations. Limitless Scalability.",
-    body: "Agentium is a next-generation B2B AI-powered infrastructure provider, enabling iGaming operators to launch, manage, optimize, and scale their gaming ecosystems through one unified platform. Integrating player management, digital wallets, bonus systems, game aggregation, autonomous AI intelligence, and secure on-chain financial settlement, Agentium delivers a seamless, scalable technology foundation for the future of intelligent gaming.",
-    outcomesLabel: "WHAT OPERATORS GET",
     outcomes: [
       { index: "01", title: "Streamlined operations", body: "One integration replaces a patchwork of vendors." },
       { index: "02", title: "A better player experience", body: "More titles, faster payments, fewer seams." },
       { index: "03", title: "A foundation for growth", body: "Scalable technology that grows with your brand." },
     ],
     diagram: {
-      top: { label: "OPERATOR BRANDS", items: ["Launch", "Manage", "Scale"] },
-      core: {
-        label: "AGENTIUM PLATFORM",
-        status: "ONLINE",
-        modules: [
-          { code: "PAM", name: "Player account management" },
-          { code: "WAL", name: "Digital wallets" },
-          { code: "BON", name: "Bonus engine" },
-          { code: "OPS", name: "Gaming operations" },
-        ],
-        compute: [
-          { code: "DET", name: "High-speed deterministic computing" },
-          { code: "LLM", name: "Specialized AI agents and data sets, with reasoning through LLMs" },
-        ],
-        ai: { code: "AI", name: "Autonomous AI Agents. Intelligent Decision-Making. Enterprise Gaming Intelligence." },
-      },
       aggregation: {
         index: "A",
         label: "GAME AGGREGATION",
@@ -66,12 +52,20 @@ export const homeA = {
         body: "Deposits, withdrawals and transactions through supported digital wallets and blockchain payment rails.",
         flows: ["DEPOSIT", "WITHDRAW", "SETTLE"],
       },
+      intelligence: {
+        index: "C",
+        label: "AI INTELLIGENCE",
+        title: "Autonomous AI Agents.",
+        body: "Intelligent Decision-Making. Enterprise Gaming Intelligence.",
+        agents: ["AGT_01", "AGT_02", "AGT_03", "AGT_04"],
+        engineLabel: "Decision engine",
+        loop: ["OBSERVE", "DECIDE", "ACT"],
+      },
     },
     revenue: {
       id: "revenue-title",
       eyebrow: "02.1 // PLATFORM_CAPABILITIES",
       title: "Agentium Enterprise Platform Capabilities & Technology Solutions",
-      body: "Agentium combines high-performance gaming execution technology, specialized data sets and AI intelligence, real-time analytics, and secure financial infrastructure into one scalable B2B platform. From financial forecasting and risk management to fraud detection, security, and operational intelligence, Agentium empowers iGaming operators to build, optimize, and scale intelligent gaming ecosystems worldwide.",
       capabilities: [
         { index: "01", title: "Global B2B Gaming Network", sub: "Licensed Provider Ecosystem" },
         { index: "02", title: "iGaming Aggregator" },
@@ -88,9 +82,9 @@ export const homeA = {
     id: "intelligence-title",
     eyebrow: "03 // INTELLIGENCE_LAYER",
     title: "The intelligence layer for autonomous gaming economies.",
-    body: "Agentium OS captures, synchronises and analyses game-state data in real time, giving licensed operators the AI operating system to power, monitor and scale AI-driven gaming.",
+    body: "Agentium's AI-powered Agentic iGaming Intelligence Platform captures and analyzes real-time game data, empowering licensed iGaming operators with intelligent insights, operational visibility, and scalable gaming infrastructure.",
     inputLabel: "RAW GAME-STATE DATA",
-    coreLabel: "AGENTIUM OS",
+    coreLabel: "INTELLIGENCE PLATFORM",
     outputLabel: "OPERATOR OUTPUTS",
     cards: [
       {
@@ -110,14 +104,14 @@ export const homeA = {
       },
     ],
     sceneAlt:
-      "Visual: chaotic white data strands enter from the left, pass through a central Agentium OS core, and leave on the right as ordered lines split into three bundles, one for each output card.",
+      "Visual: chaotic white data strands enter from the left, pass through the central core of the Agentic iGaming Intelligence Platform, and leave on the right as ordered lines split into three bundles, one for each output card.",
   },
 
   architecture: {
     id: "architecture-title",
     eyebrow: "04 // ARCHITECTURE",
-    title: "The AI Operating System for the Agentium Economy",
-    stackLabel: "AGENTIUM OS // STACK",
+    title: "The Agentic iGaming Intelligence Platform for the Agentium Economy",
+    stackLabel: "INTELLIGENCE PLATFORM // STACK",
     technologiesLabel: "It combines three technologies",
     technologies: [
       {

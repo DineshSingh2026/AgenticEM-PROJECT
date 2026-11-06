@@ -147,9 +147,6 @@ export function IntroFilm() {
   const leaving = phase.kind === "chapter" && phase.leaving;
   const ch = chapter >= 0 ? t.chapters[chapter] : null;
   const total = String(t.chapters.length).padStart(2, "0");
-  /** Chapters with a body sentence get a smaller title and no live stat. */
-  const body = ch && "body" in ch ? ch.body : null;
-  const sub = ch && "sub" in ch ? ch.sub : null;
   const statLabel = ch && "statLabel" in ch ? ch.statLabel : null;
 
   return (
@@ -194,7 +191,7 @@ export function IntroFilm() {
           <div
             key={chapter}
             aria-hidden="true"
-            className={`intro-chapter absolute left-4 right-4 md:left-[6vw] md:right-auto ${body ? "md:max-w-[min(64vw,880px)]" : "md:max-w-[60vw]"}`}
+            className="intro-chapter absolute left-4 right-4 md:left-[6vw] md:right-auto md:max-w-[60vw]"
             data-leaving={leaving || undefined}
           >
             <Line i={0} className="t-label text-text-faint">
@@ -203,22 +200,10 @@ export function IntroFilm() {
               {total}
             </Line>
             <h2
-              className={`intro-title mt-4 font-display font-medium leading-[0.98] ${body ? "text-[clamp(30px,4.4vw,72px)]" : "text-[clamp(40px,6vw,96px)]"}`}
+              className="intro-title mt-4 font-display font-medium leading-[0.98] text-[clamp(40px,6vw,96px)]"
             >
               <Line i={1}>{ch.title}</Line>
             </h2>
-            {sub && (
-              <Line i={2} className="intro-sub !mt-4 font-mono text-[9.5px] uppercase text-text-dim [text-wrap:balance] md:!mt-[clamp(20px,2vw,32px)] md:text-xs">
-                {sub}
-              </Line>
-            )}
-            {body && (
-              <Line i={2} className="!mt-6 md:!mt-[clamp(20px,2vw,32px)]">
-                <span className="block max-w-[58ch] border-l border-[#2EE6DC]/60 pl-4 text-[14.5px] leading-[1.55] text-text-dim md:pl-5 md:text-[clamp(15px,1.15vw,18px)]">
-                  {body}
-                </span>
-              </Line>
-            )}
           </div>
         )}
 

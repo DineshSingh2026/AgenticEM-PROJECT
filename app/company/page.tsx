@@ -9,7 +9,7 @@ export const metadata = pageMeta(c.meta);
 export default function CompanyPage() {
   return (
     <>
-      <PageHero scene="FlywheelScene" eyebrow={c.hero.eyebrow} title={c.hero.title} sub={c.hero.sub} />
+      <PageHero scene="FlywheelScene" eyebrow={c.hero.eyebrow} title={c.hero.title} />
 
       <InnerSection id="mission" eyebrow={c.mission.eyebrow} title={c.mission.title} tagline={c.mission.tagline} body={c.mission.body} />
 

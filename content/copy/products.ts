@@ -3,13 +3,13 @@ export const products = {
   meta: {
     title: "Products",
     description:
-      "Agentium provides a scalable, multi-tenant B2B game aggregation platform connecting independent game providers through a unified technology infrastructure.",
+      "Agentium is a scalable, multi-tenant game aggregation platform powering the global agentic iGaming economy.",
     path: "/products",
   },
   hero: {
     eyebrow: "01 // PRODUCTS",
-    title: "B2B Game Aggregation Infrastructure",
-    sub: "Agentium provides a scalable, multi-tenant B2B game aggregation platform connecting independent game providers through a unified technology infrastructure. Designed for licensed iGaming operators, it simplifies integration, centralizes management and supports AI-agent-compatible gaming experiences through secure APIs, live data processing and financial-system connectivity.",
+    title: "Global Agentic iGaming Economy Aggregation Infrastructure",
+    sub: "Agentium is a scalable, multi-tenant game aggregation platform powering the global agentic iGaming economy. It connects independent game providers through unified APIs, centralized management, real-time data processing, and secure financial integrations, enabling seamless AI-powered gaming experiences.",
   },
   aggregation: {
     eyebrow: "01.1 // GAME_AGGREGATION",
@@ -26,8 +26,6 @@ export const products = {
   portfolio: {
     eyebrow: "01.2 // GAMING_PORTFOLIO",
     title: "Multi-Category Gaming Portfolio",
-    tagline: "One Platform. Multiple Gaming Categories. Unified Integration.",
-    body: "Agentium’s aggregation layer is designed to support classic, card, casino-style, instant-play, arcade and themed games through one integration ecosystem, giving licensed operators a flexible foundation for diverse gaming experiences and compatible autonomous AI agents.",
     gamesLabel: "GAMES",
     categories: [
       { key: "board", title: "Classic & Board Games", games: ["Ludo", "Snake & Ladder", "Ultimate Tic Tac Toe", "Domino Duel"] },

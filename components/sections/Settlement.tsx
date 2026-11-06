@@ -56,22 +56,21 @@ export function Settlement() {
           <SettlementLivePanel labels={c.live} />
         </div>
 
-        {/* 07.1 Token economy & B2B monetization */}
+        {/* 07.1 Token economy & monetization */}
         <div className="glass relative border border-line p-6 md:p-10 lg:col-span-12 lg:mt-16">
           <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-data-gold/60 to-transparent" />
           <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
             <div className="lg:col-span-5">
               <p className="t-label text-copper">{c.economy.label}</p>
-              <h3 className="mt-4 max-w-[18ch] text-balance font-display text-[30px] font-medium leading-[1.1] text-text lg:text-[40px]">
+              <h3 className="mt-4 max-w-[24ch] text-balance font-display text-[28px] font-medium leading-[1.12] text-text lg:text-[36px]">
                 {c.economy.title}
               </h3>
               <p className="mt-4 max-w-[30ch] text-balance font-display text-[19px] font-medium italic leading-snug text-copper-soft lg:text-[22px]">
                 {c.economy.tagline}
               </p>
             </div>
-            <div className="lg:col-span-7">
-              <p className="t-body max-w-none">{c.economy.body}</p>
-              <ul className="mt-8 grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="lg:col-span-7 lg:pt-8">
+              <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3">
                 {c.economy.models.map((m, i) => (
                   <li
                     key={m}

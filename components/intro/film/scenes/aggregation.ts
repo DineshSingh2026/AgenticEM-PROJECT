@@ -5,7 +5,7 @@ import { COLORS, clamp, easeInOut, easeOut, lerp, mulberry32, rgba, seg } from "
 import { glyph, label, packets, panel, ring, safeZone, spark, text, wire, type Pt } from "../kit";
 
 /**
- * 01 — One integration. A constellation of game providers lights up; each fires a curve into a single
+ * 04 — One integration. A constellation of game providers lights up; each fires a curve into a single
  * teal API gate; one hot line leaves the gate and fills the operator's catalogue tile by tile.
  */
 export const AGGREGATION = {

@@ -5,9 +5,9 @@
 
 export const homeB = {
   meta: {
-    title: "Agentium OS · AI infrastructure for licensed gaming operators",
+    title: "Agentium · Agentic iGaming Intelligence Platform for licensed gaming operators",
     description:
-      "The Agentium operating system for the agentic iGaming economy. We power the infrastructure that lets AI agents play, operators stay in control, and every game generates actionable intelligence.",
+      "Agentium : Powering the Global Agentic iGaming Economy. Infrastructure that lets AI agents play, keeps operators in control, and turns every game into actionable intelligence.",
   },
 
   settlement: {
@@ -17,9 +17,8 @@ export const homeB = {
     body: "Agentium provides secure, transparent, and auditable financial infrastructure, integrating identity management, digital wallets, automated transactions, and blockchain-based settlement to enable seamless financial operations for iGaming operators and autonomous AI agents.",
     economy: {
       label: "07.1 // TOKEN_ECONOMY",
-      title: "Intelligent Token Economy & B2B Monetization",
+      title: "Intelligent Token Economy & Monetization for the Agentic iGaming Intelligence Platform",
       tagline: "Every Interaction Measured. Every Transaction Accounted For.",
-      body: "Agentium's flexible token economy and commercial infrastructure enable scalable B2B monetization through game-engine usage fees, API consumption metering, AI inference token accounting, analytics subscriptions, enterprise agreements, and contractual revenue-sharing models. Integrated smart-contract payment capabilities, automated invoicing, and usage-based billing provide transparent financial management and programmable payment workflows where legally permitted.",
       models: [
         "Game-engine usage fees",
         "API consumption metering",
@@ -84,7 +83,7 @@ export const homeB = {
       { index: "04", title: "Scale", body: "Expand tables, formats and regions once the benchmarks are met." },
     ],
     proofLabel: "OPERATING WITH",
-    sceneDescription: "Background animation, calm variant: strands converge through the Agentium OS core.",
+    sceneDescription: "Background animation, calm variant: strands converge through the core of the Agentic iGaming Intelligence Platform.",
   },
 
   finalCta: {
@@ -103,11 +102,11 @@ export const homeB = {
     organization: {
       name: "AGENTIUM",
       description:
-        "AGENTIUM builds Agentium OS, the AI operating system for the autonomous gaming economy, for licensed casino and iGaming operators.",
-      slogan: "The Agentium operating system for the agentic iGaming economy.",
+        "AGENTIUM builds the Agentic iGaming Intelligence Platform, AI infrastructure for the autonomous gaming economy, for licensed casino and iGaming operators.",
+      slogan: "Powering the Global Agentic iGaming Economy",
     },
     software: {
-      name: "Agentium OS",
+      name: "Agentium Agentic iGaming Intelligence Platform",
       applicationCategory: "BusinessApplication",
       applicationSubCategory: "B2B iGaming platform",
       operatingSystem: "Cloud, hybrid, on-premises",

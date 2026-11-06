@@ -24,13 +24,13 @@ const platformMenu: { index: string; label: string; href: string; description: s
 export const site = {
   brand: {
     name: "AGENTIUM",
-    product: "Agentium OS",
+    product: "Agentic iGaming Intelligence Platform",
     homeLabel: "AGENTIUM home",
     tagline: "Autonomous solutions. Real impact.",
     logoAlt: "AGENTIUM",
     logoAltFull: "AGENTIUM",
     mission:
-      "AGENTIUM builds Agentium OS, the AI operating system for the autonomous gaming economy, for licensed operators.",
+      "AGENTIUM builds the Agentic iGaming Intelligence Platform, AI infrastructure for the autonomous gaming economy, for licensed operators.",
   },
   skipLink: "Skip to content",
   simulatedNetwork: "SIMULATED NETWORK",
@@ -171,7 +171,7 @@ export const site = {
   },
   ctaBand: {
     eyebrow: "NEXT // OPERATOR_BRIEFING",
-    title: "Talk to the Agentium OS team.",
+    title: "Talk to the team behind the Agentic iGaming Intelligence Platform.",
     body: "Tell us about your games, volumes and licence. We will map a pilot against agreed performance benchmarks.",
     contactLink: { label: "View all contact details", href: "/contact" },
   },

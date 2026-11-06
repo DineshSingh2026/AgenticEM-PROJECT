@@ -1,20 +1,19 @@
 "use client";
 
-import { useRef } from "react";
 import { copy } from "@/content/copy";
 import { cn } from "@/lib/cn";
-import { AlertRow, BracketPanel, SimLabel, Sparkline, StatTicker } from "@/components/ui";
-import { useSimEvents, useSimFeed, useSimSnapshot } from "@/lib/sim/useSimFeed";
-import { formatRelative } from "@/lib/sim/format";
+import { AlertRow, BracketPanel, SimLabel, Sparkline } from "@/components/ui";
+import { useSimEvents } from "@/lib/sim/useSimFeed";
 import type { SimEventOf } from "@/lib/sim/types";
 import riskRadarJson from "@/content/data/risk-radar.json";
 import { SectionIntro } from "./SectionIntro";
 import { usePrefersReducedMotion } from "./useSectionProgress";
 
+/** Client request: no data figures shown in this section; every value renders as this placeholder. */
+const MASK = "XXX";
+
 const CONFIG = {
   alertCount: 6,
-  /** share of flagged anomalies that end in a human-approved intervention */
-  approvalRate: 0.41,
   /** seconds a marker takes to cross the filter band (match AnomalyStream scroll speed) */
   markerTravelS: 14,
 } as const;
@@ -32,26 +31,8 @@ type Anomaly = SimEventOf<"anomaly.detected">;
 /** 07 // RISK_RADAR — dashboard over the AnomalyStream scene. */
 export function RiskIntel() {
   const c = copy.home.risk;
-  const snapshot = useSimSnapshot();
   const alerts = useSimEvents("anomaly.detected", CONFIG.alertCount);
   const reduced = usePrefersReducedMotion();
-
-  // Events carry no timestamp: record arrival time per id.
-  const arrivedAt = useRef(new Map<string, number>());
-  useSimFeed("anomaly.detected", (e) => {
-    const m = arrivedAt.current;
-    m.set(e.id, Date.now());
-    if (m.size > 64) {
-      const oldest = m.keys().next().value;
-      if (oldest !== undefined) m.delete(oldest);
-    }
-  });
-  const now = Date.now(); // alerts are empty on the server, so no hydration mismatch
-  const relTime = (id: string) => formatRelative(arrivedAt.current.get(id) ?? now, now).toUpperCase();
-
-  const flagged = snapshot.anomaliesFlagged24h;
-  const approved = Math.round(flagged * CONFIG.approvalRate);
-  const awaiting = alerts.filter((a) => a.severity !== "low").length;
 
   return (
     <section id="risk-radar" data-scene="AnomalyStream" aria-labelledby={c.id} className="relative">
@@ -91,7 +72,7 @@ export function RiskIntel() {
                       />
                     </div>
                   </div>
-                  <span className="t-num text-right text-[13px] text-text">{row.pct.toFixed(1)}%</span>
+                  <span className="t-num text-right text-[13px] text-text">{MASK}%</span>
                   <Sparkline data={row.spark} className="h-6 w-16" color="rgb(var(--data-red-rgb) / 0.8)" />
                 </li>
               ))}
@@ -101,7 +82,7 @@ export function RiskIntel() {
           {/* Suspicious activity flagged */}
           <BracketPanel label={c.panels.suspicious} className="glass col-span-12 md:col-span-7 lg:col-span-4">
             <div className="-mt-1 flex items-end justify-between gap-4">
-              <StatTicker value={flagged} format="int" label={c.flaggedLabel} />
+              <MaskedStat label={c.flaggedLabel} />
               <SimLabel />
             </div>
             <ul className="mt-5 flex flex-col border-t border-line" aria-label={c.panels.suspicious}>
@@ -116,7 +97,7 @@ export function RiskIntel() {
               ) : (
                 alerts.map((a) => (
                   <li key={a.id} className="border-b border-line/70">
-                    <AlertRow rule={a.rule} severity={a.severity} agentId={a.agentId} time={relTime(a.id)} score={a.score} />
+                    <AlertRow rule={a.rule} severity={a.severity} agentId={a.agentId} time={`${MASK} AGO`} score={MASK} />
                   </li>
                 ))
               )}
@@ -126,10 +107,10 @@ export function RiskIntel() {
           {/* Automated interventions approved */}
           <BracketPanel label={c.panels.interventions} className="glass col-span-12 md:col-span-5 lg:col-span-3">
             <div className="flex h-full flex-col">
-              <StatTicker value={approved} format="int" label={c.interventionsLabel} />
+              <MaskedStat label={c.interventionsLabel} />
               <div className="mt-6 flex items-baseline justify-between gap-3 border-t border-line pt-4">
                 <span className="t-label text-text-faint">{c.pendingLabel}</span>
-                <span className="font-display text-[22px] font-medium leading-none tabular-nums lining-nums text-data-gold">{awaiting}</span>
+                <span className="font-display text-[22px] font-medium leading-none tabular-nums lining-nums text-data-gold">{MASK}</span>
               </div>
               <p className="mt-6 text-[14px] leading-relaxed text-text-dim">{c.interventionsNote}</p>
               <SimLabel className="mt-auto pt-6" />
@@ -138,6 +119,16 @@ export function RiskIntel() {
         </div>
       </div>
     </section>
+  );
+}
+
+/** Static stand-in for StatTicker (same markup), showing the placeholder instead of a counted-up value. */
+function MaskedStat({ label }: { label: string }) {
+  return (
+    <div className="flex flex-col gap-1">
+      <span className="font-display text-[26px] font-medium leading-none tabular-nums lining-nums text-text md:text-[28px]">{MASK}</span>
+      <span className="t-label text-[11px] text-text-faint">{label}</span>
+    </div>
   );
 }
 

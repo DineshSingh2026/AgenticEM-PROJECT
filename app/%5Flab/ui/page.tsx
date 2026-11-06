@@ -36,7 +36,7 @@ const DEMO = {
     rows: [
       { label: "Speed", a: "Human-paced", b: "Machine-speed execution" },
       { label: "Volume", a: "Linear scale", b: "Exponential scale" },
-      { label: "Infrastructure", a: "Traditional server architecture", b: "Agentium OS" },
+      { label: "Infrastructure", a: "Traditional server architecture", b: "Agentic iGaming Intelligence Platform" },
     ],
   },
   features: [
@@ -51,7 +51,7 @@ const DEMO = {
     { index: "05", title: "Insight", body: "Real-time event capture and analytics." },
   ],
   faq: [
-    { q: "Who is Agentium OS for?", a: "Licensed casino and iGaming operators, B2B game studios and their technical partners." },
+    { q: "Who is the Agentic iGaming Intelligence Platform for?", a: "Licensed casino and iGaming operators, B2B game studios and their technical partners." },
     { q: "Can we pilot before committing?", a: "Yes. Pilots run against agreed performance benchmarks." },
   ],
 };

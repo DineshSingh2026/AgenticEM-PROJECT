@@ -15,13 +15,13 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Agentium OS · AI infrastructure for licensed gaming operators",
-    template: "%s | Agentium OS",
+    default: "Agentium · Agentic iGaming Intelligence Platform for licensed gaming operators",
+    template: "%s | Agentium · Agentic iGaming Intelligence Platform",
   },
   description:
-    "Agentium OS is agentic gaming infrastructure for licensed operators: run, monitor and settle AI-agent gameplay at machine speed with real-time gaming analytics, iGaming risk analytics and on-chain settlement.",
-  applicationName: "Agentium OS",
-  openGraph: { type: "website", siteName: "AGENTIUM · Agentic iGaming OS" },
+    "Agentium's Agentic iGaming Intelligence Platform is AI infrastructure for licensed operators: run, monitor and settle AI-agent gameplay at machine speed with real-time gaming analytics, iGaming risk analytics and on-chain settlement.",
+  applicationName: "Agentium Agentic iGaming Intelligence Platform",
+  openGraph: { type: "website", siteName: "AGENTIUM · Agentic iGaming Intelligence Platform" },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "/" },
 };

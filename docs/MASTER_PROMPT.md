@@ -1,4 +1,4 @@
-You are a senior creative developer, WebGL/shader engineer and product designer. Build the complete marketing website for AGENTIC EM, the company behind Casino Verse OS, "the AI operating system for the autonomous gaming economy". The audience is licensed casino and iGaming operators (B2B), plus investors and technical partners. The quality bar is an Awwwards Site of the Day: cinematic, data-driven background animation, flawless typography, fast, accessible.
+You are a senior creative developer, WebGL/shader engineer and product designer. Build the complete marketing website for AGENTIC EM, the company behind Casino Verse OS, "Powering the Global Agentic iGaming Economy". The audience is licensed casino and iGaming operators (B2B), plus investors and technical partners. The quality bar is an Awwwards Site of the Day: cinematic, data-driven background animation, flawless typography, fast, accessible.
 
 ==================================================
 1. NON-NEGOTIABLE RULES
@@ -190,7 +190,7 @@ Mono lines typed: "SEQ_01 // INIT_CASINO_VERSE_OS // LIVE" → "agents: syncing�
 
 01 Hero (data-scene="AgentField")
 Eyebrow: AGENTIC EM · CASINO VERSE OS
-H1: The operating system for the agentic casino economy.
+H1: Agentium : Powering the Global Agentic iGaming Economy.
 Sub: Infrastructure for licensed operators to run, monitor and settle AI-agent gameplay at machine speed, and turn every round into operational intelligence.
 CTAs: [Request an operator briefing] (primary → /contact) · [Explore the architecture] (ghost → /platform/architecture)
 Footnote (mono, faint): For licensed operators.

@@ -45,20 +45,20 @@ export const pages = {
     meta: {
       title: "Platform",
       description:
-        "Agentium OS is the B2B iGaming platform for agentic gaming: AI gaming infrastructure, autonomous agent capabilities, real-time gaming analytics and on-chain settlement for licensed operators.",
+        "Agentium's Agentic iGaming Intelligence Platform is a B2B solution for agentic gaming: AI gaming infrastructure, autonomous agent capabilities, real-time gaming analytics and on-chain settlement for licensed operators.",
       path: "/platform",
     },
     hero: {
       eyebrow: "01 // PLATFORM",
-      title: "One operating system for agentic gaming.",
-      sub: "Agentium OS gives licensed operators the infrastructure to run AI-agent gameplay, see every round as it happens and settle it with a complete audit trail.",
+      title: "One intelligence platform for agentic gaming.",
+      sub: "Agentium's Agentic iGaming Intelligence Platform gives licensed operators the infrastructure to run AI-agent gameplay, see every round as it happens and settle it with a complete audit trail.",
     },
     capabilities: [
       {
         eyebrow: "01.1 // AI_GAMING_INFRASTRUCTURE",
         label: "CAPABILITY 01",
         title: "AI gaming infrastructure",
-        body: "Agents do not wait for animations or lobby screens. Agentium OS delivers game state over stateless APIs, accepts decisions in milliseconds and runs tables designed to scale horizontally as agent volume grows.",
+        body: "Agents do not wait for animations or lobby screens. The platform delivers game state over stateless APIs, accepts decisions in milliseconds and runs tables designed to scale horizontally as agent volume grows.",
         points: [
           "Game-state delivery over stateless REST and streaming APIs",
           "Deterministic round engine for poker, blackjack, roulette, baccarat and dice",
@@ -125,7 +125,7 @@ export const pages = {
       title: "Questions operators ask first.",
       items: [
         {
-          q: "Who is Agentium OS for?",
+          q: "Who is the Agentic iGaming Intelligence Platform for?",
           a: "Licensed casino and iGaming operators, land-based operators with digital arms, and B2B game studios. We work only with licensed businesses and do not offer services to the public.",
         },
         {
@@ -134,7 +134,7 @@ export const pages = {
         },
         {
           q: "Does it replace our existing gaming platform?",
-          a: "No. Agentium OS runs alongside your remote gaming server, player account management and wallet stack through adapters. You can route agentic tables through Agentium OS while your existing human-facing products stay where they are.",
+          a: "No. The Agentic iGaming Intelligence Platform runs alongside your remote gaming server, player account management and wallet stack through adapters. You can route agentic tables through the platform while your existing human-facing products stay where they are.",
         },
         {
           q: "How is risk handled?",
@@ -151,7 +151,7 @@ export const pages = {
       ],
     },
     cta: {
-      title: "See Agentium OS against your own games.",
+      title: "See the Agentic iGaming Intelligence Platform against your own games.",
       body: "Book an operator briefing. We map your tables, volumes and jurisdictions, then propose a pilot with benchmarks you agree up front.",
     },
   },
@@ -161,7 +161,7 @@ export const pages = {
     meta: {
       title: "Architecture",
       description:
-        "The Agentium OS architecture: four layers, three foundations and one event stream for agentic gaming infrastructure, with cloud, hybrid and on-prem deployment for licensed operators.",
+        "The architecture of Agentium's Agentic iGaming Intelligence Platform: four layers, three foundations and one event stream for agentic gaming infrastructure, with cloud, hybrid and on-prem deployment for licensed operators.",
       path: "/platform/architecture",
     },
     hero: {
@@ -226,7 +226,7 @@ export const pages = {
       title: "How a round moves through the system.",
       body: "Agents talk only to the gaming service. Everything after that is an ordered event stream, read by analytics, by agent intelligence and, finally, by your teams and the settlement ledger.",
       diagramLabel: "DATA FLOW · ILLUSTRATIVE",
-      diagramTitle: "Agentium OS data flow",
+      diagramTitle: "Agentic iGaming Intelligence Platform data flow",
       diagramDesc:
         "Agents send decisions to the gaming service, which publishes events to the event bus. Streaming analytics and machine learning consume the bus and feed agent intelligence, which outputs to operator dashboards and the settlement ledger.",
       nodes: [
@@ -315,12 +315,12 @@ export const pages = {
     hero: {
       eyebrow: "03 // AI_AGENTS",
       title: "Agents that reason, not scripts that follow.",
-      sub: "Every agent on Agentium OS assesses state, calculates, evaluates and executes in milliseconds, and leaves a trace your teams can read.",
+      sub: "Every agent on Agentium's Agentic iGaming Intelligence Platform assesses state, calculates, evaluates and executes in milliseconds, and leaves a trace your teams can read.",
     },
     loop: {
       eyebrow: "03.1 // AGENT_CORE",
       title: "The agent core loop.",
-      body: "Scripted bots follow a fixed decision tree. Agents on Agentium OS run a four-phase loop on every decision, using live game state and their own strategy.",
+      body: "Scripted bots follow a fixed decision tree. Agents on the platform run a four-phase loop on every decision, using live game state and their own strategy.",
       steps: [
         { index: "01", title: "Assess state", body: "Ingests real-time game state and opponent data." },
         { index: "02", title: "Calculate", body: "Computes pot odds, equity and probability matrices." },
@@ -511,7 +511,7 @@ export const pages = {
     wallets: {
       eyebrow: "05.2 // WALLET_INTEGRATION",
       title: "Wallet integration.",
-      body: "Connect the operator treasury and agent wallets you already run. Agentium OS checks every stake against the agent's bound wallet and its spend limits before the round starts.",
+      body: "Connect the operator treasury and agent wallets you already run. The Agentic iGaming Intelligence Platform checks every stake against the agent's bound wallet and its spend limits before the round starts.",
       label: "WALLETS",
       points: [
         "Seamless and transfer wallet models",
@@ -571,7 +571,7 @@ export const pages = {
     },
     cta: {
       title: "Map settlement onto your wallet stack.",
-      body: "Tell us which wallet provider and back office you run. We will show where Agentium OS fits and which settlement mode suits your licence.",
+      body: "Tell us which wallet provider and back office you run. We will show where the Agentic iGaming Intelligence Platform fits and which settlement mode suits your licence.",
     },
   },
 
@@ -580,7 +580,7 @@ export const pages = {
     meta: {
       title: "Arena",
       description:
-        "Arena by Agentium OS: agent-to-agent competitions, spectator modes, live-game sharing and chat integration that give licensed operators new community formats.",
+        "Arena, part of Agentium's Agentic iGaming Intelligence Platform: agent-to-agent competitions, spectator modes, live-game sharing and chat integration that give licensed operators new community formats.",
       path: "/platform/arena",
     },
     hero: {
@@ -634,22 +634,21 @@ export const pages = {
     meta: {
       title: "Company",
       description:
-        "AGENTIUM builds Agentium OS, the AI operating system for the autonomous gaming economy. Our mission.",
+        "AGENTIUM powers the next generation of agentic iGaming through secure AI infrastructure, autonomous agents, real-time intelligence and transparent financial settlement.",
       path: "/company",
     },
     hero: {
       eyebrow: "COMPANY // AGENTIUM",
       title: "We build the infrastructure for the agentic iGaming economy.",
-      sub: "AGENTIUM is the company behind Agentium OS, the AI operating system for the autonomous gaming economy.",
     },
     mission: {
       eyebrow: "01 // MISSION",
       title: "Our Mission",
       tagline: "Empowering the Future of Autonomous AI-Driven iGaming",
-      body: "Our mission is to build the trusted technology foundation for the next generation of agentic iGaming, empowering licensed operators to seamlessly integrate autonomous AI agents into gaming ecosystems. Through secure infrastructure, intelligent automation, real-time operational visibility, and transparent financial settlement, Agentium aims to create a scalable, responsible, and intelligent gaming economy where AI agents and human players can participate with confidence.",
+      body: "Our mission is to power the next generation of agentic iGaming through secure AI infrastructure, autonomous agents, real-time intelligence, and transparent financial settlement, enabling licensed operators to build scalable, intelligent gaming ecosystems.",
     },
     cta: {
-      title: "Talk to the team behind Agentium OS.",
+      title: "Talk to the team behind the Agentic iGaming Intelligence Platform.",
       body: "Operators, investors and technical partners: request a briefing and tell us what you want to cover.",
     },
   },
@@ -659,7 +658,7 @@ export const pages = {
     meta: {
       title: "Contact Us",
       description:
-        "Request an operator briefing for Agentium OS. For licensed operators, investors and technical partners. We reply within 2 business days.",
+        "Request an operator briefing on Agentium's Agentic iGaming Intelligence Platform. For licensed operators, investors and technical partners. We reply within 2 business days.",
       path: "/contact",
     },
     hero: {
@@ -688,7 +687,7 @@ export const pages = {
       notifySubjectSandbox: "New sandbox access request",
       autoReplySubject: "We received your request · AGENTIUM",
       autoReplyBody:
-        "Thank you for contacting AGENTIUM. We have received your request and a member of our team will reply within 2 business days.\n\nAgentium OS is available to licensed operators, studios and approved partners only.\n\nAGENTIUM",
+        "Thank you for contacting AGENTIUM. We have received your request and a member of our team will reply within 2 business days.\n\nAgentium's Agentic iGaming Intelligence Platform is available to licensed operators, studios and approved partners only.\n\nAGENTIUM",
     },
   },
 
@@ -706,7 +705,7 @@ export const pages = {
     eyebrow: "LEGAL",
     notice: "To be supplied by counsel.",
     docs: [
-      { slug: "terms", title: "Terms of use", description: "Terms of use for the AGENTIUM website and Agentium OS materials." },
+      { slug: "terms", title: "Terms of use", description: "Terms of use for the AGENTIUM website and Agentic iGaming Intelligence Platform materials." },
       { slug: "privacy", title: "Privacy notice", description: "How AGENTIUM processes personal data collected through this website." },
       { slug: "cookies", title: "Cookie policy", description: "How this website uses essential and optional cookies." },
       { slug: "responsible-gaming", title: "Responsible gaming", description: "AGENTIUM's responsible-gaming commitments as a B2B supplier to licensed operators." },
@@ -716,9 +715,9 @@ export const pages = {
 
   /* ------------------------------------------------------------------ */
   og: {
-    title: "The Agentium operating system for the agentic iGaming economy.",
-    label: "AGENTIUM · AGENTIC iGAMING OS",
-    alt: "AGENTIUM · Agentic iGaming OS",
+    title: "Agentium : Powering the Global Agentic iGaming Economy",
+    label: "AGENTIUM · AGENTIC iGAMING INTELLIGENCE PLATFORM",
+    alt: "AGENTIUM · Agentic iGaming Intelligence Platform",
   },
 } as const;
 

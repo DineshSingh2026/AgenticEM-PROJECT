@@ -5,7 +5,7 @@ import { COLORS, clamp, easeInOut, easeOut, easeOutExpo, lerp, mulberry32, seg }
 import { emblemCore, label, packets, panel, ring, spark, wire, type Pt } from "../kit";
 
 /**
- * 04 — Global B2B Gaming Network. The Agentium hub ignites inside a slowly turning wireframe globe;
+ * 03 — Global Agentic iGaming Economy. The Agentium hub ignites inside a slowly turning wireframe globe;
  * operator and provider tenants are spawned out of it onto a shared ring and wired back to the core;
  * each tenant then reaches out to its endpoints — human players (teal) and authorized autonomous
  * agents (steel, with a green authorization lamp) — and value flows both ways along every link.

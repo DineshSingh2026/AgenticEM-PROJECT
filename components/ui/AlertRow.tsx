@@ -6,7 +6,8 @@ export interface AlertRowProps {
   severity: "low" | "med" | "high";
   agentId: string;
   time: string;
-  score?: number;
+  /** Number renders to 2 dp; a string (e.g. "XXX") renders as-is. */
+  score?: number | string;
   className?: string;
 }
 
@@ -26,9 +27,9 @@ export function AlertRow({ rule, severity, agentId, time, score, className }: Al
       <span className="t-label col-start-2 col-end-4 flex flex-wrap gap-x-3 text-[11px] text-text-faint">
         <span className={tone[severity]}>{a.severity[severity]}</span>
         <span>{agentId}</span>
-        {typeof score === "number" ? (
+        {score !== undefined ? (
           <span>
-            {a.score} {score.toFixed(2)}
+            {a.score} {typeof score === "number" ? score.toFixed(2) : score}
           </span>
         ) : null}
       </span>

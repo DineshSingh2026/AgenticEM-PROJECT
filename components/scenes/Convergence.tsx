@@ -33,7 +33,9 @@ const CONFIG = {
     body: TOKENS.bgElev2,
     edge: TOKENS.copper,
     edgeBoost: 1.6,
-    label: "AGENTIUM OS",
+    label: "AGENTIUM",
+    /** Second, smaller engraved line under the label (must fit the 1.3-unit cube face) */
+    subLabel: "INTELLIGENCE PLATFORM",
     /** Optional local .woff/.ttf for the engraving; undefined → troika default font */
     fontUrl: undefined as string | undefined,
   },
@@ -234,6 +236,18 @@ function ConvergenceInner({ q }: { q: Q }) {
         </lineSegments>
         <Text
           position={[0, -0.05, s / 2 + 0.002]}
+          fontSize={0.05}
+          letterSpacing={0.14}
+          anchorX="center"
+          anchorY="top"
+          color={TOKENS.copperSoft}
+          font={CONFIG.cube.fontUrl}
+          fillOpacity={0.75}
+        >
+          {CONFIG.cube.subLabel}
+        </Text>
+        <Text
+          position={[0, 0.025, s / 2 + 0.002]}
           fontSize={0.085}
           letterSpacing={0.12}
           anchorX="center"

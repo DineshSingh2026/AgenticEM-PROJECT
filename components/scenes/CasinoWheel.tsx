@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
@@ -10,6 +10,13 @@ import { mulberry32 } from "@/lib/sim/prng";
 import seed from "@/lib/sim/seed.json";
 import { afterCanvasFonts, canvasFont } from "@/lib/canvas-fonts";
 import { useSceneFade } from "./shared/useSceneFade";
+import { CasinoFilm } from "./casino/CasinoFilm";
+
+/** Dev aid: `?forceQ=2` previews the high-quality tier (bloom, shadows) on weak GPUs. */
+const FORCE_Q = (() => {
+  if (process.env.NODE_ENV === "production" || typeof window === "undefined") return 0;
+  return Number(new URLSearchParams(window.location.search).get("forceQ") ?? 0);
+})();
 import polarVert from "./shaders/casinoWheel-polar-vert.glsl";
 import streamFrag from "./shaders/casinoWheel-stream-frag.glsl";
 import hudFrag from "./shaders/casinoWheel-hud-frag.glsl";
@@ -26,7 +33,7 @@ const CONFIG = {
   tilt: 0.5,
   roll: -0.09,
   /** desktop: centre as fraction of viewport width / height, radius as fraction of viewport height */
-  desktop: { x: 0.335, y: -0.02, scale: 0.36 },
+  desktop: { x: 0.345, y: 0.0, scale: 0.315 },
   /** mobile: behind the copy, lower right and dimmer */
   mobile: { x: 0.26, y: -0.3, scale: 0.6, dim: 0.5 },
   rotorSpeed: 0.11,
@@ -352,7 +359,7 @@ interface Packet { angle: number; t0: number; w: number }
 
 export function CasinoWheel() {
   const quality = useSceneStore((s) => s.quality);
-  const q = quality >= 2 ? 2 : 1;
+  const q = FORCE_Q === 2 || quality >= 2 ? 2 : 1;
   return <CasinoWheelInner key={q} q={q} />;
 }
 
@@ -367,6 +374,7 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
   const glowInst = useRef<THREE.InstancedMesh>(null);
   const chipsRef = useRef<THREE.InstancedMesh>(null);
   const keyLight = useRef<THREE.PointLight>(null);
+  const film = useRef<THREE.Group>(null);
 
   const orbitN = q === 2 ? CONFIG.orbit.count : CONFIG.orbit.count / 2;
   const chipN = q === 2 ? CONFIG.chips : Math.ceil(CONFIG.chips / 2);
@@ -511,14 +519,15 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
     const glowPlane = new THREE.PlaneGeometry(1, 1);
 
     // Robot agents (robot-local units, ~1.7 tall; scaled by CONFIG.bots.scale)
-    const botBase = new THREE.CylinderGeometry(0.42, 0.5, 0.14, 32).translate(0, 0.07, 0);
-    const botTorso = new THREE.CapsuleGeometry(0.3, 0.42, 6, 20).scale(1.15, 1, 0.85).translate(0, 0.65, 0);
-    const botCollar = new THREE.TorusGeometry(0.17, 0.035, 10, 32).rotateX(Math.PI / 2).translate(0, 1.2, 0);
-    const botHead = new THREE.SphereGeometry(0.27, 32, 20).scale(1.12, 0.92, 1);
-    const botVisor = new THREE.CylinderGeometry(0.285, 0.285, 0.11, 32, 1, true, -1.05, 2.1).scale(1.12, 1, 1.02).translate(0, 0.02, 0);
-    const botArm = new THREE.CapsuleGeometry(0.075, 0.38, 4, 12).translate(0, -0.27, 0);
-    const botHand = new THREE.SphereGeometry(0.1, 16, 12).translate(0, -0.56, 0);
-    const botMat = new THREE.MeshStandardMaterial({ color: new THREE.Color("#8a8f99"), metalness: 0.8, roughness: 0.28, envMapIntensity: 1.3, transparent: true, opacity: 0 });
+    // AI agent cores: obsidian orb + glowing lens, gold gyroscope rings, tethered manipulator nodes
+    const botBase = new THREE.TorusGeometry(0.42, 0.014, 10, 96).rotateX(1.1).rotateY(0.3).translate(0, 1.05, 0);
+    const botTorso = new THREE.TorusGeometry(0.5, 0.008, 8, 96).rotateX(0.4).rotateY(1.2).rotateZ(0.6).translate(0, 1.05, 0);
+    const botCollar = new THREE.TorusGeometry(0.3 * Math.sin(0.62), 0.012, 10, 64).translate(0, 0, 0.3 * Math.cos(0.62));
+    const botHead = new THREE.SphereGeometry(0.3, 48, 32);
+    const botVisor = new THREE.SphereGeometry(0.303, 48, 12, 0, TAU, 0, 0.6).rotateX(Math.PI / 2);
+    const botArm = new THREE.CylinderGeometry(0.012, 0.012, 0.48, 6).translate(0, -0.3, 0);
+    const botHand = new THREE.SphereGeometry(0.075, 20, 14).translate(0, -0.6, 0);
+    const botMat = new THREE.MeshStandardMaterial({ color: new THREE.Color("#060709"), metalness: 0.35, roughness: 0.1, envMapIntensity: 2.0, transparent: true, opacity: 0 });
     const visorMats = CONFIG.bots.angles.map(
       () => new THREE.MeshBasicMaterial({ color: new THREE.Color(col.gold), toneMapped: false, transparent: true, opacity: 0, side: THREE.DoubleSide }),
     );
@@ -566,7 +575,7 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
     // Chips: deterministic drift layout (world units, relative to the scene root)
     const chips = new Array(CONFIG.chips).fill(0).map((_, i) => ({
       p: new THREE.Vector3(...([
-        [3.75, 1.75, -0.6], [1.35, -1.0, 1.4], [4.1, -1.35, 0.7], [1.0, 2.0, -2.6], [2.9, 2.3, -3.6], [5.2, 0.2, -4.2],
+        [4.3, 2.05, -2.4], [2.3, -2.35, -3.2], [4.7, -2.2, 1.0], [1.0, 2.0, -2.6], [2.9, 2.3, -3.6], [5.2, 0.2, -4.2],
       ] as [number, number, number][])[i]),
       rot: new THREE.Euler(rng() * 1.2 - 0.3 + 0.9, rng() * TAU, rng() * 0.8 - 0.4),
       spin: (rng() - 0.5) * 0.3,
@@ -583,9 +592,11 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
     };
   }, [q]);
 
-  // Environment for the metals (local PMREM, no fetch)
+  // Environment for the metals (local PMREM, no fetch); shared with the orbiting game pods
+  const [env, setEnv] = useState<THREE.Texture | null>(null);
   useEffect(() => {
     const env = buildEnv(gl);
+    setEnv(env);
     for (const m of [res.gold, res.goldDeep, res.lacquer, res.pocketMat, res.numberMat, res.chipMat, res.botMat]) {
       m.envMap = env;
       m.needsUpdate = true;
@@ -666,6 +677,17 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
     calm: false,
     dim: 1,
   });
+
+  /** A game pod settled a round: its value streak lands, lighting a pocket and a settlement stream. */
+  const onPodSettle = useCallback((w: number) => {
+    const s = st.current;
+    s.bgPulse = Math.min(1, s.bgPulse + 0.22);
+    const pocket = Math.floor(Math.random() * CONFIG.pockets);
+    s.flash[pocket] = Math.min(1.6, s.flash[pocket] + 0.6 + w * 0.4);
+    if (s.packets.length >= CONFIG.stream.max) s.packets.shift();
+    s.packets.push({ angle: s.rotor + (pocket + 0.5) * STEP, t0: s.t, w: Math.min(1.6, 0.7 + w * 0.4) });
+    s.pulse[Math.floor(Math.random() * GAMES.length)] = 1;
+  }, []);
 
   useSimFeed("round.settled", (e) => {
     if (!isVisible()) return;
@@ -1004,6 +1026,7 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
 
   return (
     <>
+      <group ref={film} matrixAutoUpdate={false}>
       <pointLight ref={keyLight} intensity={0} distance={9} decay={1.6} color={CONFIG.colors.goldPale} />
       <group ref={root} visible={false}>
         <mesh geometry={res.geos.glowPlane} material={res.glowBgMat} position={[2.3, 0, -2]} scale={[9, 7, 1]} renderOrder={-1} />
@@ -1032,23 +1055,25 @@ function CasinoWheelInner({ q }: { q: 1 | 2 }) {
               scale={CONFIG.bots.scale}
             >
               <mesh geometry={res.geos.botBase} material={res.gold} />
-              <mesh geometry={res.geos.botTorso} material={res.botMat} />
-              <mesh geometry={res.geos.botCollar} material={res.gold} />
-              <group ref={(g) => { headRefs.current[i] = g; }} position={[0, 1.44, 0]}>
+              <mesh geometry={res.geos.botTorso} material={res.goldDeep} />
+              <group ref={(g) => { headRefs.current[i] = g; }} position={[0, 1.05, 0]}>
                 <mesh geometry={res.geos.botHead} material={res.botMat} />
                 <mesh geometry={res.geos.botVisor} material={res.visorMats[i]} />
+                <mesh geometry={res.geos.botCollar} material={res.gold} />
               </group>
               <group ref={(g) => { armRefs.current[i] = g; }} position={SHOULDER.toArray()}>
-                <mesh geometry={res.geos.botArm} material={res.botMat} />
+                <mesh geometry={res.geos.botArm} material={res.visorMats[i]} />
                 <mesh geometry={res.geos.botHand} material={res.gold} />
               </group>
               <group position={[-SHOULDER.x, SHOULDER.y, 0]} rotation={[-0.55, 0, 0]}>
-                <mesh geometry={res.geos.botArm} material={res.botMat} />
+                <mesh geometry={res.geos.botArm} material={res.visorMats[i]} />
                 <mesh geometry={res.geos.botHand} material={res.gold} />
               </group>
             </group>
           ))}
         </group>
+      </group>
+      <CasinoFilm q={q} opacity={opacity} env={env} film={film} onSettle={onPodSettle} />
       </group>
     </>
   );
